@@ -1,0 +1,1590 @@
+extends layout
+block content
+    h1 Form Builder
+        i.fas.fa-tools(style="margin-left: 10px; color: #3498db;")
+
+    div#overlay(style="visibility: hidden; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9999; display: flex; align-items: center; justify-content: center; ")
+        div.overlay-content(style="background-color: white; padding: 20px; border-radius: 8px; text-align: center;")
+            h3 Loading...
+            i.fas.fa-spinner.fa-spin(style="font-size: 2rem; color: #3498db;")
+
+    .container-fluid
+        .row
+            // Toolbar (Left Side)
+            .col-md-4.toolbar
+                table
+                    tbody
+                        // A.I Form Generation Section
+                        tr
+                            td
+                                .card.hover-card
+                                    .card-header
+                                        i.fas.fa-robot(style="color: #e67e22; margin-right: 10px;")
+                                        span A.I Form Generation
+                                    .card-body
+                                        // Subject Input
+                                        label(for="ai-form-subject" style="font-size: 0.9rem; font-weight: bold; display: block;")
+                                            i.fas.fa-pen-alt(style="color: #3498db; margin-right: 5px;")
+                                            span Subject
+                                        textarea#ai-form-subject(class="form-control mt-2 auto-resize" placeholder="Enter subject for form generation")
+
+                                        // Theme Selector
+                                        label(for="ai-form-theme" style="font-size: 0.9rem; font-weight: bold; display: block; margin-top: 15px;")
+                                            i.fas.fa-palette(style="color: #8e44ad; margin-right: 5px;")
+                                            span Theme
+                                        select#ai-form-theme.form-control(style="max-width: 200px; display: inline-block;")
+                                            option(value="light") Light
+                                            option(value="dark") Dark
+                                            option(value="custom") Custom
+
+                                        // Generate Button (new row)
+                                        .row.mt-4
+                                            .col
+                                                span(style="visibility: hidden;") --------------------------
+                                            .col.text-end
+                                                button#generate-ai-form(type="button" class="btn btn-icon" style="font-size: 1.5rem; padding: 0; border: none; background: none;")
+                                                    i.fas.fa-magic(style="color: #16a085; font-size: 2rem; margin-right: 10px;")
+
+                        // Title Section
+                        tr
+                            td
+                                .card.hover-card
+                                    .card-header
+                                        i.fas.fa-heading(style="color: #3498db;")
+                                        span Title
+                                    .card-body
+                                        textarea#title-text(class="form-control mt-2 auto-resize" placeholder="Enter title text")
+
+                                        // Collapsible Color Selection for Title
+                                        .collapse-section
+                                            button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#title-colors")
+                                                i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
+                                                span Colors
+                                                i.fas.fa-chevron-down.toggle-icon(style="color: #000; margin-left:10px;")
+                                            .collapse#title-colors.mt-2
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="title-background-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-fill-drip(style="color: #9b59b6; margin-right: 5px;")
+                                                            span Background Color
+                                                        input#title-background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="title-text-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-font(style="color: #3498db; margin-right: 5px;")
+                                                            span Text Color
+                                                        input#title-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="title-border-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-border-style(style="color: #16a085; margin-right: 5px;")
+                                                            span Border Color
+                                                        input#title-border-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+
+                                        button(type="button" class="btn btn-icon add-to-form mt-2" data-type="title")
+                                            i.fas.fa-check(style="color: #2ecc71;")
+
+                        // ComboBox Section
+                        tr
+                            td
+                                .card.hover-card
+                                    .card-header
+                                        i.fas.fa-list.dropdown-icon(style="color: #3498db;")
+                                        span ComboBox
+                                    .card-body
+                                        textarea#combobox-question(class="form-control mt-2 auto-resize" placeholder="Enter question")
+
+                                        // Options Section
+                                        .options-section
+                                            .option-list
+                                            button(type="button" class="btn btn-icon add-combobox-option mt-2")
+                                                i.fas.fa-plus(style="color: #27ae60;")
+                                        hr(style="margin: 10px 0;")
+
+                                        // Collapsible Color Selection for ComboBox
+                                        .collapse-section
+                                            button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#combobox-colors")
+                                                i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
+                                                span Colors
+                                                i.fas.fa-chevron-down.toggle-icon(style="color: #000; margin-left:10px;")
+                                            .collapse#combobox-colors.mt-2
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="combobox-selected-item-background-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-fill-drip(style="color: #3498db; margin-right: 5px;")
+                                                            span Background Color
+                                                        input#combobox-background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="combobox-dropdown-background-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-fill-drip(style="color: #9b59b6; margin-right: 5px;")
+                                                            span Dropdown Background Color
+                                                        input#combobox-dropdown-background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="combobox-item-text-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-palette(style="color: #e74c3c; margin-right: 5px;")
+                                                            span Item Text Color
+                                                        input#combobox-item-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="combobox-selected-item-background-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-fill-drip(style="color: #16a085; margin-right: 5px;")
+                                                            span Selected Item Background Color
+                                                        input#combobox-selected-item-background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="combobox-selected-item-text-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-palette(style="color: #e67e22; margin-right: 5px;")
+                                                            span Selected Item Text Color
+                                                        input#combobox-selected-item-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+
+
+                                        button(type="button" class="btn btn-icon add-to-form mt-2" data-type="combobox")
+                                            i.fas.fa-check(style="color: #2ecc71;")
+
+                        // TextBox Section
+                        tr
+                            td
+                                .card.hover-card
+                                    .card-header
+                                        i.fas.fa-pencil-alt.textbox-icon(style="color: #e67e22;")
+                                        span TextBox
+                                    .card-body
+                                        textarea#textbox-question(class="form-control mt-2 auto-resize" placeholder="Enter question")
+                                        // Hint Text Section
+                                        label(for="textbox-hint") Hint
+                                        input#textbox-hint(type="text" class="form-control mt-2" placeholder="Optional Hint")
+
+                                        // Collapsible Color Selection for TextBox
+                                        .collapse-section
+                                            button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#textbox-colors")
+                                                i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
+                                                span Colors
+                                                i.fas.fa-chevron-down.toggle-icon(style="color: #000; margin-left:10px;")
+                                            .collapse#textbox-colors.mt-2
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="textbox-background-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-fill-drip(style="color: #3498db; margin-right: 5px;")
+                                                            span Background Color
+                                                        input#textbox-background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="textbox-text-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-font(style="color: #e67e22; margin-right: 5px;")
+                                                            span Text Color
+                                                        input#textbox-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="textbox-hint-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-lightbulb(style="color: #9b59b6; margin-right: 5px;")
+                                                            span Hint Color
+                                                        input#textbox-hint-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="textbox-focused-hint-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-magic(style="color: #16a085; margin-right: 5px;")
+                                                            span Focused Hint Color
+                                                        input#textbox-focused-hint-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="textbox-box-stroke-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-border-style(style="color: #e74c3c; margin-right: 5px;")
+                                                            span Box Stroke Color
+                                                        input#textbox-box-stroke-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="textbox-focused-box-stroke-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-eye(style="color: #3498db; margin-right: 5px;")
+                                                            span Focused Box Stroke Color
+                                                        input#textbox-focused-box-stroke-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="textbox-error-text-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-exclamation-circle(style="color: #e74c3c; margin-right: 5px;")
+                                                            span Error Text Color
+                                                        input#textbox-error-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="textbox-counter-text-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-sort-numeric-up(style="color: #8e44ad; margin-right: 5px;")
+                                                            span Counter Text Color
+                                                        input#textbox-counter-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="textbox-cursor-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-pen(style="color: #27ae60; margin-right: 5px;")
+                                                            span Cursor Color
+                                                        input#textbox-cursor-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="textbox-placeholder-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-paragraph(style="color: #f1c40f; margin-right: 5px;")
+                                                            span Placeholder Color
+                                                        input#textbox-placeholder-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="textbox-helper-text-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-info-circle(style="color: #000000; margin-right: 5px;")
+                                                            span Helper Text Color
+                                                        input#textbox-helper-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+
+
+                                        button(type="button" class="btn btn-icon add-to-form mt-2" data-type="textbox")
+                                            i.fas.fa-check(style="color: #2ecc71;")
+
+                        // 5-Star Rating Section
+                        tr
+                            td
+                                .card.hover-card
+                                    .card-header
+                                        i.fas.fa-star.star-icon(style="color: #f1c40f;")
+                                        span 5-Star Rating
+                                    .card-body
+                                        textarea#star-question(class="form-control mt-2 auto-resize" placeholder="Enter question")
+
+                                        // Collapsible Color Selection for Star Rating
+                                        .collapse-section
+                                            button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#star-rating-colors")
+                                                i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
+                                                span Colors
+                                                i.fas.fa-chevron-down.toggle-icon(style="color: #000; margin-left:10px;")
+                                            .collapse#star-rating-colors.mt-2
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="star-fill-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-fill-drip(style="color: #f1c40f; margin-right: 5px;")
+                                                            span Star Fill Color
+                                                        input#star-fill-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="secondary-star-fill-color" style="font-size: 0.8rem; display: block;")
+                                                            i.fas.fa-fill-drip(style="color: #d3d3d3; margin-right: 5px;")
+                                                            span Secondary Star Fill Color
+                                                        input#secondary-star-fill-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+
+                                        button(type="button" class="btn btn-icon add-to-form mt-2" data-type="star")
+                                            i.fas.fa-check(style="color: #2ecc71;")
+                            // Design Section
+                        tr
+                            td
+                                .card.hover-card
+                                    .card-header
+                                        i.fas.fa-paint-brush(style="background: linear-gradient(45deg, #00FF00, #0000FF); -webkit-background-clip: text; color: transparent;")
+                                        span Design
+                                    .card-body
+                                        .row.align-items-center
+                                            .col-auto
+                                            .col
+                                                select#theme-selection.form-control(style="max-width: 200px; display: inline-block;")
+                                                    option(value="light") Light Theme
+                                                    option(value="dark") Dark Theme
+                                                    option(value="custom") Custom Theme
+                                        .custom-options.hidden.mt-3
+                                            button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#design-colors")
+                                                i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
+                                                span Colors
+                                                i.fas.fa-chevron-down.toggle-icon(style="color: #000; margin-left:10px;")
+                                            .collapse#design-colors.mt-2
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="background-color" style="font-size: 0.8rem; display: block; margin-bottom: 5px; max-width: 150px;")
+                                                            i.fas.fa-fill-drip(style="color: #3498db; margin-right: 5px;")
+                                                            span Background Color
+                                                        input#background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="text-color" style="font-size: 0.8rem; display: block; margin-bottom: 5px; max-width: 150px;")
+                                                            i.fas.fa-fill-drip(style="color: #e67e22; margin-right: 5px;")
+                                                            span Text Color
+                                                        input#text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="button-background-color" style="font-size: 0.8rem; display: block; margin-bottom: 5px; max-width: 150px;")
+                                                            i.fas.fa-fill-drip(style="color: #9b59b6; margin-right: 5px;")
+                                                            span Button Background Color
+                                                        input#button-background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+                                                .row.mt-2
+                                                    .col
+                                                        label(for="button-text-color" style="font-size: 0.8rem; display: block; margin-bottom: 5px; max-width: 150px;")
+                                                            i.fas.fa-fill-drip(style="color: #16a085; margin-right: 5px;")
+                                                            span Button Text Color
+                                                        input#button-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
+
+            // Preview (Right Side)
+            .col-md-8.preview
+                h2
+                    i.fas.fa-eye(style="margin-right: 10px; color: #3498db;")
+                    span Form Preview
+                .card.hover-card
+                    .card-header
+                        i.fas.fa-pen(style="color: #3498db;")
+                        span Form Name
+                    .card-body
+                        input#form-name(type="text" class="form-control mt-2" placeholder="Enter form name here" style="font-style: italic; font-size: 0.9rem;")
+                form#form-preview(style="margin-top: 10px;")
+                    ul#preview-list(class="list-group")
+
+    button#save-form(type="button" class="btn btn-success btn-lg save-button")
+        i.fas.fa-save(style="margin-right: 5px;")
+        span Save
+    script(src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js")
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+    script.
+
+        let questionCount = 1;
+        let componentCount = 2;
+        let mode;
+        const defaultTitlePreview = (isCustomMode) => {
+            const colors = isCustomMode ? getTitleColors() : {};
+            return `
+                <div class="form-group preview-card" id="component-1"
+                    data-type="title"
+                    data-text="User Info"
+                    ${generateDataAttributes(colors)}
+                    style="display: flex; flex-direction: column; align-items: flex-start; padding: 5px 0;">
+                    <div style="width: 100%;">
+                        <textarea class="textareaPreview" readonly
+                            style="font-weight: bold; font-size: 1.5rem; width: 100%; height: auto; border: none; background: transparent; resize: none;">User Info</textarea>
+                    </div>
+                    ${isCustomMode ? generateCollapsibleColorsSection( 'component-1', colors, false) : ''}
+                </div>`;
+        };
+
+        const defaultEmailPreview = (isCustomMode) => {
+            const colors = isCustomMode ? getTextBoxColors() : {};
+            return `
+                <div class="form-group preview-card" id="component-2"
+                    data-type="textbox"
+                    data-question="Email"
+                    data-hint="Enter your email address"
+                    ${generateDataAttributes(colors)}>
+                    <textarea class="textareaPreview" readonly
+                        >1. Email</textarea>
+                    <div class="hint-row" style="display: flex; align-items: center; margin-top: 5px; margin-left: 20px;">
+                        <i class="fas fa-info-circle" style="margin-right: 8px; color:#3498db;"></i>
+                        <span class="hint-text" style="font-size: 0.9rem; color: #7f8c8d;">This field is essential for outputting data back correctly.</span>
+                    </div>
+                    ${isCustomMode ? generateCollapsibleColorsSection( 'component-2', colors, true) : ''}
+                </div>`;
+        };
+
+        const generateTitlePreview = (isCustomMode, colors = {}) => {
+            const finalColors = isCustomMode ? {...getTitleColors(), ...colors} : colors;
+            return `
+                                          <div class="form-group preview-card" id="component-1"
+                                              data-type="title"
+                                              data-text="User Info"
+                                              ${generateDataAttributes(finalColors)}
+                                              style="display: flex; flex-direction: column; align-items: flex-start; padding: 5px 0;">
+                                              <div style="width: 100%;">
+                                                  <textarea class="textareaPreview" readonly
+                                                      style="font-weight: bold; font-size: 1.5rem; width: 100%; height: auto; border: none; background: transparent; resize: none;">User Info</textarea>
+                                              </div>
+                                              ${isCustomMode ? generateCollapsibleColorsSection('component-1', finalColors, false) : ''}
+                                          </div>`;
+        };
+
+        const generateEmailPreview = (isCustomMode, colors = {}) => {
+            const finalColors = isCustomMode ? {...getTextBoxColors(), ...colors} : colors;
+            return `
+                                            <div class="form-group preview-card" id="component-2"
+                                                data-type="textbox"
+                                                data-question="Email"
+                                                data-hint="Enter your email address"
+                                                ${generateDataAttributes(finalColors)}>
+                                                <textarea class="textareaPreview" readonly
+                                                    >1. Email</textarea>
+                                                <div class="hint-row" style="display: flex; align-items: center; margin-top: 5px; margin-left: 20px;">
+                                                    <i class="fas fa-info-circle" style="margin-right: 8px; color:#3498db;"></i>
+                                                    <span class="hint-text" style="font-size: 0.9rem; color: #7f8c8d;">This field is essential for outputting data back correctly.</span>
+                                                </div>
+                                                ${isCustomMode ? generateCollapsibleColorsSection('component-2', finalColors, true) : ''}
+                                            </div>`;
+        };
+
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const previewList = document.getElementById('form-preview');
+
+            const sortable = new Sortable(previewList, {
+                animation: 150, // Smooth animation
+                handle: '.preview-card', // Allow dragging on the entire card
+                filter: '#component-1, #component-2', // Prevent these elements from being dragged
+                onStart: function (evt) {
+                    const el = evt.item;
+                    if (el.id === '#component-1' || el.id === '#component-2') {
+                        evt.preventDefault(); // Cancel dragging for these components
+                    }
+                },
+                onEnd: function (evt) {
+                    // Ensure "User Info" and "Email" remain at the top
+                    const previewList = document.getElementById('form-preview');
+                    const defaultTitle = document.getElementById('component-1');
+                    const defaultEmail = document.getElementById('component-2');
+
+                    // Re-append "User Info" and "Email" to ensure they stay on top
+                    if (defaultTitle && defaultEmail) {
+                        previewList.prepend(defaultEmail);
+                        previewList.prepend(defaultTitle);
+                    }
+
+                    updateQuestionNumbers(); // Update numbering after reordering
+                },
+            });
+            appendToFormPreview(defaultTitlePreview(false), true);
+            appendToFormPreview(defaultEmailPreview(false), true);
+
+
+
+
+
+
+        });
+        $(document).ready(function () {
+            const $themeSelection = $('#theme-selection'); // Store the jQuery object
+            mode = $themeSelection.val(); // Track the current mode
+
+            // Initialize generate button event listener
+            const generateButton = document.getElementById('generate-ai-form');
+
+            generateButton.addEventListener('click', async () => {
+                // Retrieve user input for subject and theme dynamically
+                const subjectInput = document.getElementById('ai-form-subject');
+                const themeSelect = document.getElementById('ai-form-theme');
+
+                const subject = subjectInput ? subjectInput.value.trim() : '';
+                const theme = themeSelect ? themeSelect.value : 'light'; // Default to 'light' if not set
+
+                // Validate user input
+                if (!subject) {
+                    alert('Please enter a subject for form generation.');
+                    return;
+                }
+                showOverlay();
+
+                try {
+                    // Make an API call to the generate-form endpoint with the subject and theme
+                    const response = await fetch(`/forms/generate-form/${encodeURIComponent(subject)}/${encodeURIComponent(theme)}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    // Handle the response
+                    const rawText = await response.text();
+                    console.log('Raw Response Text:', rawText);
+
+                    const form = JSON.parse(rawText);
+                    console.log('Parsed JSON Response:', form);
+
+                    if (response.ok) {
+                        populateFormName(form.name); // Populate the form name
+                        mode = applyTheme(form.theme, form.designData); // Apply the selected theme
+                        resetPreviewInit(); // Clear the preview and reset counters
+                        populateFormComponents(form.components, form.theme === 'custom'); // Populate components into the preview
+                        updateQuestionNumbers(); // Update question numbering
+                    } else {
+                        // Show error message if the response is not OK
+                        alert(`Error generating form: ${form.message || 'Unexpected error occurred'}`);
+                    }
+                } catch (error) {
+                    // Handle network or other errors
+                    alert(`Error: ${error.message || 'An unexpected error occurred'}`);
+                } finally {
+                    // Hide the overlay once the process is complete
+                    hideOverlay();
+                }
+            });
+            // Ensure collapsible sections toggle visibility correctly
+            $themeSelection.on('change', function () {
+                const newMode = $(this).val(); // Get the new mode
+                const isCustomMode = newMode === 'custom';
+                const componentsList = $('#form-preview .form-group');
+                if(componentsList.length > 0)
+                {
+                    // Check if reset is necessary
+                    if ((mode === "custom" && newMode !== "custom") || (mode !== "custom" && newMode === "custom")) {
+                        // Show confirmation dialog
+                        if (confirm(`Are you sure you want to change modes to ${newMode}? This will delete all the questions you created.`)) {
+                            resetPreview(); // Reset only when switching to or from "custom" and user confirms
+                        } else {
+                            // Revert the selection back to the previous mode
+                            $(this).val(mode);
+                            return; // Exit without applying changes
+                        }
+                    }
+                }
+
+                // Update UI for custom options visibility
+                if (isCustomMode) {
+                    $('.custom-options').removeClass('hidden'); // Show custom options
+                    $('.collapse').removeClass('hidden'); // Ensure collapsibles are visible
+                } else {
+                    $('.custom-options').addClass('hidden'); // Hide custom options
+                    $('.collapse').addClass('hidden').removeClass('open').css('max-height', '0'); // Hide collapsibles
+                }
+
+                // Update the mode variable
+                mode = newMode;
+            });
+
+            // Ensure the collapsible sections reset their state when the form is reset
+            $('#form-preview').on('reset', function () {
+                $('.collapse').removeClass('open').css('max-height', '0');
+            });
+            // Add ComboBox Option
+            $('.add-combobox-option').click(function () {
+                // Capture the value entered the input field
+
+                const enteredText = $('.option-input:last').val()?.trim();
+
+                // Validate that at least one option already exists in the list
+                const existingOptionsCount = $('.option-list .option-input').length;
+
+                if (!enteredText &&  existingOptionsCount > 1) {
+                    alert('Please enter a valid option text.');
+                    return;
+                }
+
+                // Check for duplicate options
+                const duplicateInput = $('.option-list .option-input')
+                    .not(':last') // Exclude the last input field
+                    .filter(function () {
+                        return $(this).val().trim() === enteredText;
+                    });
+
+                if (duplicateInput.length > 0) {
+                    duplicateInput.closest('.option-item').remove(); // Remove the duplicate option
+                    alert('Duplicate option found and removed.');
+                    return;
+                }
+                // Append the new option
+                const optionHtml = `
+               <div class="option-item">
+                   <input type="text" class="form-control option-input mt-2" placeholder="Enter option text" style="font-style: italic; font-size: 0.7rem;">
+                   <button type="button" class="btn btn-icon remove-option">
+                       <i class="fas fa-times" style="color: #e74c3c;"></i>
+                   </button>
+               </div>`;
+                $('.option-list').append(optionHtml);
+            });
+
+
+            $('.add-to-form').click(function () {
+                const type = $(this).data('type'); // Get the type from the button
+                const isCustomMode = mode === 'custom';
+                let text;
+                let hint;
+
+                // Validate and get the text input for the component
+                switch (type) {
+                    case 'combobox':
+                        text = validateComboBox();
+                        break;
+                    case 'textbox':
+                        text = validateTextBox();
+                        break;
+                    case 'star':
+                        text = validateStarRating();
+                        break;
+                    case 'title':
+                        text = validateTitle();
+                        break;
+                    default:
+                        alert('Invalid component type.');
+                        return;
+                }
+
+                if (!text) return; // Exit if validation fails
+
+                // Title-specific validation: Ensure no consecutive titles
+                if (type === 'title') {
+                    const lastComponentType = $('#form-preview .form-group').last().data('type');
+                    if (lastComponentType === 'title') {
+                        alert('Cannot add consecutive titles.');
+                        return;
+                    }
+                }
+
+                if(type === 'textbox') {
+                    hint = $('#textbox-hint').val().trim();
+                    if(!hint)
+                        hint='Enter answer here';
+                }
+
+
+                if(type !== 'title')
+                    questionCount++;
+                componentCount++;
+
+
+                let previewHtml;
+
+                // Generate preview HTML based on type
+                switch (type) {
+                    case 'combobox':
+                        previewHtml = createComboBoxPreview(text, isCustomMode);
+                        break;
+                    case 'textbox':
+                        previewHtml = createTextBoxPreview(text,hint, isCustomMode);
+                        break;
+                    case 'star':
+                        previewHtml = createStarRatingPreview(text, isCustomMode);
+                        break;
+                    case 'title':
+                        previewHtml = createTitlePreview(text, isCustomMode);
+                        break;
+                }
+
+                if (!previewHtml) return; // Exit if preview generation fails
+
+                // Append the generated component to the preview
+                appendToFormPreview(previewHtml);
+
+
+
+
+                // Clear inputs for the next component
+                clearInputs(type);
+
+
+            });
+
+            $('#save-form').click(async function () {
+
+                const formName = $('#form-name').val().trim();
+
+                // Validate form name
+                if (!formName) {
+                    alert('Form name cannot be empty.');
+                    return;
+                }
+
+
+                // Validate components
+                const componentsList  = $('#form-preview .form-group');
+                if (componentsList.length <= 2) {
+                    alert('Please add at least one component before saving the form.');
+                    return;
+                }
+
+                if (questionCount <= 1) {
+                    alert('Please add at least one question before saving the form.');
+                    return;
+                }
+
+                // Check that each title has at least one component below it
+                const previewList = $('#form-preview .form-group');
+                let validTitles = true;
+
+                previewList.each(function (index) {
+                    const type = $(this).data('type');
+                    if (type === 'title') {
+                        // Check if the next component exists and is not another title
+                        const nextComponent = previewList.eq(index + 1);
+                        if (!nextComponent.length || nextComponent.data('type') === 'title') {
+                            alert('Each title must be followed by at least one component.');
+                            validTitles = false;
+                            return false; // Break the loop
+                        }
+                    }
+                });
+
+                if (!validTitles) return; // Stop saving if the validation fails
+
+                const theme = mode;
+                const designData = saveGetDesignData(theme);
+                const components = saveCollectComponents(theme);
+
+                await saveForm(formName, theme, designData, components);
+            });
+
+            $(document).on('input', '.auto-resize', function () {
+                // Retrieve or initialize the maximum width
+                if (!this.dataset.maxWidth) {
+                    this.dataset.maxWidth = '300'; // Default minimum width
+                }
+
+                const text = this.value;
+                const lines = text.split('\n'); // Split text into lines
+
+                // Recalculate maxWidth based on all lines
+                let maxWidth = 300; // Start with the default minimum width
+                lines.forEach(line => {
+                    const tempSpan = $('<span>')
+                        .text(line) // Measure each line
+                        .css({
+                            visibility: 'hidden',
+                            whiteSpace: 'nowrap',
+                            fontSize: $(this).css('font-size'),
+                            fontFamily: $(this).css('font-family'),
+                            position: 'absolute',
+                        })
+                        .appendTo('body');
+
+                    const lineWidth = tempSpan.width() + 60; // Add padding for readability
+                    maxWidth = Math.max(maxWidth, lineWidth); // Update maxWidth if current line exceeds it
+                    tempSpan.remove();
+                });
+
+                this.dataset.maxWidth = maxWidth; // Update the overall maxWidth
+
+                // Calculate width for the current line
+                const currentLine = lines[lines.length - 1] || ''; // Handle empty last line
+                const tempSpan = $('<span>')
+                    .text(currentLine) // Measure only the last line
+                    .css({
+                        visibility: 'hidden',
+                        whiteSpace: 'nowrap',
+                        fontSize: $(this).css('font-size'),
+                        fontFamily: $(this).css('font-family'),
+                        position: 'absolute',
+                    })
+                    .appendTo('body');
+
+                const currentLineWidth = tempSpan.width() + 60; // Add padding for readability
+                tempSpan.remove();
+
+                // Set the width to either the current line's width or the overall maxWidth
+                this.style.width = `${Math.max(currentLineWidth, maxWidth)}px`;
+            });
+
+
+            // Collapsible functionality with Custom Mode check
+            $(document).on('click', '.toggle-collapse', function () {
+                const isCustomMode = mode === 'custom';
+
+                if (!isCustomMode) {
+                    alert('Please select "Custom" Mode to customize colors.');
+                    return; // Stop further execution
+                }
+
+                const $button = $(this); // The clicked button
+                const targetId = $button.data('target'); // Get the data-target
+                const $target = $(targetId); // Find the collapsible element using the target
+
+                // Toggle the chevron icon
+                const $icon = $button.find('.toggle-icon');
+                if ($icon.hasClass('fa-chevron-down')) {
+                    $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                } else {
+                    $icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                }
+
+                // Toggle the collapsible content
+                if ($target.hasClass('open')) {
+                    $target.removeClass('open').css('max-height', '0');
+                } else {
+                    const scrollHeight = $target.prop('scrollHeight'); // Get full height of content
+                    $target.addClass('open').css('max-height', scrollHeight + 'px');
+                }
+            });
+
+
+
+            // Remove ComboBox Option
+            $(document).on('click', '.remove-option', function () {
+                $(this).closest('.option-item').remove();
+            });
+            // Remove Component from Form Preview and Update Numbers
+            $(document).on('click', '.remove-component', function () {
+                const id = $(this).data('id'); // Get the data-id of the component to remove
+                const $component = $(`#${id}`); // Find the corresponding component
+                if ($component.length) {
+                    $component.remove(); // Remove the component from the DOM
+                    updateQuestionNumbers();
+                    // Check if there are any components left
+                    const hasComponents = $('#form-preview .form-group').length > 0;
+
+                    // Update the "No Questions" message visibility
+                    $('#no-questions').toggleClass('hidden', hasComponents);
+
+                } else {
+                    console.warn(`Component with ID "${id}" not found.`);
+                }
+            });
+            $(document).on('input', '.color-picker', function () {
+                const key = $(this).data('key'); // Color key (e.g., textColor, backgroundColor)
+                const componentId = $(this).data('component-id'); // Target component ID
+                const newValue = $(this).val(); // New color value
+
+                // Update the component's data attribute
+                const $component = $(`#${componentId}`);
+                $component.data(key, newValue);
+
+            });
+
+
+        });
+
+        // Function to reset the entire preview
+        function resetPreview() {
+            // Clear the form preview area
+            $('#form-preview').empty();
+
+            // Reset component and question counters
+            componentCount = 2;
+            questionCount = 1;
+            const isCustomMode = $('#theme-selection').val() === 'custom';
+            // Add the default components back with color support
+            appendToFormPreview(defaultTitlePreview(isCustomMode), true);
+            appendToFormPreview(defaultEmailPreview(isCustomMode), true);
+
+
+        }
+
+
+
+
+
+        // Function to get Title colors
+        function getTitleColors() {
+            return {
+                textColor: $('#title-text-color').val(),
+                backgroundColor: $('#title-background-color').val(),
+                borderColor: $('#title-border-color').val(),
+            };
+        }
+
+
+        function createTitlePreview(titleText, isCustomMode) {
+            const colors = isCustomMode ? getTitleColors() : {};
+            let previewHtml = `
+                <div class="form-group preview-card" id="component-${componentCount}" draggable="true"
+                    data-type="title"
+                    data-text="${titleText}"
+                    ${generateDataAttributes(colors)}
+                    style="display: flex; flex-direction: column; align-items: flex-start; padding: 5px 0;">
+                    <div style="width: 100%;">
+                        <textarea class="textareaPreview" readonly
+                            style="font-weight: bold; font-size: 1.5rem; width: 100%; height: auto; border: none; background: transparent; resize: none;">${titleText}</textarea>
+                    </div>
+            `;
+
+            if (isCustomMode) {
+                // Add the collapsible "Colors" section
+                previewHtml += generateCollapsibleColorsSection(`component-${componentCount}`, colors,false);
+            }
+
+            previewHtml += generateRemoveButton();
+            return previewHtml;
+        }
+
+        // Function to create ComboBox Preview
+        function createComboBoxPreview(questionText, isCustomMode) {
+            const options = getComboBoxOptions();
+            if (options.length < 2) {
+                alert('ComboBox requires at least 2 options.');
+                return null;
+            }
+
+            const colors = isCustomMode ? getComboBoxColors() : {};
+            let previewHtml = `
+                <div class="form-group preview-card" id="component-${componentCount}" draggable="true"
+                    data-type="combobox"
+                    data-question="${questionText}"
+                    data-options='${JSON.stringify(options)}'
+                    ${generateDataAttributes(colors)}>
+                    <textarea class="textareaPreview" style="width: 100%"
+                        readonly>${questionCount}. ${questionText}</textarea>
+                    <select class="form-control combo-box-style mt-2" style="width: 100%;">`;
+
+            options.forEach(option => {
+                previewHtml += `<option>${option.order}. ${option.option_text}</option>`;
+            });
+
+            previewHtml += `</select>`;
+
+            if (isCustomMode) {
+                // Add the collapsible "Colors" section
+                previewHtml += generateCollapsibleColorsSection(`component-${componentCount}`, colors,true);
+            }
+
+            previewHtml += generateRemoveButton();
+            return previewHtml;
+        }
+
+
+        // Function to create TextBox Preview
+        function createTextBoxPreview(questionText, hintText, isCustomMode) {
+            const colors = isCustomMode ? getTextBoxColors() : {};
+            let previewHtml = `
+                <div class="form-group preview-card" id="component-${componentCount}" draggable="true"
+                    data-type="textbox"
+                    data-question="${questionText}"
+                    data-hint="${hintText}"
+                    ${generateDataAttributes(colors)}>
+                    <textarea class="textareaPreview" style="width: 100%"
+                        readonly>${questionCount}. ${questionText}</textarea>
+                    <div class="hint-row" style="display: flex; align-items: center; margin-left: 20px;">
+                        <i class="fas fa-info-circle" style="margin-right: 8px; color: #3498db;"></i>
+                        <span class="hint-text" style="font-size: 0.9rem; color: #7f8c8d;">${hintText}</span>
+                    </div>
+            `;
+
+            if (isCustomMode) {
+                // Add the collapsible "Colors" section
+                previewHtml += generateCollapsibleColorsSection(`component-${componentCount}`, colors,true);
+            }
+
+            previewHtml += generateRemoveButton();
+            return previewHtml;
+        }
+
+
+        // Function to create StarRating Preview
+        function createStarRatingPreview(questionText, isCustomMode) {
+            const colors = isCustomMode ? getStarRatingColors() : {};
+            let previewHtml = `
+                <div class="form-group preview-card" id="component-${componentCount}" draggable="true"
+                    data-type="star"
+                    data-question="${questionText}"
+                    ${generateDataAttributes(colors)}>
+                    <textarea class="textareaPreview" style="width: 100%"
+                        readonly>${questionCount}. ${questionText}</textarea>
+                    <div class="star-rating mt-2" style="margin-left: 20px;">★★★★★</div>
+            `;
+
+            if (isCustomMode) {
+                // Add the collapsible "Colors" section
+                previewHtml += generateCollapsibleColorsSection(`component-${componentCount}`, colors,true);
+            }
+
+            previewHtml += generateRemoveButton();
+            return previewHtml;
+        }
+
+
+        // Function to get ComboBox options
+        function getComboBoxOptions() {
+            const options = [];
+            $('.option-list .option-input').each(function (index) {
+                const optionText = $(this).val().trim();
+                if (optionText) {
+                    options.push({option_text: optionText, order: index + 1});
+                }
+            });
+            return options;
+        }
+
+        // Function to get ComboBox colors
+        function getComboBoxColors() {
+            return {
+                backgroundColor: $('#combobox-background-color').val(),
+                itemTextColor: $('#combobox-item-text-color').val(),
+                selectedItemTextColor: $('#combobox-selected-item-text-color').val(),
+                dropdownBackgroundColor: $('#combobox-dropdown-background-color').val(),
+                selectedItemBackgroundColor: $('#combobox-selected-item-background-color').val(),
+            };
+        }
+
+        // Function to get TextBox colors
+        function getTextBoxColors() {
+            return {
+                backgroundColor: $('#textbox-background-color').val(),
+                textColor: $('#textbox-text-color').val(),
+                hintColor: $('#textbox-hint-color').val(),
+                focusedHintColor: $('#textbox-focused-hint-color').val(),
+                boxStrokeColor: $('#textbox-box-stroke-color').val(),
+                focusedBoxStrokeColor: $('#textbox-focused-box-stroke-color').val(),
+                errorTextColor: $('#textbox-error-text-color').val(),
+                counterTextColor: $('#textbox-counter-text-color').val(),
+                cursorColor: $('#textbox-cursor-color').val(),
+                placeholderColor: $('#textbox-placeholder-color').val(),
+                helperTextColor: $('#textbox-helper-text-color').val(),
+            };
+        }
+
+        // Function to get StarRating colors
+        function getStarRatingColors() {
+            return {
+                starFillColor: $('#star-fill-color').val(),
+                secondaryStarFillColor: $('#secondary-star-fill-color').val(),
+            };
+        }
+
+        // Utility function to generate data attributes for colors
+        function generateDataAttributes(colors) {
+            return Object.entries(colors)
+                .map(([key, value]) => {
+                    // Convert camelCase to kebab-case and prefix with 'data-'
+                    const kebabKey = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+                    return `data-${kebabKey}="${value}"`;
+                })
+                .join(' ');
+        }
+        function generateCollapsibleColorsSection(componentId, colors,withMargin) {
+            const colorPickers = generateColorPickers(colors, componentId, true); // Generate color pickers
+            return `
+                <button type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#colors-${componentId}" style="${withMargin ? 'margin-top: 20px;' : 'margin-left:15px;'}">
+                    <i class="fas fa-palette"
+                       style="
+
+                          margin-right: 5px;
+                          background: linear-gradient(45deg, orange, red);
+                          -webkit-background-clip: text;
+                          -webkit-text-fill-color: transparent;">
+                    </i>
+                    <span style=" font-weight: bold;">Colors</span>
+                    <i class="fas fa-chevron-down toggle-icon" style="color: #000; margin-left: 10px;"></i>
+                </button>
+                <div id="colors-${componentId}" class="collapse mt-2" style="max-height: 0; overflow: hidden; ">
+                    ${colorPickers}
+                </div>
+            `;
+        }
+
+
+        function generateColorPickers(colors, componentId) {
+            let html = `<div class="colors-editor">`;
+            Object.entries(colors).forEach(([key, value]) => {
+                const displayKey = key
+                    .replace(/([A-Z])/g, ' $1')
+                    .replace(/^./, (str) => str.toUpperCase());
+                html += `
+                    <div class="color-picker-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <input
+                            type="color"
+                            class="color-picker"
+                            data-key="${key}"
+                            data-component-id="${componentId}"
+                            value="${value}"
+                            style="width: 40px; height: 30px; margin-right: 10px; border: none;"
+                        />
+                        <label style="font-size: 0.9rem; flex: 1;">${displayKey}</label>
+                    </div>`;
+            });
+            html += '</div>';
+            return html;
+        }
+
+
+
+
+        // Utility function to generate remove button HTML
+        function generateRemoveButton() {
+            return `
+                                            <button type="button" class="remove-component btn btn-icon" data-id="component-${componentCount}">
+                                                <i class="fas fa-times" style="color: #e74c3c;"></i>
+                                            </button>`;
+        }
+        function populateFormName(formName) {
+            const formNameInput = $('#form-name'); // Select the form name input field
+            if (formNameInput.length) {
+                formNameInput.val(formName); // Set the form name value
+            } else {
+                console.error('Form name input field not found.');
+            }
+        }
+        function applyTheme(theme, designData) {
+            $('#theme-selection').val(theme);
+            if (theme === 'custom') {
+                $('.custom-options').removeClass('hidden');
+                $('#background-color').val(designData?.backgroundColor || '#ffffff');
+                $('#text-color').val(designData?.textColor || '#000000');
+                $('#button-background-color').val(designData?.buttonBackgroundColor || '#007bff');
+                $('#button-text-color').val(designData?.buttonTextColor || '#ffffff');
+            } else {
+                $('.custom-options').addClass('hidden');
+                resetDesignColors();
+            }
+            return theme;
+        }
+
+
+        function resetDesignColors() {
+            $('#background-color').val('');
+            $('#text-color').val('');
+            $('#button-background-color').val('');
+            $('#button-text-color').val('');
+        }
+
+
+        // Function to reset the entire preview
+        function resetPreviewInit() {
+            // Clear the form preview area
+            $('#form-preview').empty();
+
+            // Reset component and question counters
+            componentCount = 2;
+            questionCount = 1;
+
+
+        }
+
+        function populateFormComponents(components, isCustomTheme) {
+            let i = 0;
+            components.forEach(component => {
+                const previewHtml = createPreviewHtml(component, isCustomTheme, i++);
+                if (previewHtml) {
+                    appendToFormPreview(previewHtml);
+                }
+            });
+        }
+
+        function createPreviewHtml(component, isCustomTheme, index) {
+            const {type, text, secondaryText = '', options = [], colors = {}} = component; // Include secondaryText
+            console.log(component);
+            let previewHtml = '';
+            // Handle special cases for the first two components by index
+            if (index === 0) { // First component: User Info
+                previewHtml = generateTitlePreview(isCustomTheme, colors);
+            } else if (index === 1) { // Second component: Email
+                previewHtml = generateEmailPreview(isCustomTheme, colors);
+            } else {
+                // Handle other components normally
+                componentCount++;
+                switch (type) {
+                    case 'combobox':
+                        previewHtml = createComboBoxPreviewHtml(text, options, colors, isCustomTheme);
+                        break;
+                    case 'textbox':
+                        previewHtml = createTextBoxPreviewHtml(text, secondaryText, colors, isCustomTheme); // Pass secondaryText
+                        break;
+                    case 'star':
+                        previewHtml = createStarRatingPreviewHtml(text, colors, isCustomTheme);
+                        break;
+                    case 'title':
+                        previewHtml = createTitlePreviewHtml(text, colors, isCustomTheme);
+                        break;
+                    default:
+                        console.error(`Unsupported component type: ${type}`);
+                        break;
+                }
+            }
+
+            return previewHtml;
+        }
+
+
+
+
+
+        // Function to create Title Preview with loaded data
+        function createTitlePreviewHtml(titleText, colors = {}, isCustomMode = false) {
+            let previewHtml = `
+                                  <div class="form-group preview-card" id="component-${componentCount}" draggable="true"
+                                      data-type="title"
+                                      data-text="${titleText}"
+                                      ${generateDataAttributes(colors)}
+                                      style="display: flex; flex-direction: column; align-items: flex-start; padding: 5px 0;">
+                                      <div style="width: 100%;">
+                                          <textarea class="textareaPreview" readonly
+                                              style="font-weight: bold; font-size: 1.5rem;  width: 100%; height: auto; border: none; background: transparent; resize: none;">${titleText}</textarea>
+                                      </div>
+                              `;
+
+            if (isCustomMode) {
+                previewHtml += `
+                                      <div style="width: 100%;">
+                                          ${generateCollapsibleColorsSection(`component-${componentCount}`, colors, false)}
+                                      </div>
+                                  `;
+            }
+
+            previewHtml += generateRemoveButton();
+            return previewHtml;
+        }
+
+        // Function to create ComboBox Preview with loaded data
+        function createComboBoxPreviewHtml(questionText, options = [], colors = {}, isCustomMode = false) {
+            if (options.length < 2) {
+                console.error('ComboBox requires at least 2 options.');
+                return null;
+            }
+
+            let previewHtml = `
+                                  <div class="form-group preview-card" id="component-${componentCount}" draggable="true"
+                                      data-type="combobox"
+                                      data-question="${questionText}"
+                                      data-options='${JSON.stringify(options)}'
+                                      ${generateDataAttributes(colors)}>
+                                      <textarea class="textareaPreview" style="width: 100%" readonly>${questionCount}. ${questionText}</textarea>
+                                      <select class="form-control combo-box-style mt-2" style="width: 100%;">`;
+
+            options.forEach(option => {
+                previewHtml += `<option>${option.order}. ${option.option_text}</option>`;
+            });
+
+            previewHtml += '</select>';
+
+            if (isCustomMode) {
+                previewHtml += generateCollapsibleColorsSection(`component-${componentCount}`, colors, true);
+            }
+
+            previewHtml += generateRemoveButton();
+            return previewHtml;
+        }
+
+        // Function to create TextBox Preview with loaded data
+        function createTextBoxPreviewHtml(questionText, hintText = '', colors = {}, isCustomMode = false) {
+            let previewHtml = `
+                                  <div class="form-group preview-card" id="component-${componentCount}" draggable="true"
+                                      data-type="textbox"
+                                      data-question="${questionText}"
+                                      data-hint="${hintText}"
+                                      ${generateDataAttributes(colors)}>
+                                      <textarea class="textareaPreview" style="width: 100%" readonly>${questionCount}. ${questionText}</textarea>
+                                      <div class="hint-row" style="display: flex; align-items: center; margin-left: 20px;">
+                                          <i class="fas fa-info-circle" style="margin-right: 8px; color:#3498db;"></i>
+                                          <span class="hint-text" style="font-size: 0.9rem; color: #7f8c8d;">${hintText}</span>
+                                      </div>
+                              `;
+
+            if (isCustomMode) {
+                previewHtml += generateCollapsibleColorsSection(`component-${componentCount}`, colors, true);
+            }
+
+            previewHtml += generateRemoveButton();
+            return previewHtml;
+        }
+
+        // Function to create StarRating Preview with loaded data
+        function createStarRatingPreviewHtml(questionText, colors = {}, isCustomMode = false) {
+            let previewHtml = `
+                                  <div class="form-group preview-card" id="component-${componentCount}" draggable="true"
+                                      data-type="star"
+                                      data-question="${questionText}"
+                                      ${generateDataAttributes(colors)}>
+                                      <textarea class="textareaPreview" style="width: 100%" readonly>${questionCount}. ${questionText}</textarea>
+                                      <div class="star-rating mt-2" style="margin-left: 20px; color: #f1c40f;">★★★★★</div>
+                              `;
+
+            if (isCustomMode) {
+                previewHtml += generateCollapsibleColorsSection(`component-${componentCount}`, colors, true);
+            }
+
+            previewHtml += generateRemoveButton();
+            return previewHtml;
+        }
+
+
+        // Utility function to append component to form preview
+        function appendToFormPreview(html) {
+            $('#form-preview').append(html);
+        }
+        function appendToFormPreview(html, isDefault = false) {
+            const $component = $(html);
+
+            if (isDefault) {
+                $component.find('.remove-component').remove(); // Remove the delete button
+            }
+
+            $('#form-preview').append($component);
+        }
+
+
+        // Utility function to clear inputs
+        function clearInputs(type) {
+            if (type === 'combobox') {
+                $('#combobox-question').val('');
+                $('.option-list').empty();
+            } else if (type === 'textbox') {
+                $('#textbox-question').val('');
+                $('#textbox-hint').val('');
+            } else if (type === 'star') {
+                $('#star-question').val('');
+            } else if (type === 'title') {
+                $('#title-text').val('');
+            }
+
+            if (type !== 'title') {
+                // Reset the input/textarea size
+                const targetInput = $(`#${type}-question`);
+                if (targetInput.length) {
+                    targetInput.css({width: '300px', height: '38px'}); // Reset to original size
+                }
+            } else {
+                // Reset the input/textarea size
+                const targetInput = $(`#${type}-text`);
+                if (targetInput.length) {
+                    targetInput.css({width: '300px', height: '38px'}); // Reset to original size
+                }
+            }
+
+        }
+
+
+        // Validation Functions
+        function validateComboBox() {
+            let questionText = $('#combobox-question').val().trim();
+
+            if (!questionText) {
+                alert('ComboBox requires a question.');
+                return null;
+            }
+
+            if (!/[^\d]/.test(questionText)) {
+                alert('ComboBox question must contain at least one non-numeric character.');
+                return null;
+            }
+
+            if (!questionText.endsWith('?')) {
+                questionText += '?';
+            }
+
+            // Capitalize the first letter if it is alphabetic
+            questionText = questionText.charAt(0).toUpperCase() + questionText.slice(1);
+
+            // Check for duplicate question text
+            const isDuplicateQuestion = $('#form-preview .textareaPreview').toArray().some(label => {
+                return $(label).text().split('. ')[1] === questionText;
+            });
+
+            if (isDuplicateQuestion) {
+                alert(`The question "${questionText}" already exists. Please enter a unique question.`);
+                return null;
+            }
+
+            return questionText;
+        }
+
+        function validateTextBox() {
+            let questionText = $('#textbox-question').val().trim();
+
+            if (!questionText) {
+                alert('TextBox requires a non-empty question.');
+                return null;
+            }
+
+            if (!/[^\d]/.test(questionText)) {
+                alert('TextBox question must contain at least one non-numeric character.');
+                return null;
+            }
+
+            if (!questionText.endsWith('?')) {
+                questionText += '?';
+            }
+
+            // Capitalize the first letter if it is alphabetic
+            questionText = questionText.charAt(0).toUpperCase() + questionText.slice(1);
+
+            // Check for duplicate question text
+            const isDuplicateQuestion = $('#form-preview .textareaPreview').toArray().some(label => {
+                return $(label).text().split('. ')[1] === questionText;
+            });
+
+            if (isDuplicateQuestion) {
+                alert(`The question "${questionText}" already exists. Please enter a unique question.`);
+                return null;
+            }
+
+            return questionText;
+        }
+
+        function validateStarRating() {
+            let questionText = $('#star-question').val().trim();
+
+            if (!questionText) {
+                alert('5-Star Rating requires a non-empty question.');
+                return null;
+            }
+
+            if (!/[^\d]/.test(questionText)) {
+                alert('5-Star Rating question must contain at least one non-numeric character.');
+                return null;
+            }
+
+            if (!questionText.endsWith('?')) {
+                questionText += '?';
+            }
+
+            // Capitalize the first letter if it is alphabetic
+            questionText = questionText.charAt(0).toUpperCase() + questionText.slice(1);
+
+            // Check for duplicate question text
+            const isDuplicateQuestion = $('#form-preview .textareaPreview').toArray().some(label => {
+                return $(label).text().split('. ')[1] === questionText;
+            });
+
+            if (isDuplicateQuestion) {
+                alert(`The question "${questionText}" already exists. Please enter a unique question.`);
+                return null;
+            }
+
+            return questionText;
+        }
+
+        function validateTitle() {
+            let titleText = $('#title-text').val().trim();
+
+            if (!titleText) {
+                alert('Title requires a non-empty text.');
+                return null;
+            }
+
+            if (!/[^\d]/.test(titleText)) {
+                alert('Title must contain at least one non-numeric character.');
+                return null;
+            }
+
+            // Capitalize the first letter if it is alphabetic
+            titleText = titleText.charAt(0).toUpperCase() + titleText.slice(1);
+
+            return titleText;
+        }
+
+
+        // Function to collect design data based on the selected theme
+        function saveGetDesignData(theme) {
+            if (theme === 'custom') {
+                return {
+                    backgroundColor: $('#background-color').val(),
+                    textColor: $('#text-color').val(),
+                    buttonBackgroundColor: $('#button-background-color').val(),
+                    buttonTextColor: $('#button-text-color').val(),
+                };
+            }
+            return {};
+        }
+
+        // Function to collect all components from the preview
+        function saveCollectComponents(theme) {
+            const components = [];
+            $('#form-preview .form-group').each(function (index) {
+                const type = $(this).data('type') || 'unknown';
+                const text = type === 'title' ? $(this).data('text') || '' : $(this).data('question') || ''; // Use `data-text` for titles, `data-question` for others
+
+                const componentData = {
+                    type,
+                    text,
+                    order: index + 1,
+                };
+
+                if (type === 'combobox') {
+                    componentData.options = $(this).data('options') || [];
+                    componentData.colors = theme === 'custom' ? saveGetComboBoxColors($(this)) : {};
+                } else if (type === 'textbox') {
+                    componentData.secondaryText = $(this).data('hint');
+                    componentData.colors = theme === 'custom' ? saveGetTextBoxColors($(this)) : {};
+                } else if (type === 'star') {
+                    componentData.colors = theme === 'custom' ? saveGetStarColors($(this)) : {};
+                } else if (type === 'title') {
+                    componentData.colors = theme === 'custom' ? saveGetTitleColors($(this)) : {};
+                }
+
+                components.push(componentData);
+            });
+            return components;
+        }
+
+
+        // Function to collect ComboBox colors
+        function saveGetComboBoxColors(element) {
+            return {
+                backgroundColor: element.data('background-color') || '',
+                itemTextColor: element.data('item-text-color') || '',
+                selectedItemTextColor: element.data('selected-item-text-color') || '',
+                dropdownBackgroundColor: element.data('dropdown-background-color') || '',
+                selectedItemBackgroundColor: element.data('selected-item-background-color') || '',
+            };
+        }
+
+        // Function to collect TextBox colors
+        function saveGetTextBoxColors(element) {
+            return {
+                backgroundColor: element.data('background-color') || '',
+                textColor: element.data('text-color') || '',
+                hintColor: element.data('hint-color') || '',
+                focusedHintColor: element.data('focused-hint-color') || '',
+                boxStrokeColor: element.data('box-stroke-color') || '',
+                focusedBoxStrokeColor: element.data('focused-box-stroke-color') || '',
+                errorTextColor: element.data('error-text-color') || '',
+                counterTextColor: element.data('counter-text-color') || '',
+                cursorColor: element.data('cursor-color') || '',
+                placeholderColor: element.data('placeholder-color') || '',
+                helperTextColor: element.data('helper-text-color') || '',
+            };
+        }
+
+        function saveGetTitleColors(element) {
+            return {
+                textColor: element.data('text-color') || '',
+                backgroundColor: element.data('background-color') || '',
+                borderColor: element.data('border-color') || '',
+            };
+        }
+
+        // Function to collect Star Rating colors
+        function saveGetStarColors(element) {
+            return {
+                starFillColor: element.data('star-fill-color') || '',
+                secondaryStarFillColor: element.data('secondary-star-fill-color') || '',
+            };
+        }
+
+        // Function to save the form
+        async function saveForm(name, theme, designData, components) {
+            try {
+                const response = await fetch('/forms/save', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        name,
+                        theme,
+                        designData,
+                        components,
+                    }),
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    window.location.href = `/success/${result.formId}`;
+                } else {
+                    console.error('Server Error:', result);
+                    alert(`Error saving form: ${result.error || JSON.stringify(result)}`);
+                }
+            } catch (err) {
+                console.error('Network Error:', err);
+                alert('Failed to save the form.');
+            }
+        }
+
+
+
+        function updateQuestionNumbers() {
+            const components = document.querySelectorAll('#form-preview .preview-card');
+            let questionIndex = 0; // Separate counter for questions
+
+            components.forEach((component) => {
+                const type = component.dataset.type;
+
+                if (type !== 'title') { // Skip titles
+                    const questionLabel = component.querySelector('.textareaPreview');
+                    if (questionLabel) {
+                        const textParts = questionLabel.value.split('. '); // Split on `. `
+                        const questionText = textParts.length > 1 ? textParts.slice(1).join('. ') : textParts[0];
+                        questionIndex++; // Increment only for questions
+                        questionLabel.value = `${questionIndex}. ${questionText}`;
+                    }
+                }
+            });
+
+            questionCount=questionIndex--;
+        }
+        function showOverlay() {
+            const overlay = document.getElementById('overlay');
+            if (overlay) {
+                overlay.style.visibility = 'visible';
+            }
+        }
+
+        function hideOverlay() {
+            const overlay = document.getElementById('overlay');
+            if (overlay) {
+                overlay.style.visibility = 'hidden';
+            }
+        }
+
+
+
+
+

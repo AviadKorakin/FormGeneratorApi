@@ -1,0 +1,70 @@
+extends layout
+
+block content
+    h1 Remove Form
+        i.fas.fa-trash(style="margin-left: 10px; color: #dc3545;")
+
+    .container-fluid
+        .row
+            .col-md-12
+                .form-group
+                    label(for="form-id") Select Form ID to Remove:
+                    select#form-id.form-control(style="max-width: 350px; display: block; margin-bottom: 10px;")
+                        option(value="" disabled selected) Choose a Form ID
+                    button#remove-form(type="button" class="btn btn-danger btn-sm mt-2")
+                        i.fas.fa-trash(style="margin-right: 5px;")
+                        span Remove Form
+
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+    script(src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous")
+    script.
+        $(document).ready(function () {
+            // Fetch Form IDs
+            async function fetchFormIds() {
+                try {
+                    const response = await fetch('/forms/list');
+                    const forms = await response.json();
+                    const optionsHtml = forms.map(form => `<option value="${form._id}">${form._id}</option>`).join('');
+                    $('#form-id').html('<option value="" disabled selected>Choose a Form ID</option>' + optionsHtml); // Populate dropdown
+                } catch (error) {
+                    console.error('Error fetching form IDs:', error);
+                }
+            }
+
+            fetchFormIds();
+
+            // Remove Form Handler
+            $('#remove-form').click(async function () {
+                const formId = $('#form-id').val(); // Get the selected form ID
+
+                if (!formId) {
+                    alert('Please select a form ID to remove.');
+                    return;
+                }
+
+                const confirmDelete = confirm(`Are you sure you want to delete form ID: ${formId}?`);
+                if (!confirmDelete) return;
+
+                try {
+                    const response = await fetch(`/forms/${formId}`, {
+                        method: 'DELETE',
+                    });
+
+                    if (response.ok) {
+                        alert(`Form ID ${formId} removed successfully!`);
+                        // Re-fetch the list of forms to update the dropdown
+                        fetchFormIds();
+                    } else if (response.status === 404) {
+                        alert(`Form ID ${formId} not found. It might have already been removed.`);
+                        // Re-fetch the list of forms to update the dropdown
+                        fetchFormIds();
+                    } else {
+                        const result = await response.json();
+                        alert(`Error removing form: ${result.error || 'Unknown error'}`);
+                    }
+                } catch (error) {
+                    console.error('Error removing form:', error);
+                    alert('Failed to remove the form.');
+                }
+            });
+        });

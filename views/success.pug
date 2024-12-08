@@ -1,0 +1,46 @@
+extends layout
+
+block content
+    if error
+        h1 Error
+            i.fas.fa-exclamation-triangle(style="color: #e74c3c; margin-left: 10px;")
+        .container
+            h2= error
+            p Please verify the Form ID and try again.
+            a.btn.btn-primary.mt-3(href="/") Return to Home
+    else
+        h1 Form Saved Successfully
+            i.fas.fa-check-circle(style="color: #2ecc71; margin-left: 10px;")
+
+        .container
+            h2 Your Form ID
+            .form-group
+                input#form-id(type="text" class="form-control" readonly value=`${formId}`)
+            .button-group.mt-3
+                button(type="button" class="btn btn-primary copy-button") Copy Form ID
+                button(type="button" class="btn btn-secondary save-button ml-3") Save to File
+
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+        script.
+            $(document).ready(function () {
+                // Copy Form ID to Clipboard
+                $('.copy-button').click(function () {
+                    const formId = $('#form-id').val();
+                    navigator.clipboard.writeText(formId).then(() => {
+                        alert('Form ID copied to clipboard!');
+                    }).catch(err => {
+                        console.error('Failed to copy:', err);
+                    });
+                });
+
+                // Save Form ID to a File
+                $('.save-button').click(function () {
+                    const formId = $('#form-id').val();
+                    const blob = new Blob([`Form ID: ${formId}`], { type: 'text/plain' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'form-id.txt';
+                    link.click();
+                    URL.revokeObjectURL(link.href);
+                });
+            });

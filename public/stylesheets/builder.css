@@ -1,0 +1,532 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+    color: #34495e;
+}
+
+
+.row {
+    display: flex;
+}
+
+/* Toolbar */
+.toolbar {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toolbar table {
+    width: 100%;
+    border-spacing: 10px;
+}
+
+.card {
+    background: #f7f9fc;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #34495e;
+}
+
+.card-body label {
+    margin-top: 10px;
+    display: block;
+}
+
+.card-body input,
+.card-body .btn-icon {
+    margin-top: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card-body .btn-icon:hover {
+    transform: scale(1.2);
+}
+
+.card-body .btn-icon i {
+    font-size: 1.2rem;
+    transition: color 0.2s ease-in-out;
+}
+
+.card-body .btn-icon:hover i {
+    color: #16a085;
+}
+
+/* Preview Section */
+.preview {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1; /* Ensures it takes the remaining space */
+}
+
+.preview h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.form-group label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.star-rating {
+    font-size: 1.5rem;
+    color: #f1c40f;
+}
+.preview-card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: left;
+}
+
+.preview-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.remove-component {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.remove-component:hover {
+    transform: scale(1.2);
+}
+
+.star-rating {
+    font-size: 1.5rem;
+    color: #f1c40f;
+}
+.hidden {
+    display: none;
+}
+/* Styling for the Load Form Button */
+#load-form {
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: #3aae00; /* Danger red */
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+#load-form:hover {
+    background-color: #099500; /* Darker red */
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* Styling for the Select Form Dropdown */
+#form-id {
+    width: 100%; /* Full width for better alignment */
+    max-width: 350px; /* Prevent it from becoming too wide */
+    font-size: 1rem;
+    padding: 8px 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* Light background */
+    color: #333; /* Text color */
+}
+
+#form-id:focus {
+    border-color: #3498db; /* Blue border on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Subtle blue shadow */
+}
+
+.card-body input[type="text"] {
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+#theme-selection {
+    width: 100%; /* Full width for better alignment */
+    max-width: 350px; /* Prevent it from becoming too wide */
+    font-size: 1rem;
+    padding: 8px 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* Light background */
+    color: #333; /* Text color */
+}
+.combo-box-style {
+    width: 100%; /* Full width for better alignment */
+    max-width: 350px; /* Prevent it from becoming too wide */
+    font-size: 1rem;
+    padding: 8px 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #FFFFFf; /* Light background */
+    color: #333; /* Text color */
+
+}
+#remove-form {
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: #dc3545; /* Danger red */
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+#remove-form:hover {
+    background-color: #c82333; /* Darker red */
+    transform: translateY(-2px) scale(1.05);
+}
+
+.collapse.open {
+    max-height: 500px; /* Set a reasonable max height for expanded content */
+}
+
+.toggle-collapse {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+.collapse {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.collapse.open {
+    max-height: max-content; /* Adjust as needed to fit content */
+}
+
+/* Ensure consistent spacing between question and answer */
+.response-row {
+    margin-bottom: 15px; /* Space between rows */
+}
+
+.response-row:last-child {
+    margin-bottom: 0; /* Avoid extra spacing for the last row */
+}
+
+.question-label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px; /* Spacing between question and answer */
+}
+
+.response-row input,
+.response-row select,
+.response-row div {
+    margin-top: 5px; /* Space above the answer */
+}
+
+/* Ensure container is scrollable if content overflows */
+#feedbacks-container {
+    max-height: 100%; /* Adjust based on parent */
+    overflow-y: visible;
+    overflow-x:visible;
+    padding: 10px; /* Add padding for readability */
+    box-sizing: border-box;
+}
+
+textarea {
+
+    display: block;
+    width: 300px; /* Match input field width */
+    height: 38px; /* Allow height to adjust dynamically */
+    min-height: 38px; /* Minimum height matching an input field */
+    max-height: 200px; /* Allow scrolling after a certain height */
+    padding: 5px 10px; /* Match the padding of input fields */
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    color: #34495e; /* Match input text color */
+    background: none;
+    border: 2px solid #ccc; /* Match input border */
+    border-radius: 5px; /* Match input border-radius */
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    resize: none; /* Prevent manual resizing */
+    overflow-y: auto; /* Allow vertical scrolling */
+    line-height: 1.5; /* Ensure proper line spacing */
+    box-sizing: border-box; /* Include padding in height calculations */
+}
+
+
+
+textarea:focus {
+    border-color: #3498db; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Match input focus effect */
+    outline: none; /* Remove default outline */
+}
+
+.textareaPreview {
+    display: block;
+    width: auto;
+    min-width: 300px; /* Minimum width */
+    max-width: 100%; /* Allow expansion up to container width */
+    height: 30px; /* Allow dynamic height */
+    padding: 5px 10px; /* Padding for readability */
+    font-size: 1rem; /* Font size for readability */
+    font-family: inherit; /* Match the font of other inputs */
+    color: #34495e; /* Text color */
+    background-color: transparent; /* Transparent background */
+    border: none; /* Remove borders */
+    resize: none; /* Disable manual resizing */
+    overflow: auto; /* Prevent horizontal/vertical scrollbars */
+    line-height: 1.5; /* Proper line spacing */
+    box-sizing: border-box; /* Include padding in dimensions */
+    white-space: pre-wrap; /* Enable wrapping and respect newlines */
+}
+
+.textareaPreview:focus {
+    outline: none; /* Remove focus outline */
+}
+
+.textareaPreview.hint {
+    font-size: 0.9rem; /* Smaller font for hints */
+    color: #7f8c8d; /* Hint text color */
+}
+
+/* Smooth animations for drag-and-drop */
+#form-preview .preview-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#form-preview .preview-card.dragging {
+    transform: scale(1.05); /* Slightly enlarge the dragging item */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Add shadow */
+    z-index: 10;
+}
+#ai-form-theme {
+    width: 100%; /* Full width for better alignment */
+    max-width: 350px; /* Prevent it from becoming too wide */
+    font-size: 1rem;
+    padding: 8px 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* Light background */
+    color: #333; /* Text color */
+}
+
+/* Highlight the drop area */
+#form-preview .preview-card.placeholder {
+    border: 2px dashed #3498db; /* Dashed border for placeholder */
+    background-color: rgba(52, 152, 219, 0.1); /* Light background */
+    transition: border-color 0.2s ease;
+}
+
+#overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 9999; /* Ensure it appears on top of other elements */
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #1e272e;
+        color: #e0e0e0;
+    }
+
+    .toolbar {
+        background: #2f3640;
+        border: 1px solid #3a3f47;
+        color: #e0e0e0;
+    }
+
+    .card {
+        background: #294665; /* Slightly lighter dark background for better readability */
+        border: 1px solid #294665;
+        color: #e0e0e0;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header {
+        color: #ffffff;
+    }
+
+    .card-body input,
+    .card-body .btn-icon {
+        background: #294665;
+        color: #e0e0e0;
+    }
+
+    .card-body input[type="text"] {
+        background: #4a5564;
+        color: #e0e0e0;
+        border-color: #5a6573;
+    }
+    .card-body .btn-icon:hover i {
+        color: #00cec9; /* Accent color for hover */
+    }
+
+    .preview {
+        background: #2f3640;
+        border: 1px solid #3a3f47;
+        color: #e0e0e0;
+    }
+
+    .preview h2 {
+        color: #e0e0e0;
+    }
+
+    .preview-card {
+        background: #38608c; /* Lighter dark background */
+        border: 1px solid #4b5662;
+        color: #e0e0e0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .preview-card:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+
+    }
+
+    #load-form {
+        background-color: #00cec9;
+        color: #2f3640;
+    }
+
+    #load-form:hover {
+        background-color: #01a89e;
+    }
+
+    #form-id {
+        background-color: #4a5564;
+        color: #e0e0e0;
+        border: 1px solid #5a6573;
+    }
+
+    #form-id:focus {
+        border-color: #00cec9;
+        box-shadow: 0 0 5px rgba(0, 206, 201, 0.5);
+    }
+
+    .combo-box-style {
+        background-color: #4a5564;
+        color: #e0e0e0;
+        border: 1px solid #5a6573;
+    }
+
+    #remove-form {
+        background-color: #e84118;
+        color: #2f3640;
+    }
+
+    #remove-form:hover {
+        background-color: #c23616;
+    }
+
+    .collapse {
+        background-color: #294665;
+        color: #e0e0e0;
+    }
+
+    .response-row input,
+    .response-row select,
+    .response-row div{
+        background: #4a5564;
+        color: #4a5564;
+        border: 1px solid #5a6573;
+    }
+
+    #feedbacks-container {
+        background-color: #2f3640;
+        color: #e0e0e0;
+    }
+    #theme-selection {
+        width: 100%; /* Full width for better alignment */
+        max-width: 350px; /* Prevent it from becoming too wide */
+        font-size: 1rem;
+        padding: 8px 10px;
+        border: 1px solid #5a6573;
+        border-radius: 5px;
+        background-color: #4a5564; /* Light background */
+        color: #e0e0e0; /* Text color */
+    }
+
+
+    textarea {
+        background-color: #4a5564; /* Match input field background */
+        color: #e0e0e0; /* Light text for readability */
+        border: 1px solid #5a6573; /* Match input field border */
+    }
+
+    textarea:focus {
+        border-color: #FFFFFf; /* Highlight border on focus */
+    }
+
+    .textareaPreview {
+        background-color: #38608c; /* Dark background */
+        color: #e0e0e0; /* Light text */
+        border: none; /* No border for preview */
+        width: 100%; /* Make it stretch to the container's width */
+        box-sizing: border-box; /* Ensure padding and border are included in the total width */
+        resize: none; /* Disable resizing for consistency */
+        overflow: hidden; /* Hide overflow to prevent scrollbars */
+    }
+
+
+    .textareaPreview:focus {
+        outline: none; /* Remove focus outline */
+    }
+
+
+}
+

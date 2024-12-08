@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017" # Expose MongoDB on the default port
+    volumes:
+      - mongodb-data:/data/db # Persist data in a Docker volume
+
+volumes:
+  mongodb-data:
