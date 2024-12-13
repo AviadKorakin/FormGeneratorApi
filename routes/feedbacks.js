@@ -131,4 +131,56 @@ router.get('/filter', async (req, res) => {
     }
 });
 
+router.get('/analytics', async (req, res) => {
+    try {
+        const { formId, startDate, endDate } = req.query;
+
+        // Build the filter object dynamically
+        const filter = {};
+        if (formId) filter.formId = formId;
+        if (startDate || endDate) {
+            filter.date = {};
+            if (startDate) filter.date.$gte = new Date(startDate);
+            if (endDate) filter.date.$lte = new Date(endDate);
+        }
+
+        // Fetch matching feedbacks
+        const feedbacks = await Feedback.find(filter);
+
+        // Aggregate analytics
+        const analytics = {};
+
+        feedbacks.forEach((feedback) => {
+            const responses = feedback.responses;
+
+            for (const [question, { answer }] of responses.entries()) {
+                if (!analytics[question]) {
+                    analytics[question] = {};
+                }
+                if (!analytics[question][answer]) {
+                    analytics[question][answer] = 0;
+                }
+                analytics[question][answer]++;
+            }
+        });
+
+        // Transform and sort the analytics object
+        const analyticsArray = Object.entries(analytics)
+            .map(([question, answers]) => {
+                const stats = Object.entries(answers)
+                    .map(([answer, count]) => ({ answer, count }))
+                    .sort((a, b) => b.count - a.count); // Sort answers by count descending
+
+                return { question, stats };
+            })
+            .sort((a, b) => a.question.localeCompare(b.question)); // Sort questions alphabetically
+
+
+        res.status(200).json(analyticsArray);
+    } catch (error) {
+        console.error('Error generating analytics:', error.message);
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+});
+
 module.exports = router;

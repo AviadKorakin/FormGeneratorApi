@@ -6,7 +6,7 @@ const ComponentSchema = new Schema({
     type: {
         type: String,
         required: true,
-        enum: ['textbox', 'star', 'combobox', 'title'], // Added 'title' as a new component type
+        enum: ['textbox', 'star', 'combobox', 'title','scale-bar'], // Added 'title' as a new component type
     },
     text: { type: String, required: true }, // Renamed from 'question' to 'text' for more generic usage
     secondaryText: { type: String, required: false },
@@ -18,6 +18,7 @@ const ComponentSchema = new Schema({
         },
     ],
     colors: { type: Map, of: String }, // Map for colors: key is the identifier, value is the color
+    additionalData: { type: Map, ref: String ,required: false },
 });
 
 // Define the schema for Forms
@@ -35,10 +36,22 @@ const FormSchema = new Schema({
     updated_at: { type: Date, default: Date.now }, // Timestamp for updates
 });
 
-// Set up cascading delete for feedbacks when a form is deleted
-FormSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
+// Middleware to cascade delete feedbacks when a form is deleted
+const cascadeDeleteFeedbacks = async function (next) {
     const Feedback = mongoose.model('Feedback'); // Import the Feedback model
     await Feedback.deleteMany({ formId: this._id }); // Delete feedbacks associated with this form
+    next();
+};
+// Trigger cascade delete for `deleteOne` operations
+FormSchema.pre('deleteOne', { document: true, query: false }, cascadeDeleteFeedbacks);
+
+// Trigger cascade delete for `findByIdAndDelete` and similar query methods
+FormSchema.pre('findOneAndDelete', async function (next) {
+    const Feedback = mongoose.model('Feedback'); // Import the Feedback model
+    const doc = await this.model.findOne(this.getFilter()); // Get the document being deleted
+    if (doc) {
+        await Feedback.deleteMany({ formId: doc._id }); // Delete associated feedbacks
+    }
     next();
 });
 

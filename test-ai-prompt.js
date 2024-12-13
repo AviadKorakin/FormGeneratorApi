@@ -80,7 +80,10 @@ const schema = {
         },
         Component: {
             properties: {
-                type: { type: "string", enum: ["title", "textbox", "combobox", "star"] },
+                type: {
+                    type: "string",
+                    enum: ["title", "textbox", "combobox", "star", "scale-bar"],
+                },
                 text: { type: "string" },
                 order: { type: "integer" },
                 colors: {
@@ -89,7 +92,17 @@ const schema = {
                         { $ref: "#/$defs/TextBoxColors" },
                         { $ref: "#/$defs/TitleColors" },
                         { $ref: "#/$defs/StarColors" },
+                        { $ref: "#/$defs/ScaleBarColors" },
                     ],
+                },
+                additionalData: {
+                    type: "object",
+                    properties: {
+                        min: { type: "integer" },
+                        max: { type: "integer" },
+                        unit: { type: "string" },
+                    },
+                    required: ["min", "max", "unit"],
                 },
                 options: { $ref: "#/$defs/ComboBoxOptions" },
             },
@@ -101,8 +114,8 @@ const schema = {
                     then: { required: ["options"] },
                 },
                 {
-                    if: { properties: { type: { not: { const: "combobox" } } } },
-                    then: { not: { required: ["options"] } },
+                    if: { properties: { type: { const: "scale-bar" } } },
+                    then: { required: ["additionalData"] },
                 },
             ],
         },
@@ -122,7 +135,7 @@ const schema = {
         },
         components: {
             items: { $ref: "#/$defs/Component" },
-            minItems: 10, // Ensure at least 10 questions
+            minItems: 15,
             type: "array",
         },
     },

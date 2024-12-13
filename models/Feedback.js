@@ -18,7 +18,7 @@ const FeedbackSchema = new Schema({
         type: Map,
         of: new Schema({
             answer: { type: String, required: true }, // The user's response to the question
-            type: { type: String, required: true, enum: ['textbox', 'star', 'combobox', 'title'] }, // Type of the question
+            type: { type: String, required: true, enum: ['textbox', 'star', 'combobox', 'title','scale-bar'] }, // Type of the question
             order: { type: Number, required: true }, // Order of the question for sorting
         }),
         required: true,

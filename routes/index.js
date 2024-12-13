@@ -28,6 +28,12 @@ router.get('/feedbacks-viewer', function (req, res, next) {
     title: 'Feedback Viewer',
   });
 });
+router.get('/analytics-viewer', function (req, res, next) {
+  res.render('analytics-viewer', {
+    title: 'Analytics Viewer',
+  });
+});
+
 
 router.get('/success/:id', async (req, res) => {
   const formId = req.params.id;

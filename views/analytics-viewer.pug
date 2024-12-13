@@ -1,0 +1,220 @@
+extends layout
+block content
+    h1 Feedback Analytics
+        i.fas.fa-chart-bar(style="margin-left: 10px; color: #3498db;")
+
+    .container-fluid
+        .row
+            .col-md-4.toolbar
+                table
+                    tbody
+                        tr
+                            td
+                                .card.hover-card
+                                    .card-header
+                                        i.fas.fa-filter(style="color: #3498db; margin-right: 10px;")
+                                        span(style="font-weight: bold;") Filters
+                                    .card-body
+                                        // Form ID Input
+                                        label(for="form-id-input" style="font-weight: bold;")
+                                            i.fas.fa-file-alt(style="color: #3498db; margin-right: 5px;")
+                                            span Form ID
+                                        input#form-id-input(type="text" class="form-control mt-2" placeholder="Enter Form ID")
+
+                                        // Start Date
+                                        label(for="start-date-input" class="mt-3" style="font-weight: bold;")
+                                            i.fas.fa-calendar-alt(style="color: #16a085; margin-right: 5px;")
+                                            span Start Date
+                                        input#start-date-input(type="date" class="form-control mt-2")
+
+                                        // End Date
+                                        label(for="end-date-input" class="mt-3" style="font-weight: bold;")
+                                            i.fas.fa-calendar-check(style="color: #8e44ad; margin-right: 5px;")
+                                            span End Date
+                                        input#end-date-input(type="date" class="form-control mt-2")
+
+                                        // Search Button
+                                        .row.mt-4
+                                            .col
+                                                span(style="visibility: hidden;") ----------------
+                                            .col.text-end
+                                                button(type="button" class="btn btn-icon search-analytics" data-type="search" style="font-size: 1.5rem; padding: 0; border: none; background: none;")
+                                                    i.fas.fa-search(style="color: #000; font-size: 2rem;")
+
+            .col-md-6.preview
+                h2
+                    i.fas.fa-chart-pie(style="margin-right: 10px; color: #3498db;")
+                    span Analytics Results
+
+                // Analytics Container
+                #analytics-container
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/chart.js")
+    script.
+        document.addEventListener('DOMContentLoaded', () => {
+            const analyticsContainer = document.getElementById('analytics-container');
+            const searchButton = document.querySelector('.search-analytics');
+
+            function renderPieChart(canvasId, labels, data) {
+                const ctx = document.getElementById(canvasId).getContext('2d');
+
+                const colors = labels.map((_, index) => generateColor(index, labels.length));
+
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: colors,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {position: 'bottom'},
+                            tooltip: {
+                                callbacks: {
+                                    label: (tooltipItem) => `${tooltipItem.label}: ${tooltipItem.raw}`,
+                                },
+                            },
+                        },
+                    },
+                });
+            }
+
+            function renderBarChart(canvasId, labels, data) {
+                const ctx = document.getElementById(canvasId).getContext('2d');
+
+                const colors = labels.map((_, index) => generateColor(index, labels.length));
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Responses',
+                            data: data,
+                            backgroundColor: colors,
+                            borderColor: colors,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {display: false},
+                            tooltip: {
+                                callbacks: {
+                                    label: (tooltipItem) => `${tooltipItem.raw} responses`,
+                                },
+                            },
+                        },
+                    },
+                });
+            }
+
+            function generateColor(index, total) {
+                const hue = (index / total) * 360;
+                const saturation = 70 + Math.random() * 10;
+                const lightness = 50 + Math.random() * 10;
+                return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+            }
+
+            function renderAnalytics(analytics) {
+                let analyticsHTML = '';
+
+                analytics.forEach(({question, stats}, index) => {
+                    const pieCanvasId = `pie-chart-${index}`;
+                    const barCanvasId = `bar-chart-${index}`;
+
+                    analyticsHTML += `
+                       <div class="analytics-card card" style="margin-bottom: 15px;">
+                           <div class="card-header" style="background-color: #f5f5f5; font-weight: bold; font-size: 1.2rem;">
+                               ${index + 1}. ${question}
+                           </div>
+                           <div class="card-body" style="padding: 10px;">
+                               <div class="chart-group" style="display: flex; gap: 10px; align-items: center;">
+                                   <div style="flex: 1; position: relative; padding-top: 25%; height: 0; margin: 0;">
+                                       <canvas id="${pieCanvasId}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+                                   </div>
+                                   <div style="flex: 1; position: relative; padding-top: 25%; height: 0; margin: 0;">
+                                       <canvas id="${barCanvasId}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   `;
+
+                    setTimeout(() => {
+                        const labels = stats.map(stat => stat.answer);
+                        const data = stats.map(stat => stat.count);
+
+                        renderPieChart(pieCanvasId, labels, data);
+                        renderBarChart(barCanvasId, labels, data);
+                    }, 0);
+                });
+
+                return analyticsHTML;
+            }
+
+
+            searchButton.addEventListener('click', async () => {
+                const formId = document.getElementById('form-id-input').value.trim();
+                const startDate = document.getElementById('start-date-input').value.trim();
+                const endDate = document.getElementById('end-date-input').value.trim();
+
+                if (!formId && !startDate && !endDate) {
+                    alert('Please provide at least one filter to search.');
+                    return;
+                }
+
+                try {
+                    let url = '/feedbacks/analytics';
+                    const params = new URLSearchParams();
+
+                    if (formId) params.append('formId', formId);
+                    if (startDate) params.append('startDate', startDate);
+                    if (endDate) params.append('endDate', endDate);
+
+                    url += `?${params.toString()}`;
+
+                    const response = await fetch(url);
+                    const analyticsData = await response.json();
+
+                    analyticsContainer.innerHTML = '';
+
+                    if (analyticsData.length === 0) {
+                        analyticsContainer.innerHTML = '<p>No analytics data found matching the criteria.</p>';
+                        return;
+                    }
+
+                    analyticsContainer.innerHTML = renderAnalytics(analyticsData);
+
+                } catch (error) {
+                    console.error('Error fetching analytics:', error);
+                    alert('Failed to fetch analytics data. Please try again later.');
+                }
+            });
+        });
+

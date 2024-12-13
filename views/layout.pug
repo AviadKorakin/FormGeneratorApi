@@ -8,6 +8,7 @@ html(lang="en")
     link(rel="stylesheet", href="/stylesheets/builder.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css")
     link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap")
+
   body
     .wrapper
       header
@@ -16,7 +17,7 @@ html(lang="en")
             a.brand(href="/") FeedbacksApi
             ul.nav-links
               li
-                a(href="/about") About
+                a(href="/") About
               li
                 a(href="/form-builder") Build Form
               li
@@ -25,6 +26,8 @@ html(lang="en")
                 a(href="/remove-form") Remove Form
               li
                 a(href="/feedbacks-viewer") View Feedbacks
+              li
+                a(href="/analytics-viewer") View Analytics
       main.container
         block content
       footer.footer
@@ -44,4 +47,4 @@ html(lang="en")
               a(href="https://github.com")
                 i.fab.fa-github
 
-script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+

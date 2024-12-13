@@ -59,12 +59,12 @@ block content
 
                 // Feedbacks Container
                 #feedbacks-container
-
-    script(src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous")
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
     script.
         document.addEventListener('DOMContentLoaded', () => {
             const feedbacksContainer = document.getElementById('feedbacks-container');
             const searchButton = document.querySelector('.search-feedbacks');
+
 
             // Function to render stars, including fractional stars
             function renderStars(rating) {
@@ -98,15 +98,15 @@ block content
                         case 'textbox':
                             formattedAnswer = `
                               <input type="text" value="${answer}" disabled
-                                  style="width: 100%; padding: 5px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                                  style="width: 95%;margin-left: 20px;margin-right: 20px; padding: 5px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
                           `;
                             break;
                         case 'star':
-                            formattedAnswer = `<div style="margin-top: 5px;">${renderStars(parseFloat(answer))}</div>`;
+                            formattedAnswer = `<div style="margin-left: 20px;">${renderStars(parseFloat(answer))}</div>`;
                             break;
                         case 'combobox':
                             formattedAnswer = `
-                              <select disabled style="width: 100%; padding: 5px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                              <select disabled style="width: 95%; padding: 5px; margin-top: 5px;margin-left: 20px; border: 1px solid #ccc; border-radius: 4px;">
                                   <option>${answer}</option>
                               </select>
                           `;
@@ -114,6 +114,16 @@ block content
                         case 'title':
                             formattedAnswer = `<h4 style="margin-top: 5px;">${answer}</h4>`;
                             break;
+
+                        case 'scale-bar':
+                            formattedAnswer = `
+                                            <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px; margin-left: 20px;">
+                                                <i class="fas fa-sliders-h" style="font-size: 1.5rem; color: #3498db;"></i>
+                                                <span style="font-weight: bold; font-size: 1rem;">${answer}</span>
+                                            </div>
+                                        `;
+                            break;
+
                         default:
                             formattedAnswer = `<p style="margin-top: 5px;">${answer}</p>`;
                             break;
@@ -135,7 +145,7 @@ block content
             // Function to render feedback cards
             function renderFeedbackCard(feedback) {
                 return `
-                   <div class="feedback-card card">
+                   <div class="feedback-card card" style="margin-bottom: 8px">
                        <div class="card-header d-flex justify-content-between align-items-center">
                            <div>
                                <div class="d-flex align-items-center" style="gap: 8px;">
