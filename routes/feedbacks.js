@@ -1,7 +1,6 @@
 const express = require('express');
 const Feedback = require('../models/Feedback'); // Assuming the Feedback model is in the models directory
 const validator = require('validator');
-const axios = require("axios"); // Import the validator library
 const router = express.Router();
 
 router.post('/', async (req, res) => {

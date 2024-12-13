@@ -1,10 +1,8 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const mongoose = require('mongoose'); // Add mongoose to close connection
 const formRoutes = require('./routes/forms');
 const feedbackRoutes = require('./routes/feedbacks');
 
@@ -32,7 +30,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(favicon(path.join(__dirname, 'public', 'mylogo.ico')))
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
