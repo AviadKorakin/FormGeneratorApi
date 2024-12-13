@@ -1,11 +1,11 @@
 # Form Generator API
 
 <div align="center">
-  <img src="public/images/mylogo.png" alt="Form Builder API Logo" style="width: 150px; height: auto;"/>
+  <img src="public/images/mylogo.png" alt="Form Generator API Logo" style="width: 150px; height: auto;"/>
 </div>
 
 ## Overview
-The **Form Builder API** is a powerful tool designed for creating dynamic, customizable forms with advanced features for both web and mobile platforms. It integrates seamlessly with **Express.js**, **MongoDB**, **GROQ**, and **Llama** for a robust backend, while **Pug**, **Sortable.js**, **Chart.js**, and **jQuery** power the frontend. It provides developers with the ability to:
+The **Form Generator API** is a powerful tool designed for creating dynamic, customizable forms with advanced features for both web and mobile platforms. It integrates seamlessly with **Express.js**, **MongoDB**, **GROQ**, and **Llama** for a robust backend, while **Pug**, **Sortable.js**, **Chart.js**, and **jQuery** power the frontend. It provides developers with the ability to:
 
 - Generate intelligent forms with AI using Llama.
 - Store, retrieve, and update forms in MongoDB.
