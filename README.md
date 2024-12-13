@@ -134,7 +134,7 @@ Retrieve a form by its ID.
   "_id": "62df5b8451d9e80008a12345",
   "name": "Customer Feedback Form",
   "theme": "light",
-  "components": [ ... ]
+  "components": [ "..." ]
 }
 ```
 
@@ -206,7 +206,7 @@ Submit feedback for a form.
 ```json
 {
   "message": "Feedback submitted successfully!",
-  "feedback": { ... }
+  "feedback": { "Data" : "..."}
 }
 ```
 
@@ -221,7 +221,7 @@ Retrieve all feedback.
   {
     "formId": "62df5b8451d9e80008a12345",
     "email": "user@example.com",
-    "responses": { ... },
+    "responses": { "Data" : "..." },
     "date": "2024-12-13T10:00:00Z"
   }
 ]
@@ -244,7 +244,7 @@ Filter feedback by form ID, email, or date range.
   {
     "formId": "62df5b8451d9e80008a12345",
     "email": "user@example.com",
-    "responses": { ... },
+    "responses": { "Data" : "..." },
     "date": "2024-12-13T10:00:00Z"
   }
 ]
