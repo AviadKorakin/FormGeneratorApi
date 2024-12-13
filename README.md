@@ -1,6 +1,8 @@
-# Form Builder API
+# Form Generator API
 
-![Form Builder API Logo](public/images/mylogo.png)
+<div align="center">
+  <img src="public/images/mylogo.png" alt="Form Builder API Logo" style="width: 150px; height: auto;"/>
+</div>
 
 ## Overview
 The **Form Builder API** is a powerful tool designed for creating dynamic, customizable forms with advanced features for both web and mobile platforms. It integrates seamlessly with **Express.js**, **MongoDB**, **GROQ**, and **Llama** for a robust backend, while **Pug**, **Sortable.js**, **Chart.js**, and **jQuery** power the frontend. It provides developers with the ability to:
