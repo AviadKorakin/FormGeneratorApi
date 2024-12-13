@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const { exec } = require('child_process'); // For running Docker commands
+require('dotenv').config();
 
-const mongoURI = 'mongodb://127.0.0.1:27017/formgenerator-api';
+const mongoURI = process.env.MONGO_URI ;
 
 const connectDB = async () => {
     try {

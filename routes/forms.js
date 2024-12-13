@@ -351,8 +351,9 @@ router.post('/generate-form/:subject/:theme', async (req, res) => {
 You are a form generator that outputs modular forms in JSON. 
 form must has minimum 15 components.
 Explore deeply into the subject for meaningful and specific content. For example, if the subject is math, include questions or prompts directly related to mathematical topics or problem-solving.  
-Validate that all text properties are non-empty, appropriately formatted, and align with the type of component. If invalid, regenerate the content to correct the issue.
-Ensure no component text is repeated.
+Validate that all text properties are non-empty, appropriately formatted, and align with the type of component. If invalid, regenerate the content to correct the issue. 
+Ensure no component text is repeated. 
+Ensure that the text does not include the character '. If the character is present, remove it.
 Ensure each component question is not empty string or null starts with a capital letter and ends with a ? char. Titles do not require a ? char. 
 Add a title for every 3 components, ensuring the form alternates consistently between titles and groups of three components. Titles:  
 Cannot be the last component in the form.  

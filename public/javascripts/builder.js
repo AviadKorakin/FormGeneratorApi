@@ -3,6 +3,9 @@ let questionCount=1;
 let componentCount=1;
 let mode;
 let  elementCache = new Map();
+let colorCycleInterval = null;
+
+const colors = ['#2ee7fc', '#d1f032', '#fd2629', '#ff8914']; // Custom colors for the dots
 
 
 async function fetchFormData(formId) {
@@ -848,16 +851,39 @@ function updateQuestionNumbers() {
     });
 }
 function showOverlay() {
-    const overlay = getElementById('overlay');
+    const overlay = document.getElementById('overlay');
+    const dots = document.querySelectorAll('#loading-dots .dot');
+
     if (overlay) {
         overlay.style.visibility = 'visible';
     }
+
+    let currentIndex = 0; // To track the current color
+
+    // Start the color cycling interval
+    colorCycleInterval = setInterval(() => {
+        dots.forEach((dot, index) => {
+            // Cycle through colors for each dot
+            const colorIndex = (currentIndex + index) % colors.length;
+            dot.style.backgroundColor = colors[colorIndex];
+        });
+
+        // Move to the next color in the cycle
+        currentIndex = (currentIndex + 1) % colors.length;
+    }, 500); // Change color every 500ms
 }
 
 function hideOverlay() {
-    const overlay = getElementById('overlay');
+    const overlay = document.getElementById('overlay');
+
     if (overlay) {
         overlay.style.visibility = 'hidden';
+    }
+
+    // Clear the interval to stop color cycling
+    if (colorCycleInterval) {
+        clearInterval(colorCycleInterval);
+        colorCycleInterval = null;
     }
 }
 

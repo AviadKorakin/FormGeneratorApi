@@ -3,19 +3,24 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title #{title} - ReviewUs
+    title #{title} - FormGeneratorApi
     link(rel="stylesheet", href="/stylesheets/style.css")
     link(rel="stylesheet", href="/stylesheets/builder.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css")
     link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap")
+    link(rel="icon" href="/mylogo.ico")
+
 
   body
     .wrapper
       header
         nav.navbar
           .container
-            a.brand(href="/") FeedbacksApi
+            a.brand(href="/")
+              img(src="/images/mylogo.png", alt="FormGeneratorApi Logo", class="navbar-logo")
+              | FormGeneratorApi
             ul.nav-links
+
               li
                 a(href="/") About
               li
@@ -32,19 +37,13 @@ html(lang="en")
         block content
       footer.footer
         .container
-          p &copy; #{new Date().getFullYear()} ReviewUs. All rights reserved.
+          p &copy; #{new Date().getFullYear()} FormGeneratorApi. All rights reserved.
           ul.footer-links
             li
-              a(href="https://twitter.com")
-                i.fab.fa-twitter
-            li
-              a(href="https://facebook.com")
-                i.fab.fa-facebook
-            li
-              a(href="https://linkedin.com")
+              a(href="https://www.linkedin.com/in/aviad-korakin-477b78202")
                 i.fab.fa-linkedin
             li
-              a(href="https://github.com")
+              a(href="https://github.com/AviadKorakin/FormGeneratorApi")
                 i.fab.fa-github
 
 
