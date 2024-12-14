@@ -1,4 +1,5 @@
 /* General Reset */
+
 * {
   margin: 0;
   padding: 0;
@@ -7,10 +8,10 @@
 
 html, body {
   height: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', cursive;
   line-height: 1.6;
-  background-color: #f4f4f9;
-  color: #333;
+  background-color: #333333;
+  color: #000000;
 }
 
 /* Wrapper for Sticky Footer Layout */
@@ -144,7 +145,7 @@ a:hover {
 
 /* Navbar */
 .navbar {
-  background: #333;
+  background: #292647;
   color: #fff;
   padding: 1rem 0;
 }
@@ -178,6 +179,10 @@ a:hover {
   font-size: 1rem;
   transition: color 0.3s ease;
 }
+h1
+{
+  color: #fff;
+}
 
 .navbar .nav-links a:hover {
   color: #ff9800;
@@ -194,7 +199,8 @@ main.container {
   width: 90%; /* Make the container almost as wide as the screen */
   max-width: 1400px; /* Prevent it from becoming too wide on large screens */
   margin: 2rem auto; /* Center the container horizontally and add vertical spacing */
-  background: #fff; /* White background for clarity */
+  background: #292647; /* White background for clarity */
+  color: #ffffff;
   border-radius: 10px; /* Subtle corner rounding for a modern look */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
   line-height: 1.8; /* Improve text readability */
@@ -202,7 +208,7 @@ main.container {
 
 /* Footer */
 .footer {
-  background: #333;
+  background: #292647;
   color: #fff;
   text-align: center;
   padding: 1.5rem 0;
@@ -287,82 +293,4 @@ main.container {
 
 .button-group button:last-child {
   margin-right: 0; /* No margin for the last button */
-}
-@media (prefers-color-scheme: light) {
-  html, body {
-    background-color: #1e272e; /* Dark background */
-    color: #dcdde1; /* Light text for readability */
-  }
-
-  .navbar {
-    background: #2c3e50; /* Darker navbar */
-    color: #ecf0f1; /* Lighter text */
-  }
-
-  .navbar .brand {
-    color: #ecf0f1;
-  }
-
-  .navbar .nav-links a {
-    color: #ecf0f1;
-  }
-
-  .navbar .nav-links a:hover {
-    color: #f39c12; /* Bright hover effect */
-  }
-
-  main.container {
-    background: #2c3e50; /* Dark container background */
-    color: #dcdde1; /* Light text */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
-  }
-
-  .footer {
-    background: #2c3e50; /* Dark footer */
-    color: #ecf0f1; /* Light footer text */
-  }
-
-  .footer-links a {
-    color: #ecf0f1;
-  }
-
-  .footer-links a:hover {
-    color: #f39c12; /* Bright hover effect */
-  }
-
-  #save-form {
-    background-color: #1d4ed8; /* Darker blue button */
-    color: #ecf0f1;
-  }
-
-  #save-form:hover {
-    background-color: #2563eb; /* Slightly brighter blue */
-  }
-
-  .copy-button {
-    background-color: #0077ff; /* Bright blue */
-    color: #ecf0f1;
-  }
-
-  .copy-button:hover {
-    background-color: #005bb5; /* Darker blue */
-  }
-
-  .save-button {
-    background-color: #218c74; /* Dark green button */
-    color: #ecf0f1;
-  }
-
-  .save-button:hover {
-    background-color: #1e7e61; /* Slightly darker green */
-  }
-
-  .button-group button {
-    background-color: #2f3640; /* Darker button group */
-    color: #dcdde1; /* Light text */
-  }
-
-  .button-group button:hover {
-    background-color: #576574; /* Highlighted button */
-  }
 }

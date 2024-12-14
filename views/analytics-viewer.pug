@@ -25,13 +25,13 @@ block content
                                         label(for="start-date-input" class="mt-3" style="font-weight: bold;")
                                             i.fas.fa-calendar-alt(style="color: #16a085; margin-right: 5px;")
                                             span Start Date
-                                        input#start-date-input(type="date" class="form-control mt-2")
+                                        input#start-date-input(type="text" class="form-control mt-2" placeholder="Select a start date")
 
                                         // End Date
                                         label(for="end-date-input" class="mt-3" style="font-weight: bold;")
                                             i.fas.fa-calendar-check(style="color: #8e44ad; margin-right: 5px;")
                                             span End Date
-                                        input#end-date-input(type="date" class="form-control mt-2")
+                                        input#end-date-input(type="text" class="form-control mt-2" placeholder="Select a end date")
 
                                         // Search Button
                                         .row.mt-4
@@ -48,12 +48,29 @@ block content
 
                 // Analytics Container
                 #analytics-container
+
     script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/flatpickr")
     script(src="https://cdn.jsdelivr.net/npm/chart.js")
     script.
         document.addEventListener('DOMContentLoaded', () => {
             const analyticsContainer = document.getElementById('analytics-container');
             const searchButton = document.querySelector('.search-analytics');
+
+            // Initialize Flatpickr for Start Date and End Date
+            flatpickr('#start-date-input', {
+                altInput: true,
+                altFormat: 'd/m/Y', // Display format
+                dateFormat: 'Y-m-d', // Backend format
+                theme: 'dark', // Optional: dark mode
+            });
+
+            flatpickr('#end-date-input', {
+                altInput: true,
+                altFormat: 'd/m/Y', // Display format
+                dateFormat: 'Y-m-d', // Backend format
+                theme: 'dark', // Optional: dark mode
+            });
 
             function renderPieChart(canvasId, labels, data) {
                 const ctx = document.getElementById(canvasId).getContext('2d');
@@ -67,6 +84,7 @@ block content
                         datasets: [{
                             data: data,
                             backgroundColor: colors,
+                            borderWidth: 0
                         }]
                     },
                     options: {
@@ -150,7 +168,7 @@ block content
 
                     analyticsHTML += `
                        <div class="analytics-card card" style="margin-bottom: 15px;">
-                           <div class="card-header" style="background-color: #f5f5f5; font-weight: bold; font-size: 1.2rem;">
+                           <div class="card-header" style="font-weight: bold; font-size: 1.2rem;">
                                ${index + 1}. ${question}
                            </div>
                            <div class="card-body" style="padding: 10px;">
@@ -217,4 +235,3 @@ block content
                 }
             });
         });
-

@@ -1,29 +1,29 @@
 extends layout
 
 block content
-  img(src="/images/mylogo.png", alt="Form Builder API Logo", class="api-logo")
+  div.overview-container(style="background-color: #292647; padding: 20px; border: 10px solid 292647; border-radius: 12px;")
+    img(src="/images/mylogo.png", alt="Form Builder API Logo", class="api-logo", style="display: block; margin: 0 auto;")
+    h1.page-title(style="color: #ffffff; text-align: center;") Overview
+    p.description(style="color: #ffffff; text-align: center;") The Form Builder API is a comprehensive solution for building dynamic, customizable forms for both web and mobile platforms. It integrates robust backend technologies like Express.js, MongoDB, GROQ, and Llama, and utilizes a feature-rich frontend powered by Pug, Sortable.js, Chart.js, and jQuery.
 
-  h1.page-title(style="color: #000000;") Overview
-  p.description The Form Builder API is a comprehensive solution for building dynamic, customizable forms for both web and mobile platforms. It integrates robust backend technologies like Express.js, MongoDB, GROQ, and Llama, and utilizes a feature-rich frontend powered by Pug, Sortable.js, Chart.js, and jQuery.
-
-  h2.section-title(style="color: #000000;") Key Features
+  h2.section-title(style="color: #ffffff;") Key Features
   section.features
-    .feature.card
+    .feature.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
       h3(style="color: #FF4500;")
         span.i-unique(style="color: #FF4500;") 📋
         | AI-Driven Form Generation
       p(style="margin-left: 2rem;") Generate modular forms effortlessly with AI-powered suggestions that are thoughtful and visually appealing. Deploy them with seamless validation.
-    .feature.card
+    .feature.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
       h3(style="color: #32CD32;")
         span.i-unique(style="color: #32CD32;") ⚡
         | Seamless Frontend Integration
       p(style="margin-left: 2rem;") Experience fast rendering with Pug templates, drag-and-drop features with Sortable.js, and dynamic visualizations powered by Chart.js.
-    .feature.card
+    .feature.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
       h3(style="color: #1B69D0;")
         span.i-unique(style="color: #1B69D0;") 📱
         | Mobile SDK Integration
       p(style="margin-left: 2rem;") Use API-generated IDs to dynamically load forms into your Android application. Real-time feedback submission is supported for mobile users.
-    .feature.card
+    .feature.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
       h3(style="color: #9370DB;")
         span.i-unique(style="color: #9370DB;") 🛠️
         | Modular Components
@@ -43,13 +43,13 @@ block content
         li
           span(style="color: #FF69B4;") 🔤
           | Titles
-    .feature.card
+    .feature.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
       h3(style="color: #FF8C00;")
         span.i-unique(style="color: #FF8C00;") 📊
         | Feedback Analytics
       p(style="margin-left: 2rem;") Analyze form responses with pie charts and bar graphs. Easily export data for advanced processing.
 
-  h2.section-title(style="color: #000000;") Screenshots
+  h2.section-title(style="color: #ffffff;") Screenshots
   .slider-container(style="position: relative; overflow: hidden;")
     .slider(style="display: flex; transition: transform 0.5s ease-in-out;")
       img(src="/images/1.png", alt="Form Builder UI Screenshot 1", class="slider-image", style="width: 100%; max-width: 300px;")
@@ -58,15 +58,19 @@ block content
       img(src="/images/4.png", alt="Form Update Screenshot", class="slider-image", style="width: 100%; max-width: 300px;")
       img(src="/images/5.png", alt="Feedback Viewer Screenshot", class="slider-image", style="width: 100%; max-width: 300px;")
       img(src="/images/6.png", alt="Feedback Analytics Screenshot", class="slider-image", style="width: 100%; max-width: 300px;")
+      img(src="/images/7.png", alt="Feedback Analytics Screenshot", class="slider-image", style="width: 100%; max-width: 300px;")
     .slider-navigation
       button(type="button" class="btn btn-icon prev-button" data-type="prev" aria-label="Previous Slide" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); padding: 0; background: none; border: none; opacity: 0.5;")
         i.fas.fa-chevron-left(style="color: rgba(0, 0, 0, 0.7); font-size: 1.5rem;")
       button(type="button" class="btn btn-icon next-button" data-type="next" aria-label="Next Slide" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); padding: 0; background: none; border: none; opacity: 0.5;")
         i.fas.fa-chevron-right(style="color: rgba(0, 0, 0, 0.7); font-size: 1.5rem;")
+  h2.section-title(style="color: #ffffff;") Video
+  .video-container(style="position: relative; padding-top: 56.25%; margin-top: 20px; border: 1px solid #333333; border-radius: 12px; background: #333333;")
+    iframe(src="https://www.youtube.com/embed/pDbSTMJFrAE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 12px;")
 
-  h2.section-title(style="color: #000000;") How to Use
+  h2.section-title(style="color: #ffffff;") How to Use
   section.usage
-    .usage-step.card(style="margin-bottom:15px;")
+    .usage-step.card(style="background: #333333; color: #fff;border: 1px solid #333333; margin-bottom:15px; ")
       h3(style="color: #FF6347;")
         span.i-unique(style="color: #FF6347;") 🖋️
         | Step 1: Create a Form
@@ -86,7 +90,7 @@ block content
           |   ]
           | }
 
-    .usage-step.card
+    .usage-step.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
       h3(style="color: #1E90FF;")
         span.i-unique(style="color: #1E90FF;") ✒️
         | Step 2: Use the Form ID in the SDK
@@ -101,7 +105,7 @@ block content
           | });
       p(style="margin-left: 2rem;") Replace "your_form_id" in the code above with the ID generated from our website.
 
-  h2.section-title(style="color: #32CD32;") Contact
+  h2.section-title(style="color: #ffffff;") Contact
   p(style="margin-left: 2rem;")
     span(style="color: #32CD32; font-size: 1.5rem;") 📧
     | For questions or feedback, reach out to

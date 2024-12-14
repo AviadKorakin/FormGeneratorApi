@@ -332,7 +332,7 @@ function generateCollapsibleColorsSection(componentId, colors,withMargin) {
                           -webkit-text-fill-color: transparent;">
                     </i>
                     <span style=" font-weight: bold;">Colors</span>
-                    <i class="fas fa-chevron-down toggle-icon" style="color: #000; margin-left: 10px;"></i>
+                    <i class="fas fa-chevron-down toggle-icon" style="color: #fff; margin-left: 10px;"></i>
                 </button>
                 <div id="colors-${componentId}" class="collapse mt-2" style="max-height: 0; overflow: hidden; ">
                     ${colorPickers}
@@ -348,14 +348,14 @@ function generateColorPickers(colors, componentId) {
             .replace(/([A-Z])/g, ' $1')
             .replace(/^./, (str) => str.toUpperCase());
         html += `
-                    <div class="color-picker-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <div class="color-picker-row" style="display: flex; align-items: center; margin-bottom: 10px; ">
                         <input
                             type="color"
                             class="color-picker"
                             data-key="${key}"
                             data-component-id="${componentId}"
                             value="${value}"
-                            style="width: 40px; height: 30px; margin-right: 10px; border: none;"
+                            style="width: 40px; height: 30px; margin-right: 10px; border: none; background:#333333;"
                         />
                         <label style="font-size: 0.9rem; flex: 1;">${displayKey}</label>
                     </div>`;
