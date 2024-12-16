@@ -12,6 +12,8 @@ const {urlencoded, json} = require("express");
 
 var app = express();
 
+
+
 // Connect to MongoDB and prepare the database
 connectDB()
     .then(() => {

@@ -294,3 +294,10 @@ main.container {
 .button-group button:last-child {
   margin-right: 0; /* No margin for the last button */
 }
+
+
+/* Fallback for other browsers */
+html, body {
+  scrollbar-color: #5000a6 #202020; /* Thumb color, Track color */
+  scrollbar-width: thin; /* Reduce scrollbar width for supported browsers */
+}
