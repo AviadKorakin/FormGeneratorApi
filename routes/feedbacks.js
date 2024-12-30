@@ -140,7 +140,12 @@ router.get('/analytics', async (req, res) => {
         if (startDate || endDate) {
             filter.date = {};
             if (startDate) filter.date.$gte = new Date(startDate);
-            if (endDate) filter.date.$lte = new Date(endDate);
+            if (endDate) {
+                // Add 1 day minus 1 second to include the full day for the endDate
+                const adjustedEndDate = new Date(endDate);
+                adjustedEndDate.setHours(23, 59, 59, 999);
+                filter.date.$lte = adjustedEndDate;
+            }
         }
 
         // Fetch matching feedbacks
@@ -168,7 +173,14 @@ router.get('/analytics', async (req, res) => {
             .map(([question, answers]) => {
                 const stats = Object.entries(answers)
                     .map(([answer, count]) => ({ answer, count }))
-                    .sort((a, b) => b.count - a.count); // Sort answers by count descending
+                    .sort((a, b) => {
+                        // First, sort by count in descending order
+                        if (b.count !== a.count) {
+                            return b.count - a.count;
+                        }
+                        // If counts are equal, sort by answer lexicographically
+                        return a.answer.localeCompare(b.answer);
+                    });
 
                 return { question, stats };
             })

@@ -14,6 +14,22 @@ html, body {
   color: #000000;
 }
 
+::-webkit-scrollbar {
+  width: 5px; /* Customize the width as desired */
+}
+::-webkit-scrollbar-track {
+  background: #202020; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5000a6; /* Thumb color */
+  border-radius: 10px; /* Rounded thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7e29d9; /* Brighter thumb color on hover */
+}
+
 /* Wrapper for Sticky Footer Layout */
 .wrapper {
   min-height: 100%;
@@ -293,11 +309,4 @@ main.container {
 
 .button-group button:last-child {
   margin-right: 0; /* No margin for the last button */
-}
-
-
-/* Fallback for other browsers */
-html, body {
-  scrollbar-color: #5000a6 #202020; /* Thumb color, Track color */
-  scrollbar-width: thin; /* Reduce scrollbar width for supported browsers */
 }

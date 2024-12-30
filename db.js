@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const { exec } = require('child_process'); // For running Docker commands
+const { exec } = require('child_process');
+const initializeData = require("./initializeData"); // For running Docker commands
 require('dotenv').config();
 
 const mongoURI = process.env.MONGO_URI ;
@@ -16,6 +17,10 @@ const connectDB = async () => {
         console.log('Clearing the database...');
         await clearDatabase();
         console.log('Database cleared');
+
+        await initializeData();
+        console.log('Database init successfully.');
+
     } catch (err) {
         console.error('Error setting up the database:', err.message);
         process.exit(1); // Exit on failure

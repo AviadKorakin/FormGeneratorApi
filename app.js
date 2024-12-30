@@ -7,21 +7,22 @@ const formRoutes = require('./routes/forms');
 const feedbackRoutes = require('./routes/feedbacks');
 
 var indexRouter = require('./routes/index');
-const {connectDB,closeDBConnection } = require("./db");
 const {urlencoded, json} = require("express");
+const session = require('express-session');
+const {connectDBAtlas, closeDBAtlasConnection} = require("./dbAtlas");
 
 var app = express();
 
 
 
-// Connect to MongoDB and prepare the database
-connectDB()
+// Connect to MongoDB Atlas
+connectDBAtlas()
     .then(() => {
-      console.log('Database setup complete');
+        console.log('Database setup complete');
     })
     .catch((err) => {
-      console.error('Failed to setup database:', err);
-      process.exit(1);
+        console.error('Failed to setup database:', err);
+        process.exit(1);
     });
 
 // view engine setup
@@ -55,12 +56,25 @@ app.use(function(err, req, res, next) {
 });
 
 
+app.use(
+    session({
+      secret: process.env.SESSION_SECRET || 'your-secret', // Use an environment variable for security
+      resave: false, // Avoid resaving unmodified sessions
+      saveUninitialized: false, // Only save sessions with meaningful data
+      cookie: {
+        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production (requires HTTPS)
+        httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
+        maxAge: 1000 * 60 * 60, // Session expires after 1 hour
+      },
+    })
+);
+
 
 // Handle graceful shutdown
 process.on('SIGINT', async () => {
   console.log('SIGINT signal received: closing HTTP server and MongoDB connection');
   try {
-    await closeDBConnection();
+    await closeDBAtlasConnection();
     console.log('Cleanup complete. Exiting...');
     process.exit(0);
   } catch (err) {

@@ -9,11 +9,19 @@ block content
         .col-md-12
             .form-group
                 label(for="form-id") Select Form ID to Update:
-                select#form-id.form-control(style="max-width: 350px; display: block; margin-bottom: 10px;")
-                    option(value="" disabled selected) Choose a Form ID
-                button#load-form(type="button" class="btn btn-primary btn-sm ml-2")
-                    i.fas.fa-download(style="margin-right: 5px;")
-                    span Load Form
+                // First row: ComboBox and copy icon
+                .row
+                    .col-auto
+                        select#form-id.form-control(style="max-width: 350px; display: inline-block; margin-bottom: 10px;")
+                            option(value="" disabled selected) Choose a Form ID
+                    .col-auto
+                        i#copy-combobox-icon.fas.fa-copy(style="cursor: pointer; color: #3498db; margin-left: 10px; font-size: 1.2rem;")
+                // Second row: Load Form button
+                .row.mt-2
+                    .col
+                        button#load-form(type="button" class="btn btn-primary btn-sm" style="margin-left:20px;")
+                            i.fas.fa-download(style="margin-right: 5px;")
+                            span Load Form
         .row#toolbar-row.hidden
             // Toolbar (Left Side)
             .col-md-4.toolbar
@@ -35,7 +43,7 @@ block content
                                             button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#title-colors")
                                                 i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
                                                 span Colors
-                                                i.fas.fa-chevron-down.toggle-icon(style="color: #000; margin-left:10px;")
+                                                i.fas.fa-chevron-down.toggle-icon(style="color: #fff; margin-left:10px;")
                                             .collapse#title-colors.mt-2
                                                 .row.mt-2
                                                     .col
@@ -82,7 +90,7 @@ block content
                                             button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#combobox-colors")
                                                 i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
                                                 span Colors
-                                                i.fas.fa-chevron-down.toggle-icon(style="color: #000; margin-left:10px;")
+                                                i.fas.fa-chevron-down.toggle-icon(style="color: #fff; margin-left:10px;")
                                             .collapse#combobox-colors.mt-2
                                                 .row.mt-2
                                                     .col
@@ -139,7 +147,7 @@ block content
                                             button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#textbox-colors")
                                                 i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
                                                 span Colors
-                                                i.fas.fa-chevron-down.toggle-icon(style="color: #000; margin-left:10px;")
+                                                i.fas.fa-chevron-down.toggle-icon(style="color: #fff; margin-left:10px;")
                                             .collapse#textbox-colors.mt-2
                                                 .row.mt-2
                                                     .col
@@ -227,7 +235,7 @@ block content
                                             button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#star-rating-colors")
                                                 i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
                                                 span Colors
-                                                i.fas.fa-chevron-down.toggle-icon(style="color: #000; margin-left:10px;")
+                                                i.fas.fa-chevron-down.toggle-icon(style="color: #fff; margin-left:10px;")
                                             .collapse#star-rating-colors.mt-2
                                                 .row.mt-2
                                                     .col
@@ -274,7 +282,7 @@ block content
                                             button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#scalebar-colors")
                                                 i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
                                                 span Colors
-                                                i.fas.fa-chevron-down.toggle-icon(style="color: #000; margin-left:10px;")
+                                                i.fas.fa-chevron-down.toggle-icon(style="color: #fff; margin-left:10px;")
                                             .collapse#scalebar-colors.mt-2
                                                 .row.mt-2
                                                     .col
@@ -312,7 +320,7 @@ block content
                                             button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#design-colors")
                                                 i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
                                                 span Colors
-                                                i.fas.fa-chevron-down.toggle-icon(style="color: #000; margin-left:10px;")
+                                                i.fas.fa-chevron-down.toggle-icon(style="color: #fff; margin-left:10px;")
                                             .collapse#design-colors.mt-2
                                                 .row.mt-2
                                                     .col
@@ -436,6 +444,25 @@ block content
                     console.warn(`Component with ID "${id}" not found.`);
                 }
             });
+
+            $(document).on('click', '#copy-combobox-icon', function () {
+                // Get the selected option's text
+                const selectedText = $('#form-id option:selected').text();
+
+                // Copy the text to the clipboard
+                if (selectedText) {
+                    navigator.clipboard.writeText(selectedText)
+                        .then(() => {
+                            alert(`Form copied to clipboard!`);
+                        })
+                        .catch(err => {
+                            console.error('Failed to copy text: ', err);
+                        });
+                } else {
+                    alert('Please select an option to copy.');
+                }
+            });
+
             $(document).on('input', '.color-picker', function () {
                 const key = $(this).data('key'); // Color key (e.g., textColor, backgroundColor)
                 const componentId = $(this).data('component-id'); // Target component ID
