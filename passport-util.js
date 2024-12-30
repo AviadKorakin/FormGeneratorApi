@@ -1,7 +1,7 @@
 const passportUtil = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 const User = require('./models/User'); // Assuming you will create a User model
-
+const axios = require('axios');
 passportUtil.use(
     new GitHubStrategy(
         {
@@ -11,14 +11,22 @@ passportUtil.use(
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
-                // Log the entire profile JSON from GitHub
                 console.log("GitHub Profile JSON:", JSON.stringify(profile, null, 2));
 
-                // Safeguard against missing emails
-                const email = profile.emails && profile.emails[0] ? profile.emails[0].value : null;
+                let email = profile.emails && profile.emails[0] ? profile.emails[0].value : null;
 
                 if (!email) {
-                    console.error("GitHub profile does not have an email.");
+                    // Fetch emails using the GitHub API
+                    const { data } = await axios.get("https://api.github.com/user/emails", {
+                        headers: { Authorization: `Bearer ${accessToken}` },
+                    });
+
+                    // Find the primary or first email
+                    email = data.find((e) => e.primary)?.email || data[0]?.email;
+                }
+
+                if (!email) {
+                    console.error("Email is still unavailable after fetching from API.");
                     return done(new Error("Email is required but not provided by GitHub."), null);
                 }
 
@@ -27,8 +35,8 @@ passportUtil.use(
                     user = await User.create({
                         githubId: profile.id,
                         username: profile.username,
-                        email, // Use the validated email
-                        confirmed: false, // Initial state
+                        email,
+                        confirmed: false,
                     });
                 }
                 return done(null, user);
