@@ -44,6 +44,16 @@ router.get('/register', (req, res) => {
   res.render('register', { title: 'Register' });
 });
 
+// Render Confirmation Success Page
+router.get('/confirmation-success', (req, res) => {
+  res.render('confirmation-success', { title: 'Confirmation Success' });
+});
+
+// Render Confirmation Pending Page
+router.get('/confirmation-pending', (req, res) => {
+  res.render('confirmation-pending', { title: 'Confirmation Pending' });
+});
+
 
 
 router.get('/success/:id', async (req, res) => {
