@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const formRoutes = require('./routes/forms');
 const feedbackRoutes = require('./routes/feedbacks');
+const userRoutes = require('./routes/users');
 const indexRouter = require('./routes/index');
 const {urlencoded, json} = require("express");
 const session = require('express-session');
@@ -54,6 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/forms', formRoutes);
 app.use('/feedbacks', feedbackRoutes);
+app.use('/users', userRoutes);
 
 // Middleware
 app.use(json());
