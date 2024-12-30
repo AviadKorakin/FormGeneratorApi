@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1 Login
+        i.fas.fa-sign-in-alt(style="margin-left: 10px; color: #3498db;")
+
+    p(style="margin-top: 10px; font-size: 1rem; color: #fff;") Log in with your GitHub account.
+
+    form(action="/users/auth/github" method="get" style="margin-top: 20px; text-align: center;")
+        button(type="submit" class="btn btn-primary")
+            i.fab.fa-github(style="margin-right: 5px;")
+            | Log in with GitHub

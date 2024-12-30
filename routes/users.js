@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('../passport-util');
 const nodemailer = require('nodemailer');
 const User = require('../models/User');
+
 const router = express.Router();
 
 // Initialize Passport middleware
@@ -13,7 +14,7 @@ router.get('/auth/github', passport.authenticate('github', { scope: ['user:email
 
 router.get(
     '/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/' }),
+    passport.authenticate('github', { failureRedirect: '/users/login' }),
     async (req, res) => {
         try {
             // Check if email setup is configured
@@ -21,28 +22,33 @@ router.get(
                 return res.status(500).send('Email setup is not configured.');
             }
 
-            // Send email confirmation
-            const transporter = nodemailer.createTransport({
-                service: 'Gmail',
-                auth: {
-                    user: process.env.email,
-                    pass: process.env.pass,
-                },
-            });
+            // Send confirmation email if not confirmed
+            if (!req.user.confirmed) {
+                const transporter = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: process.env.email,
+                        pass: process.env.pass,
+                    },
+                });
 
-            const confirmationUrl = `https://formgeneratorapi.onrender.com/users/confirm-email/${req.user.id}`;
-            await transporter.sendMail({
-                from: process.env.email,
-                to: req.user.email,
-                subject: 'Confirm Your Email',
-                text: `Click the link to confirm your email: ${confirmationUrl}`,
-                html: `<a href="${confirmationUrl}">Confirm your email</a>`,
-            });
+                const confirmationUrl = `https://formgeneratorapi.onrender.com/users/confirm-email/${req.user.id}`;
+                await transporter.sendMail({
+                    from: process.env.email,
+                    to: req.user.email,
+                    subject: 'Confirm Your Email',
+                    text: `Click the link to confirm your email: ${confirmationUrl}`,
+                    html: `<a href="${confirmationUrl}">Confirm your email</a>`,
+                });
 
-            res.redirect('/confirmation-pending'); // Redirect to a confirmation-pending page
+                return res.redirect('/confirmation-pending');
+            }
+
+            // Redirect to profile if already confirmed
+            res.redirect('/users/profile');
         } catch (error) {
-            console.error('Error sending confirmation email:', error);
-            res.status(500).send('Failed to send confirmation email.');
+            console.error('Error during GitHub callback:', error);
+            res.status(500).send('An error occurred during login.');
         }
     }
 );
@@ -59,17 +65,25 @@ router.get('/confirm-email/:userId', async (req, res) => {
         user.confirmed = true;
         await user.save();
 
-        res.redirect('/confirmation-success'); // Redirect to a success page
+        res.redirect('/confirmation-success');
     } catch (error) {
         console.error('Error confirming email:', error);
         res.status(500).send('Error confirming email.');
     }
 });
 
+// Confirmation Success Page
+router.get('/confirmation-success', (req, res) => {
+    res.render('confirmation-success', { title: 'Confirmation Success' });
+});
+
 // Example Protected Route
 router.get('/profile', (req, res) => {
     if (!req.isAuthenticated()) {
         return res.status(401).send('Unauthorized. Please log in.');
+    }
+    if (!req.user.confirmed) {
+        return res.status(403).send('Please confirm your email before accessing this page.');
     }
     res.send(`Welcome, ${req.user.username}`);
 });

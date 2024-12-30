@@ -35,6 +35,16 @@ router.get('/analytics-viewer', function (req, res, next) {
   });
 });
 
+router.get('/login', (req, res) => {
+  res.render('login', { title: 'Login' });
+});
+
+// Render Register Page
+router.get('/register', (req, res) => {
+  res.render('register', { title: 'Register' });
+});
+
+
 
 router.get('/success/:id', async (req, res) => {
   const formId = req.params.id;

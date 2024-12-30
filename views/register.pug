@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1 Register
+        i.fas.fa-user-plus(style="margin-left: 10px; color: #3498db;")
+
+    p(style="margin-top: 10px; font-size: 1rem; color: #fff;") Register using your GitHub account.
+
+    form(action="/users/auth/github" method="get" style="margin-top: 20px; text-align: center;")
+        button(type="submit" class="btn btn-primary")
+            i.fab.fa-github(style="margin-right: 5px;")
+            | Sign up with GitHub
