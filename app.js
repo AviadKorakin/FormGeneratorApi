@@ -52,6 +52,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET || 'your-secret', // Use an environment variable for security
+        resave: false, // Avoid resaving unmodified sessions
+        saveUninitialized: false, // Only save sessions with meaningful data
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGO_ATLAS_URI, // Use your MongoDB URI
+            ttl: 14 * 24 * 60 * 60, // Session lifetime in seconds (14 days)
+            autoRemove: 'native', // Automatically remove expired sessions
+        }),
+        cookie: {
+            secure: process.env.NODE_ENV === 'production', // Use secure cookies in production (requires HTTPS)
+            httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
+            maxAge: 1000 * 60 * 60, // Session expires after 1 hour
+        },
+    })
+);
+
+
 app.use('/', indexRouter);
 app.use('/forms', formRoutes);
 app.use('/feedbacks', feedbackRoutes);
@@ -73,24 +92,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-
-app.use(
-    session({
-        secret: process.env.SESSION_SECRET || 'your-secret', // Use an environment variable for security
-        resave: false, // Avoid resaving unmodified sessions
-        saveUninitialized: false, // Only save sessions with meaningful data
-        store: MongoStore.create({
-            mongoUrl: process.env.MONGO_ATLAS_URI, // Use your MongoDB URI
-            ttl: 14 * 24 * 60 * 60, // Session lifetime in seconds (14 days)
-            autoRemove: 'native', // Automatically remove expired sessions
-        }),
-        cookie: {
-            secure: process.env.NODE_ENV === 'production', // Use secure cookies in production (requires HTTPS)
-            httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
-            maxAge: 1000 * 60 * 60, // Session expires after 1 hour
-        },
-    })
-);
 
 
 // Handle graceful shutdown
