@@ -399,6 +399,98 @@ textarea:focus {
     justify-content: center;
 }
 
+@media (max-width: 768px) {
+    body {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .row {
+        flex-direction: column; /* Stack elements vertically */
+        gap: 10px; /* Add spacing between elements */
+    }
+
+    .toolbar {
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .toolbar table {
+        font-size: 0.9rem;
+        border-spacing: 5px;
+    }
+
+    .card {
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .card-header {
+        font-size: 1rem;
+        flex-direction: column; /* Stack content vertically */
+        text-align: center; /* Center content */
+    }
+
+    .card-body input,
+    .card-body .btn-icon {
+        width: 100%; /* Full width for easier interaction */
+        font-size: 1rem;
+    }
+
+    .preview {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .preview h2 {
+        font-size: 1.2rem;
+    }
+
+    .preview-card {
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    input[type="date"] {
+        width: 100%; /* Full width for better usability */
+    }
+
+    #form-id,
+    #theme-selection,
+    .combo-box-style,
+    #ai-form-theme {
+        width: 100%; /* Full width for smaller screens */
+    }
+
+    textarea {
+        width: 100%; /* Full width for better usability */
+    }
+
+    #load-form,
+    #remove-form {
+        width: 100%; /* Full width buttons */
+        font-size: 0.9rem;
+    }
+
+    .response-row select {
+        width: 100%; /* Full width for dropdowns */
+    }
+
+    #feedbacks-container {
+        padding: 5px; /* Adjust padding for smaller screens */
+        max-height: 300px; /* Limit max height for smaller devices */
+    }
+
+    .toggle-collapse {
+        font-size: 0.9rem; /* Adjust font size for mobile */
+    }
+
+    .overlay-content {
+        padding: 15px; /* Reduce padding for smaller screens */
+        font-size: 0.9rem;
+    }
+}
+
 .overlay-content {
     background-color: #292647;
     padding: 20px;

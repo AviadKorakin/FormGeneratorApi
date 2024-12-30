@@ -3,7 +3,6 @@ const passport = require('../passport-util');
 const nodemailer = require('nodemailer');
 const User = require('../models/User');
 const router = express.Router();
-require('dotenv').config();
 
 // Initialize Passport middleware
 router.use(passport.initialize());
@@ -31,7 +30,7 @@ router.get(
                 },
             });
 
-            const confirmationUrl = `http://localhost:3000/users/confirm-email/${req.user.id}`;
+            const confirmationUrl = `https://formgeneratorapi.onrender.com/users/confirm-email/${req.user.id}`;
             await transporter.sendMail({
                 from: process.env.email,
                 to: req.user.email,

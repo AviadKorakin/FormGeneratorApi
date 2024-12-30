@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Form = require('../models/Form'); // Import the updated Form model
 const Groq = require("groq-sdk");
-require('dotenv').config();
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 

@@ -1,17 +1,12 @@
 const mongoose = require('mongoose');
 const initializeData = require('./initializeData'); // For running initialization logic
-require('dotenv').config();
-
 const mongoAtlasURI = process.env.MONGO_ATLAS_URI;
 
 // Connect to MongoDB Atlas and initialize the database
 const connectDBAtlas = async () => {
     try {
         console.log('Connecting to MongoDB Atlas...');
-        await mongoose.connect(mongoAtlasURI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        await mongoose.connect(mongoAtlasURI);
         console.log('MongoDB Atlas connected successfully');
 
         console.log('Clearing the database...');

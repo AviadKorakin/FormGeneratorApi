@@ -310,3 +310,111 @@ main.container {
 .button-group button:last-child {
   margin-right: 0; /* No margin for the last button */
 }
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  body {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  /* Navbar */
+  .navbar .container {
+    flex-direction: column; /* Stack brand and nav links vertically */
+    align-items: flex-start; /* Align items to the start */
+  }
+
+  .navbar .nav-links {
+    flex-direction: column; /* Stack links vertically */
+    width: 100%; /* Full width for better spacing */
+    margin: 10px 0; /* Add spacing between brand and links */
+  }
+
+  .navbar .nav-links li {
+    margin: 5px 0; /* Add spacing between links */
+  }
+
+  .navbar-logo {
+    height: 35px; /* Reduce logo size for smaller screens */
+  }
+
+  /* Page Titles */
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    margin: 30px 0 15px;
+  }
+
+  /* Features Section */
+  .features {
+    gap: 5px; /* Reduce gap between features */
+    padding: 10px; /* Add some padding */
+  }
+
+  .feature {
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  /* Slider */
+  .slider-container {
+    max-width: 100%; /* Make slider container responsive */
+    height: 250px; /* Adjust height for smaller screens */
+  }
+
+  .slider-image {
+    height: 250px; /* Ensure images fit within container */
+  }
+
+  /* Buttons */
+  #save-form,
+  .copy-button,
+  .save-button {
+    width: 100%; /* Full width for buttons */
+    margin-top: 10px; /* Add spacing between buttons */
+  }
+
+  .button-group {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Add spacing between buttons */
+  }
+
+  /* Footer */
+  .footer .container {
+    flex-direction: column; /* Stack footer links and text */
+    align-items: center; /* Center-align items */
+    text-align: center; /* Center text */
+  }
+
+  .footer-links {
+    flex-direction: column; /* Stack links vertically */
+    margin: 10px 0; /* Add spacing between links */
+  }
+
+  .footer-links li {
+    margin: 5px 0; /* Reduce spacing for smaller screens */
+  }
+
+  /* Main Content */
+  main.container {
+    width: 95%; /* Reduce width slightly for better fit */
+    padding: 1rem; /* Adjust padding */
+  }
+
+  /* Quick Start Section */
+  .quick-start pre {
+    font-size: 0.9rem; /* Reduce font size */
+    padding: 8px; /* Adjust padding */
+  }
+
+  /* Reduce margins for smaller screens */
+  .feature, .section-title, .page-title, .footer {
+    margin: 20px 0; /* Reduce vertical margins */
+  }
+}
