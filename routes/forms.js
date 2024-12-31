@@ -356,7 +356,7 @@ router.post('/generate-form/:subject/:theme',ensureAuthenticated, async (req, re
         }
 
         const userId = req.user._id;
-        const route = req.originalUrl;
+        const route = '/generate-form'; // Static route path without params
 
         // Count the user's requests to this route in the last 24 hours
         const now = new Date();
