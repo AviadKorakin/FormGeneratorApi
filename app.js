@@ -68,12 +68,21 @@ app.use(
             secure: process.env.NODE_ENV === 'production', // Use secure cookies in production (requires HTTPS)
             httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
             maxAge: 1000 * 60 * 60, // Session expires after 1 hour
-            sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
         },
     })
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+app.use((req, res, next) => {
+    const originalSend = res.send;
+    res.send = function (...args) {
+        console.log('Outgoing Headers:', res.getHeaders());
+        return originalSend.apply(res, args);
+    };
+    next();
+});
 
 app.use((req, res, next) => {
     console.log('Outgoing Cookies:', res.get('Set-Cookie'));
