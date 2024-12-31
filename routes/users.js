@@ -13,47 +13,7 @@ router.get(
     passport.authenticate('github', { failureRedirect: '/users/login' }),
     async (req, res) => {
         try {
-
-            const currentSessionId = req.sessionID;
-            const sessionStore = req.sessionStore;
-
-            if (sessionStore && typeof sessionStore.all === 'function') {
-                sessionStore.all((err, sessions) => {
-                    if (err) {
-                        console.error('Error accessing session store:', err);
-                        return res.status(500).send('Session store error.');
-                    }
-
-                    try {
-                        console.log("sessions:", sessions);
-                        // Filter for user sessions based on the user ID
-                        const userSessionIds = Object.values(sessions) // Get all session objects
-                            .filter((session) => session.passport && session.passport.user === req.user.id) // Filter sessions matching user ID
-                            .map((session) => session._id); // Extract session IDs
-
-                        console.log("User session IDs:", userSessionIds);
-                        console.log("Current session ID:", currentSessionId);
-
-                        // Destroy all sessions except the current one
-                        userSessionIds.forEach((sessionId) => {
-                            if (sessionId !== currentSessionId) {
-                                sessionStore.destroy(sessionId, (err) => {
-                                    if (err) {
-                                        console.error(`Failed to destroy session ${sessionId}:`, err);
-                                    } else {
-                                        console.log(`Destroyed session ${sessionId}`);
-                                    }
-                                });
-                            }
-                        });
-                    } catch (error) {
-                        console.error("Error processing sessions:", error);
-                        return res.status(500).send('Failed to process sessions.');
-                    }
-                });
-            }
-
-
+            
             if (!process.env.email || !process.env.pass) {
                 return res.status(500).send('Email setup is not configured.');
             }
