@@ -4,7 +4,9 @@ const {ensureAuthenticated, ensureFirstStepAuthenticated} = require("../middlewa
 var router = express.Router();
 
 
-
+const axiosInstance = axios.create({
+  maxRedirects: 0, // Prevent following redirects
+});
 
 /* GET home page. */
 router.get('/',function(req, res, next) {
@@ -65,7 +67,7 @@ router.get('/success/:id',ensureAuthenticated, async (req, res) => {
 
     // Validate the formId using the /forms/:id route
     //const response = await axios.get(`http://localhost:${port}/forms/${formId}`);
-    const response = await axios.get(`https://formgeneratorapi.onrender.com/forms/${formId}`);
+    const response = await axiosInstance.get(`https://formgeneratorapi.onrender.com/forms/${formId}`);
     console.log("Axios response:", response);
     console.log("The form id 2 is "+ response.data._id);
     // If the form exists, render the success page
