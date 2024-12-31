@@ -50,16 +50,23 @@ passportUtil.use(
 
 
 passportUtil.serializeUser((user, done) => {
+    console.log(`Serializing user with ID: ${user.id}`); // Log the user ID being serialized
     done(null, user.id);
 });
 
 passportUtil.deserializeUser(async (id, done) => {
+    console.log(`Deserializing user with ID: ${id}`); // Log the ID being deserialized
     try {
         const user = await User.findById(id);
+        if (user) {
+            console.log(`User found during deserialization: ${JSON.stringify(user)}`); // Log the user details
+        } else {
+            console.log(`User not found with ID: ${id}`); // Log if no user is found
+        }
         done(null, user);
     } catch (error) {
+        console.error(`Error during deserialization for user ID ${id}:`, error); // Log any errors
         done(error, null);
     }
 });
-
 module.exports = passportUtil;
