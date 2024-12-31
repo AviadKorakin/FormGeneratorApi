@@ -13,7 +13,7 @@ const session = require('express-session');
 const {connectDBAtlas, closeDBAtlasConnection} = require("./dbAtlas");
 const {connectDB, closeDBConnection} = require("./db");
 const MongoStore = require('connect-mongo');
-const passport = require('passport'); // Adjust import as needed
+const passport = require("./passport-util");
 
 
 const app = express();
