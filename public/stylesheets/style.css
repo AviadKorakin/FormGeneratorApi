@@ -359,7 +359,25 @@ main.container {
   visibility: visible;
   opacity: 1;
 }
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .overlay-git-icon {
-  color: white;
-  font-size: 20rem;
+  font-size: 5rem; /* Adjust size as needed */
+  color: #fff; /* Default color */
+  transition: color 0.3s ease;
+}
+
+.overlay-git-icon.pulsing {
+  animation: pulse 1s infinite; /* Add pulsing animation */
+  color: #fff; /* Optional: Change color during pulsing */
 }

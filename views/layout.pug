@@ -54,15 +54,25 @@ html(lang="en")
         i.fab.fa-github.overlay-git-icon
 
     script.
-      const currentPage = window.location.pathname;
       async function handleAuth() {
         try {
           console.log('Starting GitHub authentication');
-          showGitOverlay(); // Show the overlay
+          const overlayIcon = document.querySelector('.overlay-git-icon');
+
+          // Show the overlay and start the pulsing effect
+          showGitOverlay();
+          overlayIcon.classList.add('pulsing');
+
+          // Simulate the GitHub authentication redirect
           window.location.href = '/users/auth/github';
         } catch (error) {
           console.error('Authentication error:', error);
-          hideGitOverlay(); // Hide overlay on error
+
+          // Stop the pulsing effect on error
+          const overlayIcon = document.querySelector('.overlay-git-icon');
+          overlayIcon.classList.remove('pulsing');
+
+          hideGitOverlay();
         }
       }
 
@@ -74,6 +84,9 @@ html(lang="en")
       function hideGitOverlay() {
         const overlay = document.getElementById('github-overlay');
         overlay.classList.remove('active');
+
+        const overlayIcon = document.querySelector('.overlay-git-icon');
+        overlayIcon.classList.remove('pulsing'); // Stop pulsing when overlay hides
       }
 
       function pollElements(){
