@@ -111,10 +111,11 @@ app.use('/feedbacks', feedbackRoutes);
 app.use('/users', userRoutes);
 
 app.use((req, res, next) => {
+    console.log("Is Authenticated:", req.isAuthenticated());
+    console.log("User:", req.user);
     res.locals.user = req.isAuthenticated() ? req.user : null;
     next();
 });
-
 // Middleware
 app.use(json());
 app.use(urlencoded({ extended: true }));
