@@ -16,6 +16,14 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/');
 }
 
+function ensureFirstStepAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+      return next(); // User is authenticated and email is confirmed
+  }
+  res.redirect('/');
+}
+
+
 /* GET home page. */
 router.get('/',function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -57,7 +65,7 @@ router.get('/confirmation-success',ensureAuthenticated, (req, res) => {
 });
 
 // Render Confirmation Pending Page
-router.get('/confirmation-pending', ensureAuthenticated,(req, res) => {
+router.get('/confirmation-pending', ensureFirstStepAuthenticated,(req, res) => {
   res.render('confirmation-pending', { title: 'Confirmation Pending' });
 });
 

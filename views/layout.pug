@@ -83,20 +83,10 @@ html(lang="en")
           }
       }
       else if(currentPage === '/confirmation-success') {
-        const user = !{JSON.stringify(user || null)};
-        if (user) {
-          document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('.nav-links.tabs').classList.add('hidden');
-            document.querySelector('.sign-in-btn').classList.remove('hidden');
-            window.location.href = '/confirmation-pending';
-          });
-        }
-         else {
           document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.nav-links.tabs').classList.add('hidden');
             document.querySelector('.sign-in-btn').classList.remove('hidden');
           });
-        }
       }
 
 
