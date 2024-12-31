@@ -112,12 +112,16 @@ router.get('/resend-confirmation', async (req, res) => {
 
 router.get('/status', (req, res) => {
     if (req.isAuthenticated()) {
-        return res.json({ loggedIn: true });
+        if (!req.user.confirmed) {
+            // If the user's email is not confirmed, redirect to confirmation page
+            return res.json({ loggedIn: true, confirmed: false });
+        }
+        // User is logged in and confirmed
+        return res.json({ loggedIn: true, confirmed: true });
     }
-
+    // User is not logged in
     res.json({ loggedIn: false });
 });
-
 // Example Protected Route
 router.get('/profile', (req, res) => {
     if (!req.isAuthenticated()) {

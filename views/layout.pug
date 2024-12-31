@@ -26,8 +26,6 @@ html(lang="en")
                   |  Sign In with GitHub
             ul.nav-links.tabs
               li
-                a(href="/") About
-              li
                 a(href="/form-builder") Build Form
               li
                 a(href="/update-form") Update Form
@@ -55,7 +53,7 @@ html(lang="en")
     script.
       async function handleAuth() {
         try {
-          console.log('Starting GitHub authentication'); // Add this log
+          console.log('Starting GitHub authentication');
           window.location.href = '/users/auth/github';
         } catch (error) {
           console.error('Authentication error:', error);
@@ -66,13 +64,25 @@ html(lang="en")
         try {
           const response = await fetch('/users/status');
           const data = await response.json();
+
           if (data.loggedIn) {
-            document.querySelector('.nav-links.tabs').classList.remove('hidden');
-            document.querySelector('.sign-in-btn').classList.add('hidden');
+            if (!data.confirmed) {
+              // User is logged in but not confirmed, redirect to confirmation page
+              window.location.href = '/confirmation-pending';
+            } else {
+              // User is logged in and confirmed
+              document.querySelector('.nav-links.tabs').classList.remove('hidden');
+              document.querySelector('.sign-in-btn').classList.add('hidden');
+            }
+          } else {
+            // User is not logged in, keep the "Sign in with GitHub" button
+            document.querySelector('.nav-links.tabs').classList.add('hidden');
+            document.querySelector('.sign-in-btn').classList.remove('hidden');
           }
         } catch (error) {
           console.error('Error checking user status:', error);
         }
       }
 
+      // Run the status check on page load
       checkUserStatus();
