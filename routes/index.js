@@ -64,7 +64,8 @@ router.get('/success/:id',ensureAuthenticated, async (req, res) => {
     console.log(`Dynamic port retrieved: ${port}`);
 
     // Validate the formId using the /forms/:id route
-    const response = await axios.get(`http://localhost:${port}/forms/${formId}`);
+    //const response = await axios.get(`http://localhost:${port}/forms/${formId}`);
+    const response = await axios.get(`https://formgeneratorapi.onrender.com/forms/${formId}`);
 
     // If the form exists, render the success page
     res.render('success', { formId: response.data._id, error: null });
