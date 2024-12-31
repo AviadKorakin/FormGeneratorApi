@@ -5,10 +5,6 @@ const User = require('../models/User');
 
 const router = express.Router();
 
-// Initialize Passport middleware
-router.use(passport.initialize());
-router.use(passport.session());
-
 // GitHub OAuth Routes
 router.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
 
