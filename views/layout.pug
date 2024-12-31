@@ -88,6 +88,12 @@ html(lang="en")
             document.querySelector('.sign-in-btn').classList.remove('hidden');
           });
       }
+      else {
+        document.addEventListener('DOMContentLoaded', () => {
+          document.querySelector('.nav-links.tabs').classList.remove('hidden');
+          document.querySelector('.sign-in-btn').classList.add('hidden');
+        });
+      }
 
 
 
