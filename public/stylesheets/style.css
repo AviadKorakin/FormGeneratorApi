@@ -381,3 +381,150 @@ main.container {
   animation: pulse 1s infinite; /* Add pulsing animation */
   color: #fff; /* Optional: Change color during pulsing */
 }
+
+/* General Reset for Mobile */
+@media (max-width: 768px) {
+  html, body {
+    font-size: 0.9rem; /* Reduce font size for readability */
+    padding: 5px;
+  }
+
+  /* Wrapper */
+  .wrapper {
+    padding: 5px;
+  }
+
+  /* API Logo */
+  .api-logo {
+    width: 150px; /* Scale down the logo */
+    margin: 10px auto;
+  }
+
+  /* Page Titles */
+  .page-title {
+    font-size: 1.8rem; /* Adjust font size */
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-size: 1.4rem; /* Smaller titles for compact view */
+    margin: 20px 0 10px;
+  }
+
+  /* Features Section */
+  .features {
+    gap: 5px; /* Reduce gap */
+    max-width: 100%; /* Allow full-width */
+    margin: 0 auto;
+  }
+
+  .feature {
+    padding: 10px; /* Reduce padding */
+    border-radius: 5px; /* Softer corners */
+  }
+
+  .feature h3 {
+    font-size: 1.2rem; /* Smaller headers */
+  }
+
+  .feature p {
+    font-size: 1rem; /* Adjust paragraph font size */
+  }
+
+  /* Quick Start Section */
+  .quick-start ul {
+    padding-left: 15px; /* Adjust padding */
+  }
+
+  .quick-start pre {
+    font-size: 0.9rem; /* Reduce font size for code */
+    padding: 5px;
+  }
+
+  /* Slider Section */
+  .slider-container {
+    max-width: 100%; /* Full width for mobile */
+    border-radius: 10px; /* Adjust border-radius */
+  }
+
+  .slider-image {
+    height: 200px; /* Reduce slider height */
+  }
+
+  .slider-controls button {
+    font-size: 1rem; /* Smaller buttons */
+    padding: 5px 10px;
+  }
+
+  /* Navbar */
+  .navbar {
+    padding: 0.5rem 0; /* Reduce navbar padding */
+  }
+
+  .navbar .container {
+    flex-direction: column; /* Stack items */
+    gap: 10px;
+  }
+
+  .navbar .brand {
+    font-size: 1.5rem; /* Smaller brand text */
+  }
+
+  .navbar .nav-links {
+    flex-direction: column; /* Stack links vertically */
+    gap: 5px;
+  }
+
+  .navbar .nav-links a {
+    font-size: 0.9rem; /* Adjust link size */
+  }
+
+  /* Main Content */
+  main.container {
+    padding: 1rem; /* Adjust padding */
+    width: 100%; /* Full width */
+  }
+
+  /* Footer */
+  .footer .container {
+    flex-direction: column; /* Stack footer items */
+    text-align: center; /* Center align items */
+    gap: 10px;
+  }
+
+  .footer-links {
+    flex-direction: column; /* Stack links */
+    gap: 5px;
+  }
+
+  .footer-links a {
+    font-size: 1rem; /* Adjust link size */
+  }
+
+  /* Buttons */
+  #save-form,
+  .copy-button,
+  .save-button {
+    font-size: 0.8rem; /* Smaller button text */
+    padding: 5px 10px;
+    width: 100%; /* Full width buttons */
+  }
+
+  /* Forms */
+  textarea,
+  input[type="text"],
+  input[type="date"] {
+    width: 100%; /* Full width inputs */
+    font-size: 0.9rem;
+    padding: 5px; /* Adjust padding */
+  }
+
+  /* Overlay */
+  .overlay-git {
+    padding: 10px;
+  }
+
+  .overlay-git-icon {
+    font-size: 3rem; /* Smaller icon */
+  }
+}

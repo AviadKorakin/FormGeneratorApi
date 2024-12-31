@@ -497,8 +497,147 @@ textarea:focus {
     border-radius: 8px;
     text-align: center;
 }
+pre {
+    overflow-x: auto; /* Enable horizontal scrolling for overflowing content */
+}
 
+code {
+    white-space: pre-wrap; /* Wrap long lines */
+    word-break: break-word; /* Break long words */
+}
+@media (max-width: 768px) {
+    body {
+        font-size: 0.8rem; /* Slightly smaller font size for readability */
+        padding: 5px;
+    }
 
+    .row {
+        flex-direction: column; /* Stack elements vertically */
+        gap: 8px; /* Smaller gap between items */
+    }
+
+    /* Toolbar */
+    .toolbar {
+        padding: 8px;
+        border-radius: 4px;
+    }
+
+    .toolbar table {
+        font-size: 0.8rem; /* Smaller font size */
+        border-spacing: 4px;
+    }
+
+    /* Card */
+    .card {
+        padding: 8px;
+        border-radius: 4px;
+    }
+
+    .card-header {
+        font-size: 0.9rem; /* Smaller header font size */
+        flex-direction: column; /* Stack header content */
+        text-align: center; /* Center align for better fit */
+    }
+
+    .card-body input,
+    .card-body .btn-icon {
+        width: 100%; /* Full width inputs for better usability */
+        font-size: 0.9rem;
+    }
+
+    /* Preview Section */
+    .preview {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+
+    .preview h2 {
+        font-size: 1rem;
+    }
+
+    .preview-card {
+        padding: 8px;
+        border-radius: 4px;
+        font-size: 0.9rem; /* Adjust card font size */
+    }
+
+    /* Inputs and Dropdowns */
+    input[type="date"],
+    textarea,
+    #form-id,
+    #theme-selection,
+    .combo-box-style,
+    #ai-form-theme {
+        width: 100%; /* Full width for mobile */
+        font-size: 0.8rem; /* Smaller input font */
+        padding: 6px;
+    }
+
+    /* Buttons */
+    #load-form,
+    #remove-form {
+        width: 100%; /* Full width buttons */
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+
+    /* Star Rating */
+    .star-rating {
+        font-size: 1.2rem; /* Slightly smaller for compact view */
+    }
+
+    /* Collapse */
+    .toggle-collapse {
+        font-size: 0.8rem; /* Smaller toggle font size */
+    }
+
+    .collapse.open {
+        max-height: 400px; /* Adjust maximum height */
+    }
+
+    /* Feedbacks Container */
+    #feedbacks-container {
+        padding: 4px; /* Adjust padding */
+        max-height: 250px; /* Reduced height for better fit */
+    }
+
+    /* Response Rows */
+    .response-row {
+        margin-bottom: 10px; /* Reduced spacing between rows */
+    }
+
+    .response-row select {
+        width: 100%; /* Full width dropdown */
+    }
+
+    /* Overlay Content */
+    .overlay-content {
+        padding: 10px; /* Reduced padding */
+        font-size: 0.8rem; /* Smaller font size */
+    }
+
+    /* Textarea Preview */
+    .textareaPreview {
+        font-size: 0.8rem;
+        padding: 5px; /* Adjust padding */
+        width: 100%;
+    }
+
+    .textareaPreview.hint {
+        font-size: 0.7rem; /* Smaller hint font size */
+    }
+
+    /* Drag and Drop Preview Card */
+    #form-preview .preview-card {
+        padding: 8px;
+        font-size: 0.9rem; /* Adjust font size */
+    }
+
+    #form-preview .preview-card.dragging {
+        transform: scale(1.02); /* Slightly smaller scale */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    }
+}
 
 
 
