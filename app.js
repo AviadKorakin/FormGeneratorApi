@@ -77,38 +77,7 @@ app.set('trust proxy', 1); // Trust the first proxy
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Cookies tests
-/**
-app.use((req, res, next) => {
-    const originalSend = res.send;
-    res.send = function (...args) {
-        console.log('Outgoing Headers:', res.getHeaders());
-        return originalSend.apply(res, args);
-    };
-    next();
-});
-app.use((req, res, next) => {
-    console.log('Outgoing Cookies:', res.get('Set-Cookie'));
-    next();
-});
 
-app.use((req, res, next) => {
-    console.log('Incoming Cookies:', req.cookies);
-    next();
-});
-
-
-
-app.use((req, res, next) => {
-    console.log("Session Data:", req.session);
-    console.log("User from Session:", req.session.user);
-    next();
-});**/
-
-app.use('/', indexRouter);
-app.use('/forms', formRoutes);
-app.use('/feedbacks', feedbackRoutes);
-app.use('/users', userRoutes);
 
 app.use((req, res, next) => {
     console.log("Is Authenticated:", req.isAuthenticated());
@@ -116,22 +85,29 @@ app.use((req, res, next) => {
     res.locals.user = req.isAuthenticated() ? req.user : null;
     next();
 });
-// Middleware
-app.use(json());
+
+
+app.use('/', indexRouter);
+app.use('/forms', formRoutes);
+app.use('/feedbacks', feedbackRoutes);
+app.use('/users', userRoutes);
+
+// error handler
+app.use(function(err, req, res, next) {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.status(err.status || 500);
+    res.render('error');
+});
+
+
+
+
 app.use(urlencoded({ extended: true }));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-// error handler
-app.use(function(err, req, res, next) {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  res.status(err.status || 500);
-  res.render('error');
-});
-
 
 
 // Handle graceful shutdown

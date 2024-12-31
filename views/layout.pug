@@ -51,7 +51,6 @@ html(lang="en")
                 i.fab.fa-github
 
     script.
-      console.log("hello");
       async function handleAuth() {
         try {
           console.log('Starting GitHub authentication');
@@ -62,7 +61,7 @@ html(lang="en")
       }
       document.addEventListener('DOMContentLoaded', () => {
         const currentPage = window.location.pathname;
-        if (currentPage !== '/confirmation-pending') {
+        if (currentPage !== '/confirmation-pending' && currentPage !== '/') {
           const user = !{JSON.stringify(user || null)};
           console.log('User:', user);
           if (user) {
@@ -75,6 +74,7 @@ html(lang="en")
           } else {
             document.querySelector('.nav-links.tabs').classList.add('hidden');
             document.querySelector('.sign-in-btn').classList.remove('hidden');
+            window.location.href = '/';
           }
         }
       });
