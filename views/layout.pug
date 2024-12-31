@@ -19,9 +19,9 @@ html(lang="en")
             a.brand(href="/")
               img(src="/images/mylogo.png", alt="FormGeneratorApi Logo", class="navbar-logo")
               | FormGeneratorApi
-            ul.nav-links.hidden
+            ul.nav-links
               li
-                button.sign-in-btn(onclick="handleAuth()")
+                button.sign-in-btn(onclick="handleAuth()").hidden
                   i.fab.fa-github
                   |  Sign In with GitHub
             ul.nav-links.tabs
