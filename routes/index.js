@@ -2,62 +2,62 @@ var express = require('express');
 const axios = require('axios');
 var router = express.Router();
 
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next(); // User is authenticated, proceed to the next middleware or route handler
+  }
+  res.redirect('/'); // Redirect to the login page if not authenticated
+}
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/',function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
 
 
-router.get('/form-builder', function (req, res, next) {
+router.get('/form-builder', ensureAuthenticated,function (req, res, next) {
   res.render('form-builder', {
     title: 'Build Form',
   });
 });
 
-router.get('/update-form', function (req, res, next) {
+router.get('/update-form',ensureAuthenticated, function (req, res, next) {
   res.render('update-form', {
     title: 'Update Form',
   });
 });
-router.get('/remove-form', function (req, res, next) {
+router.get('/remove-form', ensureAuthenticated,function (req, res, next) {
   res.render('remove-form', {
     title: 'Remove Form',
   });
 });
-router.get('/feedbacks-viewer', function (req, res, next) {
+router.get('/feedbacks-viewer',ensureAuthenticated, function (req, res, next) {
   res.render('feedbacks-viewer', {
     title: 'Feedback Viewer',
   });
 });
-router.get('/analytics-viewer', function (req, res, next) {
+router.get('/analytics-viewer', ensureAuthenticated,function (req, res, next) {
   res.render('analytics-viewer', {
     title: 'Analytics Viewer',
   });
 });
 
-router.get('/login', (req, res) => {
-  res.render('login', { title: 'Login' });
-});
-
-// Render Register Page
-router.get('/register', (req, res) => {
-  res.render('register', { title: 'Register' });
-});
 
 // Render Confirmation Success Page
-router.get('/confirmation-success', (req, res) => {
+router.get('/confirmation-success',ensureAuthenticated, (req, res) => {
   res.render('confirmation-success', { title: 'Confirmation Success' });
 });
 
 // Render Confirmation Pending Page
-router.get('/confirmation-pending', (req, res) => {
+router.get('/confirmation-pending', ensureAuthenticated,(req, res) => {
   res.render('confirmation-pending', { title: 'Confirmation Pending' });
 });
 
 
 
-router.get('/success/:id', async (req, res) => {
+router.get('/success/:id',ensureAuthenticated, async (req, res) => {
   const formId = req.params.id;
 
   try {

@@ -60,15 +60,7 @@ html(lang="en")
           console.error('Authentication error:', error);
         }
       }
-
-      if(currentPage === '/confirmation-pending')
-      {
-        document.addEventListener('DOMContentLoaded', () => {
-          document.querySelector('.nav-links.tabs').classList.add('hidden');
-          document.querySelector('.sign-in-btn').classList.remove('hidden');
-        });
-      }
-      else if(currentPage === '/') {
+      if(currentPage === '/') {
         const user = !{JSON.stringify(user || null)};
         if (user) {
           if (!user.confirmed) {
@@ -76,8 +68,10 @@ html(lang="en")
           }
           else
           {
-            document.querySelector('.nav-links.tabs').classList.remove('hidden');
-            document.querySelector('.sign-in-btn').classList.add('hidden');
+            document.addEventListener('DOMContentLoaded', () => {
+              document.querySelector('.nav-links.tabs').classList.remove('hidden');
+              document.querySelector('.sign-in-btn').classList.add('hidden');
+            });
           }
 
           } else {
@@ -87,17 +81,23 @@ html(lang="en")
             });
           }
       }
-
-        else if (currentPage !== '/confirmation-pending' && currentPage !== '/') {
+      else if(currentPage === '/confirmation-success') {
         const user = !{JSON.stringify(user || null)};
-        console.log('User:', user);
         if (user) {
-          if (!user.confirmed) {
-            window.location.href = '/confirmation-pending';
-          } else {
-            window.location.href = '/';
-          }
+          document.addEventListener('DOMContentLoaded', () => {
+          document.querySelector('.nav-links.tabs').classList.remove('hidden');
+          document.querySelector('.sign-in-btn').classList.add('hidden');
+          });
+        }
+
+
+         else {
+          document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.nav-links.tabs').classList.add('hidden');
+            document.querySelector('.sign-in-btn').classList.remove('hidden');
+          });
         }
       }
+
 
 
