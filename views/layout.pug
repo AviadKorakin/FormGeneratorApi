@@ -60,40 +60,39 @@ html(lang="en")
           console.error('Authentication error:', error);
         }
       }
-      if(currentPage === '/confirmation-pending')
-      {
-        document.addEventListener('DOMContentLoaded', () => {
-          document.querySelector('.nav-links.tabs').classList.add('hidden');
-          document.querySelector('.sign-in-btn').classList.add('hidden');
-        });
-      }
-      else if(currentPage === '/') {
-        const user = !{JSON.stringify(user || null)};
-        if (user) {
-            document.addEventListener('DOMContentLoaded', () => {
-              document.querySelector('.nav-links.tabs').classList.remove('hidden');
-              document.querySelector('.sign-in-btn').classList.add('hidden');
-            });
 
-          } else {
-            document.addEventListener('DOMContentLoaded', () => {
-              document.querySelector('.nav-links.tabs').classList.add('hidden');
-              document.querySelector('.sign-in-btn').classList.remove('hidden');
-            });
+      function pollElements(){
+        const navLinksTabs = document.querySelector('.nav-links.tabs');
+        const signInBtn = document.querySelector('.sign-in-btn');
+
+        if (navLinksTabs && signInBtn) {
+          const currentPage = window.location.pathname;
+          if (currentPage === '/confirmation-pending') {
+            navLinksTabs.classList.add('hidden');
+            signInBtn.classList.add('hidden');
+          } else if (currentPage === '/') {
+            const user = !{JSON.stringify(user || null)};
+            if (user) {
+              navLinksTabs.classList.remove('hidden');
+              signInBtn.classList.add('hidden');
+            } else {
+              navLinksTabs.classList.add('hidden');
+              signInBtn.classList.remove('hidden');
+            }
           }
-      }
-      else if(currentPage === '/confirmation-success') {
-          document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('.nav-links.tabs').classList.add('hidden');
-            document.querySelector('.sign-in-btn').classList.remove('hidden');
-          });
-      }
-      else {
-        document.addEventListener('DOMContentLoaded', () => {
-          document.querySelector('.nav-links.tabs').classList.remove('hidden');
-          document.querySelector('.sign-in-btn').classList.add('hidden');
-        });
-      }
+          else if (currentPage === '/confirmation-success') {
+            const user = !{JSON.stringify(user || null)};
+            if (user) {
+              navLinksTabs.classList.remove('hidden');
+              signInBtn.classList.add('hidden');
+            } else {
+              navLinksTabs.classList.add('hidden');
+              signInBtn.classList.remove('hidden');
+            }
+          }
+        }
+      };
+      pollElements();
 
 
 
