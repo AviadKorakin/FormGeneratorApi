@@ -4,7 +4,7 @@ const validator = require('validator');
 const {ensureAuthenticated} = require("../middlewares");
 const router = express.Router();
 
-router.post('/', ensureAuthenticated,async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const { formId, email, responses } = req.body;
 

@@ -261,7 +261,7 @@ router.get('/list',ensureAuthenticated, async (req, res) => {
 });
 
 // Get Form by ID
-router.get('/:id',ensureAuthenticated, async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const form = await Form.findById(req.params.id);
         if (!form) {
