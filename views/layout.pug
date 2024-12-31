@@ -24,7 +24,7 @@ html(lang="en")
                 button.sign-in-btn(onclick="handleAuth()")
                   i.fab.fa-github
                   |  Sign In with GitHub
-            ul.nav-links.tabs.hidden
+            ul.nav-links.tabs
               li
                 a(href="/") About
               li
@@ -55,10 +55,8 @@ html(lang="en")
     script.
       async function handleAuth() {
         try {
-          const response = await fetch('/users/auth/github');
-          if (response.ok) {
-            window.location.href = '/users/auth/github';
-          }
+          console.log('Starting GitHub authentication'); // Add this log
+          window.location.href = '/users/auth/github';
         } catch (error) {
           console.error('Authentication error:', error);
         }

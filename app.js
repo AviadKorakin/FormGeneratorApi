@@ -77,7 +77,8 @@ app.set('trust proxy', 1); // Trust the first proxy
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+// Cookies tests
+/**
 app.use((req, res, next) => {
     const originalSend = res.send;
     res.send = function (...args) {
@@ -86,8 +87,6 @@ app.use((req, res, next) => {
     };
     next();
 });
-// Cookies tests
-/**
 app.use((req, res, next) => {
     console.log('Outgoing Cookies:', res.get('Set-Cookie'));
     next();
