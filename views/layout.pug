@@ -68,12 +68,17 @@ html(lang="en")
           document.querySelector('.sign-in-btn').classList.remove('hidden');
         });
       }
-      else if(currentPage === '/')
-        {
-          const user = !{JSON.stringify(user || null)};
-          if (user) {
-            if (!user.confirmed) {
-              window.location.href = '/confirmation-pending';
+      else if(currentPage === '/') {
+        const user = !{JSON.stringify(user || null)};
+        if (user) {
+          if (!user.confirmed) {
+            window.location.href = '/confirmation-pending';
+          }
+          else
+          {
+            document.querySelector('.nav-links.tabs').classList.remove('hidden');
+            document.querySelector('.sign-in-btn').classList.add('hidden');
+          }
 
           } else {
             document.addEventListener('DOMContentLoaded', () => {
@@ -81,7 +86,7 @@ html(lang="en")
               document.querySelector('.sign-in-btn').classList.remove('hidden');
             });
           }
-        }
+      }
 
         else if (currentPage !== '/confirmation-pending' && currentPage !== '/') {
         const user = !{JSON.stringify(user || null)};
