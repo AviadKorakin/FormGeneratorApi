@@ -54,16 +54,22 @@ html(lang="en")
       const user = !{JSON.stringify(user)};
 
       // Update UI based on user status
-      if (user) {
-        if (!user.confirmed) {
-          window.location.href = '/confirmation-pending';
+      const currentPage = window.location.pathname;
+
+      if (currentPage !== '/confirmation-pending') {
+        const user = !{JSON.stringify(user)};
+
+        if (user) {
+          if (!user.confirmed) {
+            window.location.href = '/confirmation-pending';
+          } else {
+            document.querySelector('.nav-links.tabs').classList.remove('hidden');
+            document.querySelector('.sign-in-btn').classList.add('hidden');
+          }
         } else {
-          document.querySelector('.nav-links.tabs').classList.remove('hidden');
-          document.querySelector('.sign-in-btn').classList.add('hidden');
+          document.querySelector('.nav-links.tabs').classList.add('hidden');
+          document.querySelector('.sign-in-btn').classList.remove('hidden');
         }
-      } else {
-        document.querySelector('.nav-links.tabs').classList.add('hidden');
-        document.querySelector('.sign-in-btn').classList.remove('hidden');
       }
 
       // Function to handle GitHub authentication
