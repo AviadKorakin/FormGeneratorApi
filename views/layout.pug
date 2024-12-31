@@ -51,6 +51,22 @@ html(lang="en")
                 i.fab.fa-github
 
     script.
+      const user = !{JSON.stringify(user)};
+
+      // Update UI based on user status
+      if (user) {
+        if (!user.confirmed) {
+          window.location.href = '/confirmation-pending';
+        } else {
+          document.querySelector('.nav-links.tabs').classList.remove('hidden');
+          document.querySelector('.sign-in-btn').classList.add('hidden');
+        }
+      } else {
+        document.querySelector('.nav-links.tabs').classList.add('hidden');
+        document.querySelector('.sign-in-btn').classList.remove('hidden');
+      }
+
+      // Function to handle GitHub authentication
       async function handleAuth() {
         try {
           console.log('Starting GitHub authentication');
@@ -59,38 +75,3 @@ html(lang="en")
           console.error('Authentication error:', error);
         }
       }
-
-      async function checkUserStatus() {
-        const cachedStatus = JSON.parse(localStorage.getItem('userStatus'));
-        if (cachedStatus) {
-          updateUI(cachedStatus);
-          return;
-        }
-
-        try {
-          const response = await fetch('/users/status');
-          const data = await response.json();
-
-          // Cache the status
-          localStorage.setItem('userStatus', JSON.stringify(data));
-          updateUI(data);
-        } catch (error) {
-          console.error('Error checking user status:', error);
-        }
-      }
-
-      function updateUI(data) {
-        if (data.loggedIn) {
-          if (!data.confirmed) {
-            window.location.href = '/confirmation-pending';
-          } else {
-            document.querySelector('.nav-links.tabs').classList.remove('hidden');
-            document.querySelector('.sign-in-btn').classList.add('hidden');
-          }
-        } else {
-          document.querySelector('.nav-links.tabs').classList.add('hidden');
-          document.querySelector('.sign-in-btn').classList.remove('hidden');
-        }
-      }
-
-      checkUserStatus();
