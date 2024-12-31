@@ -224,6 +224,13 @@ router.post('/save',ensureAuthenticated, async (req, res) => {
                 }
             }
         }
+        console.log({
+            userId: req.user._id,
+            name,
+            theme,
+            designData,
+            components,
+        });
 
         // Save the form
         const form = new Form({
