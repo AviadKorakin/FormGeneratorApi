@@ -65,12 +65,15 @@ app.use(
             autoRemove: 'native', // Automatically remove expired sessions
         }),
         cookie: {
-            secure: false, // Use secure cookies in production (requires HTTPS)
+            secure: true, // Use secure cookies in production (requires HTTPS)
             httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
             maxAge: 1000 * 60 * 60, // Session expires after 1 hour
         },
     })
 );
+
+app.set('trust proxy', 1); // Trust the first proxy
+
 app.use(passport.initialize());
 app.use(passport.session());
 
