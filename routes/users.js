@@ -38,7 +38,7 @@ router.get(
                 return res.redirect('/confirmation-pending');
             }
 
-            res.redirect('/users/profile');
+            res.redirect('/');
         } catch (error) {
             console.error('Error during GitHub callback:', error);
             res.status(500).send('An error occurred during login.');
@@ -81,7 +81,7 @@ router.get('/resend-confirmation', async (req, res) => {
         const user = req.user;
 
         if (user.confirmed) {
-            return res.redirect('/users/profile');
+            return res.redirect('/');
         }
 
         console.log("Resending confirmation email to:", user.email);
@@ -121,16 +121,6 @@ router.get('/status', (req, res) => {
     }
     // User is not logged in
     res.json({ loggedIn: false });
-});
-// Example Protected Route
-router.get('/profile', (req, res) => {
-    if (!req.isAuthenticated()) {
-        return res.status(401).send('Unauthorized. Please log in.');
-    }
-    if (!req.user.confirmed) {
-        return res.status(403).send('Please confirm your email before accessing this page.');
-    }
-    res.send(`Welcome, ${req.user.username}`);
 });
 
 router.get('/logout', (req, res) => {
