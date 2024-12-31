@@ -2,6 +2,7 @@ var express = require('express');
 const axios = require('axios');
 const {ensureAuthenticated, ensureFirstStepAuthenticated} = require("../middlewares");
 var router = express.Router();
+const Form = require('../models/Form'); // Import the updated Form model
 
 
 /* GET home page. */
@@ -51,25 +52,19 @@ router.get('/confirmation-pending', ensureFirstStepAuthenticated,(req, res) => {
 
 
 
-router.get('/success/:id', async (req, res) => {
-  const formId = req.params.id;
-
+router.get('/success/:id',ensureAuthenticated,  async (req, res) => {
   try {
-    // Access the dynamic port
-    const port = global.PORT;
-
-    // Validate the formId using the /forms/:id route
-    //const response = await axios.get(`http://localhost:${port}/forms/${formId}`);
-    const response = await axios.get(`https://formgeneratorapi.onrender.com/forms/${formId}`);
-    // If the form exists, render the success page
-    res.render('success', { formId: response.data._id, error: null });
+    const form = await Form.findById(req.params.id);
+    if (!form) {
+      return res.render('success',{ formId: null,error: 'Form not found' });
+    }
+    res.render('success', { formId:form._id, error: null });
   } catch (error) {
-    // If the ID is invalid or the form doesn't exist, handle the error
     if (error.response && error.response.status === 404) {
       return res.render('success', { formId: null, error: 'Form not found (404)' });
     }
     console.error('Error fetching form:', error);
-    return res.status(500).send('Failed to validate Form ID');
+    return res.render('success', { formId: null, error: '500' });
   }
 });
 
