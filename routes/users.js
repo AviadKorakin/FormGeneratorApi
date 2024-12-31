@@ -24,23 +24,34 @@ router.get(
                         return res.status(500).send('Session store error.');
                     }
 
-                    // Filter for user sessions and clean up old ones
-                    const userSessions = Object.entries(sessions).filter(([id, session]) =>
-                        session.passport && session.passport.user === req.user.id
-                    );
-                    console.log(userSessions);
-                    console.log(currentSessionId);
+                    try {
+                        // Filter for user sessions based on the user ID
+                        const userSessionIds = Object.values(sessions) // Get all session objects
+                            .filter((session) => session.passport && session.passport.user === req.user.id) // Filter sessions matching user ID
+                            .map((session) => session._id); // Extract session IDs
 
-                    userSessions.forEach(([id]) => {
-                        if (id !== currentSessionId) {
-                            sessionStore.destroy(id, (err) => {
-                                if (err) console.error(`Failed to destroy session ${id}:`, err);
-                                else console.log(`Destroyed session ${id}`);
-                            });
-                        }
-                    });
+                        console.log("User session IDs:", userSessionIds);
+                        console.log("Current session ID:", currentSessionId);
+
+                        // Destroy all sessions except the current one
+                        userSessionIds.forEach((sessionId) => {
+                            if (sessionId !== currentSessionId) {
+                                sessionStore.destroy(sessionId, (err) => {
+                                    if (err) {
+                                        console.error(`Failed to destroy session ${sessionId}:`, err);
+                                    } else {
+                                        console.log(`Destroyed session ${sessionId}`);
+                                    }
+                                });
+                            }
+                        });
+                    } catch (error) {
+                        console.error("Error processing sessions:", error);
+                        return res.status(500).send('Failed to process sessions.');
+                    }
                 });
             }
+
 
             if (!process.env.email || !process.env.pass) {
                 return res.status(500).send('Email setup is not configured.');
