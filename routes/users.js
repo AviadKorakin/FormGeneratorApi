@@ -25,6 +25,7 @@ router.get(
                     }
 
                     try {
+                        console.log("sessions:", sessions);
                         // Filter for user sessions based on the user ID
                         const userSessionIds = Object.values(sessions) // Get all session objects
                             .filter((session) => session.passport && session.passport.user === req.user.id) // Filter sessions matching user ID
