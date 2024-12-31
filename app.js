@@ -65,7 +65,7 @@ app.use(
             autoRemove: 'native', // Automatically remove expired sessions
         }),
         cookie: {
-            secure: process.env.NODE_ENV === 'production', // Use secure cookies in production (requires HTTPS)
+            secure: false, // Use secure cookies in production (requires HTTPS)
             httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
             maxAge: 1000 * 60 * 60, // Session expires after 1 hour
         },
