@@ -518,8 +518,13 @@ const initializeData = async () => {
             return;
         }
 
+        const updatedForms = exampleForms.map(form => ({
+            ...form,
+            userId: '0', // Add userId with a value of '0'
+        }));
+
         // Insert example forms
-        const insertedForms = await Form.insertMany(exampleForms);
+        const insertedForms = await Form.insertMany(updatedForms);
         console.log('Sample forms have been added successfully.');
 
         // Prepare feedback based on inserted forms (initially empty)

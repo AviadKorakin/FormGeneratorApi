@@ -367,7 +367,7 @@ router.post('/generate-form/:subject/:theme',ensureAuthenticated, async (req, re
             route,
             timestamp: { $gte: yesterday },
         });
-
+        console.log("number of request the user made in 24 hours are " +requestCount);
         if (requestCount >= 2) {
             return res.status(429).json({ error: 'You can only generate a form twice per day.' });
         }
