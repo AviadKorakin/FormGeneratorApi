@@ -110,6 +110,13 @@ router.get('/resend-confirmation', async (req, res) => {
     }
 });
 
+router.get('/status', (req, res) => {
+    if (req.isAuthenticated()) {
+        return res.json({ loggedIn: true });
+    }
+
+    res.json({ loggedIn: false });
+});
 
 // Example Protected Route
 router.get('/profile', (req, res) => {
@@ -121,5 +128,17 @@ router.get('/profile', (req, res) => {
     }
     res.send(`Welcome, ${req.user.username}`);
 });
+
+router.get('/logout', (req, res) => {
+    req.logout(err => {
+        if (err) return next(err);
+        req.session.destroy(err => {
+            if (err) return next(err);
+            res.clearCookie('connect.sid'); // Remove the session cookie
+            res.redirect('/'); // Redirect to the homepage
+        });
+    });
+});
+
 
 module.exports = router;

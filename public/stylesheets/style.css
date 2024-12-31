@@ -311,6 +311,20 @@ main.container {
   margin-right: 0; /* No margin for the last button */
 }
 
+.sign-in-btn {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.sign-in-btn:hover {
+  background-color: #444;
+}
+
 
 /* Mobile Styles */
 @media (max-width: 768px) {
