@@ -86,7 +86,8 @@ app.use((req, res, next) => {
     };
     next();
 });
-
+// Cookies tests
+/**
 app.use((req, res, next) => {
     console.log('Outgoing Cookies:', res.get('Set-Cookie'));
     next();
@@ -98,11 +99,12 @@ app.use((req, res, next) => {
 });
 
 
+
 app.use((req, res, next) => {
     console.log("Session Data:", req.session);
     console.log("User from Session:", req.session.user);
     next();
-});
+});**/
 
 app.use('/', indexRouter);
 app.use('/forms', formRoutes);

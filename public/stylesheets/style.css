@@ -311,7 +311,24 @@ main.container {
   margin-right: 0; /* No margin for the last button */
 }
 
-.sign-in-btn {
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.nav-links.tabs {
+  display: none;
+}
+.nav-links.tabs.show {
+  display: flex;
+}
+
+.sign-in-btn,
+.logout-btn {
+  margin-left: auto;
   background-color: black;
   color: white;
   border: none;
@@ -321,7 +338,8 @@ main.container {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-.sign-in-btn:hover {
+.sign-in-btn:hover,
+.logout-btn:hover {
   background-color: #444;
 }
 

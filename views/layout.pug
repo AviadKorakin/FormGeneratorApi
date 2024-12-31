@@ -10,24 +10,6 @@ html(lang="en")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css")
     link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap")
     link(rel="icon" href="/favicon.ico")
-    style.
-      .sign-in-btn {
-        background-color: black;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-      .sign-in-btn:hover {
-        background-color: #444;
-      }
-      .nav-links {
-        display: flex;
-        justify-content: space-between;
-      }
 
   body
     .wrapper
@@ -56,7 +38,7 @@ html(lang="en")
               li
                 a(href="/analytics-viewer") View Analytics
               li
-                a(href="/logout") Logout
+                a(href="/users/logout") Logout
       main.container
         block content
       footer.footer
