@@ -1,9 +1,10 @@
 const express = require('express');
 const Feedback = require('../models/Feedback'); // Assuming the Feedback model is in the models directory
 const validator = require('validator');
+const {ensureAuthenticated} = require("../middlewares");
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', ensureAuthenticated,async (req, res) => {
     try {
         const { formId, email, responses } = req.body;
 
@@ -71,7 +72,7 @@ router.post('/', async (req, res) => {
 
 
 // Get All Feedbacks
-router.get('/', async (req, res) => {
+router.get('/', ensureAuthenticated,async (req, res) => {
     try {
         const feedbacks = await Feedback.find();
         res.status(200).json(feedbacks);
@@ -130,7 +131,7 @@ router.get('/filter', async (req, res) => {
     }
 });
 
-router.get('/analytics', async (req, res) => {
+router.get('/analytics', ensureAuthenticated,async (req, res) => {
     try {
         const { formId, startDate, endDate } = req.query;
 

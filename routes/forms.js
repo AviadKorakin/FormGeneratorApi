@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Form = require('../models/Form'); // Import the updated Form model
 const Groq = require("groq-sdk");
+const {ensureAuthenticated} = require("../middlewares");
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
@@ -159,13 +160,19 @@ const schema = {
 
 
 // Save a new form
-router.post('/save', async (req, res) => {
+router.post('/save',ensureAuthenticated, async (req, res) => {
     try {
         const { name, theme, designData, components } = req.body;
 
         // Debugging: Log the type of `name`
         console.log('Received Form Name:', name, 'Type:', typeof name);
         console.log('Received Request Body:', req.body);
+
+        // Validate the authenticated user
+        if (!req.user || !req.user._id) {
+            return res.status(403).json({ error: 'User authentication required.' });
+        }
+
         // Validate required fields
         if (!name || typeof name !== 'string') {
             return res.status(400).json({ error: 'Form name is required and must be a string.' });
@@ -212,6 +219,7 @@ router.post('/save', async (req, res) => {
 
         // Save the form
         const form = new Form({
+            userId: req.user._id, // Associate with the logged-in user
             name,
             theme,
             designData,
@@ -227,9 +235,9 @@ router.post('/save', async (req, res) => {
 });
 
 // Get all forms
-router.get('/list', async (req, res) => {
+router.get('/list',ensureAuthenticated, async (req, res) => {
     try {
-        const forms = await Form.find(); // Fetch all fields
+        const forms = await Form.find({ userId: req.user._id }); // Fetch forms for the authenticated user
         res.status(200).json(forms);
     } catch (err) {
         console.error(err);
@@ -238,7 +246,7 @@ router.get('/list', async (req, res) => {
 });
 
 // Get Form by ID
-router.get('/:id', async (req, res) => {
+router.get('/:id',ensureAuthenticated, async (req, res) => {
     try {
         const form = await Form.findById(req.params.id);
         if (!form) {
@@ -252,7 +260,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update Form by ID
-router.put('/:id', async (req, res) => {
+router.put('/:id', ensureAuthenticated,async (req, res) => {
     try {
         const { name, theme, designData, components } = req.body;
         const form = await Form.findById(req.params.id);
@@ -308,7 +316,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete Form by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', ensureAuthenticated,async (req, res) => {
     try {
         const form = await Form.findById(req.params.id); // Fetch the form document
 
@@ -328,7 +336,7 @@ router.delete('/:id', async (req, res) => {
 
 
 // Define the router endpoint
-router.post('/generate-form/:subject/:theme', async (req, res) => {
+router.post('/generate-form/:subject/:theme',ensureAuthenticated, async (req, res) => {
     const subject = req.params.subject;
     const theme = req.params.theme.toLowerCase(); // Ensure case insensitivity for theme
     const jsonSchema = JSON.stringify(schema, null, 4);

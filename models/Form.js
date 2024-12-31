@@ -32,6 +32,7 @@ const FormSchema = new Schema({
         buttonTextColor: { type: String, default: null }, // Form-level button text color
     },
     components: [ComponentSchema], // Array of components
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the User
     created_at: { type: Date, default: Date.now }, // Timestamp for creation
     updated_at: { type: Date, default: Date.now }, // Timestamp for updates
 });

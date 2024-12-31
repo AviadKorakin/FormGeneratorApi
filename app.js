@@ -80,8 +80,6 @@ app.use(passport.session());
 
 
 app.use((req, res, next) => {
-    console.log("Is Authenticated:", req.isAuthenticated());
-    console.log("User:", req.user);
     res.locals.user = req.isAuthenticated() ? req.user : null;
     next();
 });
