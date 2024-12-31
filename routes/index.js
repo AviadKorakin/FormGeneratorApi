@@ -4,10 +4,6 @@ const {ensureAuthenticated, ensureFirstStepAuthenticated} = require("../middlewa
 var router = express.Router();
 
 
-const axiosInstance = axios.create({
-  maxRedirects: 0, // Prevent following redirects
-});
-
 /* GET home page. */
 router.get('/',function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -61,15 +57,10 @@ router.get('/success/:id', async (req, res) => {
   try {
     // Access the dynamic port
     const port = global.PORT;
-    console.log("The form id is "+ formId);
-    // Log the port to the console for debugging
-    console.log(`Dynamic port retrieved: ${port}`);
 
     // Validate the formId using the /forms/:id route
     //const response = await axios.get(`http://localhost:${port}/forms/${formId}`);
-    const response = await axiosInstance.get(`https://formgeneratorapi.onrender.com/forms/${formId}`);
-    console.log("Axios response:", response);
-    console.log("The form id 2 is "+ response.data._id);
+    const response = await axios.get(`https://formgeneratorapi.onrender.com/forms/${formId}`);
     // If the form exists, render the success page
     res.render('success', { formId: response.data._id, error: null });
   } catch (error) {
