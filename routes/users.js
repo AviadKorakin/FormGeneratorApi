@@ -28,6 +28,8 @@ router.get(
                     const userSessions = Object.entries(sessions).filter(([id, session]) =>
                         session.passport && session.passport.user === req.user.id
                     );
+                    console.log(userSessions);
+                    console.log(currentSessionId);
 
                     userSessions.forEach(([id]) => {
                         if (id !== currentSessionId) {
