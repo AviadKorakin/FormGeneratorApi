@@ -67,8 +67,15 @@ router.get('/confirm-email/:userId', async (req, res) => {
 // Resend Confirmation Email Route
 router.get('/resend-confirmation', async (req, res) => {
     try {
+        console.log("Checking authentication for resend-confirmation route.");
         if (!req.isAuthenticated()) {
             return res.status(401).send('Unauthorized. Please log in.');
+        }
+
+        console.log("User from session:", req.user); // Log the user object
+
+        if (!req.user) {
+            return res.status(500).send('User not found in session.');
         }
 
         const user = req.user;
@@ -76,6 +83,8 @@ router.get('/resend-confirmation', async (req, res) => {
         if (user.confirmed) {
             return res.redirect('/users/profile');
         }
+
+        console.log("Resending confirmation email to:", user.email);
 
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
@@ -100,6 +109,7 @@ router.get('/resend-confirmation', async (req, res) => {
         res.status(500).send('Failed to resend confirmation email.');
     }
 });
+
 
 // Example Protected Route
 router.get('/profile', (req, res) => {
