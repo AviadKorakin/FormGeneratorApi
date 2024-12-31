@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Form = require('../models/Form'); // Import the updated Form model
+const RequestLog = require('../models/RequestLog'); // Import the RequestLog model
 const Groq = require("groq-sdk");
 const {ensureAuthenticated} = require("../middlewares");
 
@@ -173,6 +174,13 @@ router.post('/save',ensureAuthenticated, async (req, res) => {
             return res.status(403).json({ error: 'User authentication required.' });
         }
 
+        // Check if the user already has 5 forms
+        const formCount = await Form.countDocuments({ userId: req.user._id });
+        if (formCount >= 5) {
+            return res.status(400).json({ error: 'You can only create up to 5 forms.' });
+        }
+
+
         // Validate required fields
         if (!name || typeof name !== 'string') {
             return res.status(400).json({ error: 'Form name is required and must be a string.' });
@@ -342,6 +350,42 @@ router.post('/generate-form/:subject/:theme',ensureAuthenticated, async (req, re
     const jsonSchema = JSON.stringify(schema, null, 4);
 
     try {
+
+        try {
+            // Validate the authenticated user
+            if (!req.user || !req.user._id) {
+                return res.status(403).json({ error: 'User authentication required.' });
+            }
+
+            const userId = req.user._id;
+            const route = req.originalUrl;
+
+            // Count the user's requests to this route in the last 24 hours
+            const now = new Date();
+            const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+
+            const requestCount = await RequestLog.countDocuments({
+                userId,
+                route,
+                timestamp: { $gte: yesterday },
+            });
+
+            if (requestCount >= 2) {
+                return res.status(429).json({ error: 'You can only generate a form twice per day.' });
+            }
+
+            // Proceed with generating the form
+            // (The existing logic to generate the form goes here)
+
+            // Log the request
+            await RequestLog.create({ userId, route });
+
+            // Send the generated form as the response
+            res.json({ success: true, form: 'Generated form data here' });
+        } catch (error) {
+            console.error('Error generating form:', error);
+            res.status(500).json({ error: error.message });
+        }
         // Validate the theme parameter
         if (!['light', 'dark', 'custom'].includes(theme)) {
             return res.status(400).json({
