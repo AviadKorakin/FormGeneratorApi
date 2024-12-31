@@ -50,15 +50,30 @@ html(lang="en")
               a(href="https://github.com/AviadKorakin/FormGeneratorApi")
                 i.fab.fa-github
 
+    div.overlay-git#github-overlay
+      i.fab.fa-github.overlay-icon
+
     script.
       const currentPage = window.location.pathname;
       async function handleAuth() {
         try {
           console.log('Starting GitHub authentication');
+          showOverlay(); // Show the overlay
           window.location.href = '/users/auth/github';
         } catch (error) {
           console.error('Authentication error:', error);
+          hideOverlay(); // Hide overlay on error
         }
+      }
+
+      function showOverlay() {
+        const overlay = document.getElementById('github-overlay');
+        overlay.classList.add('active');
+      }
+
+      function hideOverlay() {
+        const overlay = document.getElementById('github-overlay');
+        overlay.classList.remove('active');
       }
 
       function pollElements(){
