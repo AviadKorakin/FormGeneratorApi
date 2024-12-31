@@ -64,7 +64,11 @@ html(lang="en")
         const user = !{JSON.stringify(user || null)};
         if (user) {
           if (!user.confirmed) {
-            window.location.href = '/confirmation-pending';
+            document.addEventListener('DOMContentLoaded', () => {
+              document.querySelector('.nav-links.tabs').classList.add('hidden');
+              document.querySelector('.sign-in-btn').classList.remove('hidden');
+              window.location.href = '/confirmation-pending';
+            });
           }
           else
           {
@@ -85,8 +89,9 @@ html(lang="en")
         const user = !{JSON.stringify(user || null)};
         if (user) {
           document.addEventListener('DOMContentLoaded', () => {
-          document.querySelector('.nav-links.tabs').classList.remove('hidden');
-          document.querySelector('.sign-in-btn').classList.add('hidden');
+            document.querySelector('.nav-links.tabs').classList.add('hidden');
+            document.querySelector('.sign-in-btn').classList.remove('hidden');
+            window.location.href = '/confirmation-pending';
           });
         }
 
