@@ -13,6 +13,33 @@ router.get(
     passport.authenticate('github', { failureRedirect: '/users/login' }),
     async (req, res) => {
         try {
+
+            const currentSessionId = req.sessionID;
+            const sessionStore = req.sessionStore;
+
+            if (sessionStore && typeof sessionStore.all === 'function') {
+                sessionStore.all((err, sessions) => {
+                    if (err) {
+                        console.error('Error accessing session store:', err);
+                        return res.status(500).send('Session store error.');
+                    }
+
+                    // Filter for user sessions and clean up old ones
+                    const userSessions = Object.entries(sessions).filter(([id, session]) =>
+                        session.passport && session.passport.user === req.user.id
+                    );
+
+                    userSessions.forEach(([id]) => {
+                        if (id !== currentSessionId) {
+                            sessionStore.destroy(id, (err) => {
+                                if (err) console.error(`Failed to destroy session ${id}:`, err);
+                                else console.log(`Destroyed session ${id}`);
+                            });
+                        }
+                    });
+                });
+            }
+
             if (!process.env.email || !process.env.pass) {
                 return res.status(500).send('Email setup is not configured.');
             }
