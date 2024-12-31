@@ -14,7 +14,7 @@ const connectDBAtlas = async () => {
         console.log('Database cleared');
 
         console.log('Initializing the database...');
-        //await initializeData();
+        await initializeData();
         console.log('Database initialized successfully');
     } catch (err) {
         console.error('Error setting up MongoDB Atlas:', err.message);
