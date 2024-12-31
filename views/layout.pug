@@ -61,28 +61,36 @@ html(lang="en")
       }
 
       async function checkUserStatus() {
+        const cachedStatus = JSON.parse(localStorage.getItem('userStatus'));
+        if (cachedStatus) {
+          updateUI(cachedStatus);
+          return;
+        }
+
         try {
           const response = await fetch('/users/status');
           const data = await response.json();
 
-          if (data.loggedIn) {
-            if (!data.confirmed) {
-              // User is logged in but not confirmed, redirect to confirmation page
-              window.location.href = '/confirmation-pending';
-            } else {
-              // User is logged in and confirmed
-              document.querySelector('.nav-links.tabs').classList.remove('hidden');
-              document.querySelector('.sign-in-btn').classList.add('hidden');
-            }
-          } else {
-            // User is not logged in, keep the "Sign in with GitHub" button
-            document.querySelector('.nav-links.tabs').classList.add('hidden');
-            document.querySelector('.sign-in-btn').classList.remove('hidden');
-          }
+          // Cache the status
+          localStorage.setItem('userStatus', JSON.stringify(data));
+          updateUI(data);
         } catch (error) {
           console.error('Error checking user status:', error);
         }
       }
 
-      // Run the status check on page load
+      function updateUI(data) {
+        if (data.loggedIn) {
+          if (!data.confirmed) {
+            window.location.href = '/confirmation-pending';
+          } else {
+            document.querySelector('.nav-links.tabs').classList.remove('hidden');
+            document.querySelector('.sign-in-btn').classList.add('hidden');
+          }
+        } else {
+          document.querySelector('.nav-links.tabs').classList.add('hidden');
+          document.querySelector('.sign-in-btn').classList.remove('hidden');
+        }
+      }
+
       checkUserStatus();
