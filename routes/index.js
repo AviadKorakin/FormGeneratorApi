@@ -55,7 +55,7 @@ router.get('/confirmation-pending', ensureFirstStepAuthenticated,(req, res) => {
 
 
 
-router.get('/success/:id',ensureAuthenticated, async (req, res) => {
+router.get('/success/:id', async (req, res) => {
   const formId = req.params.id;
 
   try {
