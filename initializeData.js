@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Types;
+
 const Form = require('./models/Form'); // Import the Form model
 const Feedback = require('./models/Feedback'); // Import the Feedback model
 /* Paste your JSON array of forms here */
@@ -518,10 +521,10 @@ const initializeData = async () => {
             return;
         }
 
-        const updatedForms = exampleForms.map(form => ({
-            ...form,
-            userId: '0', // Add userId with a value of '0'
-        }));
+        exampleForms.forEach(form => {
+            form.userId = new ObjectId(); // Assign a random valid ObjectId
+        });
+
 
         // Insert example forms
         const insertedForms = await Form.insertMany(updatedForms);

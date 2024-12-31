@@ -980,7 +980,7 @@ async function generateForm(subject, theme) {
         if (response.ok) {
             handleSuccessfulGeneration(form);
         } else {
-            handleGenerationError(form.message);
+            handleGenerationError(form.error);
         }
     } catch (error) {
         handleNetworkError(error);
