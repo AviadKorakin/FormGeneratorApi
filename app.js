@@ -77,7 +77,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
+//handles trasportation of user details in every route or view
 app.use((req, res, next) => {
     res.locals.user = req.isAuthenticated() ? req.user : null;
     next();

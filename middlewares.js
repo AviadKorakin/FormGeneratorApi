@@ -1,9 +1,7 @@
-
-
 function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
+    if (res.locals.user) {
         // Check if the user's email is confirmed
-        if (req.user && req.user.confirmed) {
+        if (res.locals.user.confirmed) {
             return next(); // User is authenticated and email is confirmed
         }
         // Redirect to confirmation pending page if email is not confirmed
@@ -12,14 +10,16 @@ function ensureAuthenticated(req, res, next) {
     // Redirect to the login page if not authenticated
     res.redirect('/');
 }
+
 function ensureFirstStepAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next(); // User is authenticated and email is confirmed
+    if (res.locals.user) {
+        return next(); // User is authenticated
     }
+    // Redirect to the login page if not authenticated
     res.redirect('/');
 }
 
 module.exports = {
     ensureAuthenticated,
-    ensureFirstStepAuthenticated
+    ensureFirstStepAuthenticated,
 };
