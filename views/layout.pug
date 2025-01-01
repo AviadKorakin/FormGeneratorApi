@@ -107,19 +107,13 @@ html(lang="en")
             }
             navLinksTabs.classList.add('hidden');
           } else if (currentPage === '/') {
-            if (user) {
-              navLinksTabs.classList.remove('hidden');
-              signInBtn.classList.add('hidden');
-            } else {
+            if (!user) {
               navLinksTabs.classList.add('hidden');
               signInBtn.classList.remove('hidden');
             }
           }
           else if (currentPage === '/confirmation-success') {
-            if (user) {
-              navLinksTabs.classList.remove('hidden');
-              signInBtn.classList.add('hidden');
-            } else {
+            if (!user) {
               navLinksTabs.classList.add('hidden');
               signInBtn.classList.remove('hidden');
             }
