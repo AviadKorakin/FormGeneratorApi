@@ -13,7 +13,7 @@ router.get(
     passport.authenticate('github', { failureRedirect: '/users/login' }),
     async (req, res) => {
         try {
-            
+
             if (!process.env.email || !process.env.pass) {
                 return res.status(500).send('Email setup is not configured.');
             }
@@ -27,7 +27,7 @@ router.get(
                     },
                 });
 
-                const confirmationUrl = `https://formgeneratorapi.onrender.com/users/confirm-email/${req.user.id}`;
+                const confirmationUrl = process.env.SERVER_URL + `/users/confirm-email/${req.user.id}`;
                 await transporter.sendMail({
                     from: process.env.email,
                     to: req.user.email,

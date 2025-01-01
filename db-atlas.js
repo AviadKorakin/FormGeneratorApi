@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const initializeData = require('./initializeData'); // For running initialization logic
+const initializeData = require('./initialize-data'); // For running initialization logic
 const mongoAtlasURI = process.env.MONGO_ATLAS_URI;
 
 // Connect to MongoDB Atlas and initialize the database

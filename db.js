@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { exec } = require('child_process');
-const initializeData = require("./initializeData"); // For running Docker commands
+const initializeData = require("./initialize-data"); // For running Docker commands
 
 const mongoURI = process.env.MONGO_URI ;
 

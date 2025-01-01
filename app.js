@@ -10,10 +10,11 @@ const userRoutes = require('./routes/users');
 const indexRouter = require('./routes/index');
 const {urlencoded, json} = require("express");
 const session = require('express-session');
-const {connectDBAtlas, closeDBAtlasConnection} = require("./dbAtlas");
+const {connectDBAtlas, closeDBAtlasConnection} = require("./db-atlas");
 const {connectDB, closeDBConnection} = require("./db");
 const MongoStore = require('connect-mongo');
 const passport = require("./passport-util");
+const {pingServer} = require("./avoid-sleep-render");
 
 
 const app = express();
@@ -126,5 +127,7 @@ process.on('SIGINT', async () => {
   }
 });
 
+
+setInterval(pingServer, 10 * 60 * 1000)
 
 module.exports = app;
