@@ -820,6 +820,8 @@ async function saveForm(name, theme, designData, components) {
 
     const result = await response.json();
     if (response.ok) {
+        // Send email in the background
+        sendFormToEmail(result.formId).catch(err => console.error('Error sending email:', err));
         window.location.href = `/success/${result.formId}`;
     } else {
         throw new Error(result.error || JSON.stringify(result) || 'Unknown server error');
@@ -1248,8 +1250,6 @@ async function handleSaveForm() {
     try {
         await saveForm(formName, theme, designData, components);
 
-        // Send email in the background
-        sendFormToEmail().catch(err => console.error('Error sending email:', err));
 
     } catch (err) {
         console.error(err);
@@ -1469,7 +1469,7 @@ function extractPreviewHTML() {
     return '';
 }
 
-async function sendFormToEmail() {
+async function sendFormToEmail(id) {
     const previewHTML = extractPreviewHTML();
     if (!previewHTML) {
         alert('No content available to send.');
@@ -1477,7 +1477,7 @@ async function sendFormToEmail() {
     }
 
     try {
-        const response = await fetch('/forms/send-email', {
+        const response = await fetch(`/forms/send-email/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

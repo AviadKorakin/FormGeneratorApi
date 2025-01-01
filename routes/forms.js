@@ -5,10 +5,8 @@ const RequestLog = require('../models/RequestLog'); // Import the RequestLog mod
 const Groq = require("groq-sdk");
 const {ensureAuthenticated} = require("../middlewares");
 const {createTransport} = require("nodemailer");
-const fs = require('fs');
 const path = require('path');
-const { promisify } = require('util');
-const readFile = promisify(fs.readFile);
+const { readFile } = require('fs').promises; // Make sure you have required 'fs/promises'
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
@@ -563,7 +561,8 @@ Schema: ${jsonSchema}
 });
 
 
-router.post('/send-email', async (req, res) => {
+
+router.post('/send-email/:id', async (req, res) => {
     const user = res.locals.user;
 
     if (!user || !user.email) {
@@ -572,12 +571,14 @@ router.post('/send-email', async (req, res) => {
 
     const email = user.email;
     const htmlContent = req.body.htmlContent;
+    const formId = req.params.id; // Extract the Form ID from the route
 
     console.log(htmlContent);
     console.log(email);
+    console.log('Form ID:', formId);
 
-    if (!email || !htmlContent) {
-        return res.status(400).json({ error: 'Email and HTML content are required.' });
+    if (!email || !htmlContent || !formId) {
+        return res.status(400).json({ error: 'Email, HTML content, and Form ID are required.' });
     }
 
     try {
@@ -587,17 +588,36 @@ router.post('/send-email', async (req, res) => {
 
         // Embed the CSS into the HTML content
         const styledHtmlContent = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <style>
-                    ${cssStyles}
-                </style>
-            </head>
-            <body>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                ${cssStyles}
+                .readonly-container {
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    background-color: #f9f9f9;
+                    overflow: auto;
+                    font-family: Arial, sans-serif;
+                    font-size: 14px;
+                    color: #333;
+                }
+                .email-title {
+                    text-align: center;
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: #2c3e50;
+                    margin-bottom: 20px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="email-title">Form ${formId} has been created successfully!</div>
+            <div class="readonly-container" readonly>
                 ${htmlContent}
-            </body>
-            </html>
+            </div>
+        </body>
+        </html>
         `;
 
         const transporter = createTransport({
