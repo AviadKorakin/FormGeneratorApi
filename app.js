@@ -8,7 +8,6 @@ const formRoutes = require('./routes/forms');
 const feedbackRoutes = require('./routes/feedbacks');
 const userRoutes = require('./routes/users');
 const indexRouter = require('./routes/index');
-const {urlencoded, json} = require("express");
 const session = require('express-session');
 const {connectDBAtlas, closeDBAtlasConnection} = require("./db-atlas");
 const {connectDB, closeDBConnection} = require("./db");
@@ -51,7 +50,6 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -103,7 +101,7 @@ app.use(function(err, req, res, next) {
 
 
 
-app.use(urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -1462,7 +1462,7 @@ function showToolbarAndSaveButton() {
 }
 
 function extractPreviewHTML() {
-    const previewElement = document.getElementById('preview');
+    const previewElement = document.getElementById('form-preview');
     if (previewElement) {
         return previewElement.innerHTML; // Serialize inner HTML
     }
