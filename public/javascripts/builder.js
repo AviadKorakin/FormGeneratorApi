@@ -1477,7 +1477,7 @@ async function sendFormToEmail() {
     }
 
     try {
-        const response = await fetch('/send-email', {
+        const response = await fetch('/forms/send-email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -568,6 +568,8 @@ router.post('/send-email', async (req, res) => {
 
     const email = user.email;
     const htmlContent = req.body.htmlContent;
+
+
     console.log(htmlContent);
     console.log(email);
 
