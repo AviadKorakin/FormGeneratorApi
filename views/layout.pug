@@ -94,12 +94,19 @@ html(lang="en")
         const signInBtn = document.querySelector('.sign-in-btn');
 
         if (navLinksTabs && signInBtn) {
+          const user = !{JSON.stringify(user || null)};
           const currentPage = window.location.pathname;
           if (currentPage === '/confirmation-pending') {
+            if (user) {
+              if(!user.confirmed)
+              {
+                navLinksTabs.classList.add('hidden');
+                signInBtn.classList.add('hidden');
+              }
+              else window.location.href = `/`;
+            }
             navLinksTabs.classList.add('hidden');
-            signInBtn.classList.add('hidden');
           } else if (currentPage === '/') {
-            const user = !{JSON.stringify(user || null)};
             if (user) {
               navLinksTabs.classList.remove('hidden');
               signInBtn.classList.add('hidden');
@@ -109,7 +116,6 @@ html(lang="en")
             }
           }
           else if (currentPage === '/confirmation-success') {
-            const user = !{JSON.stringify(user || null)};
             if (user) {
               navLinksTabs.classList.remove('hidden');
               signInBtn.classList.add('hidden');
