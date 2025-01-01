@@ -1483,7 +1483,7 @@ async function sendFormToEmail() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                htmlContent: previewHTML
+                htmlContent: previewHTML, // Ensure `previewHTML` has the correct value
             }),
         });
 
