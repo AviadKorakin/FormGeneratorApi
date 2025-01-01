@@ -27,7 +27,7 @@ router.get(
                     },
                 });
 
-                const confirmationUrl = process.env.SERVER_URL + `/users/confirm-email/${req.user.id}`;
+                const confirmationUrl = process.env.SERVER_URL + `users/confirm-email/${req.user.id}`;
                 await transporter.sendMail({
                     from: process.env.email,
                     to: req.user.email,
