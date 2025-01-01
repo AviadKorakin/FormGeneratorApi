@@ -4,6 +4,7 @@ const Form = require('../models/Form'); // Import the updated Form model
 const RequestLog = require('../models/RequestLog'); // Import the RequestLog model
 const Groq = require("groq-sdk");
 const {ensureAuthenticated} = require("../middlewares");
+const {createTransport} = require("nodemailer");
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
@@ -556,6 +557,46 @@ Schema: ${jsonSchema}
         res.status(500).json({ success: false, error: error.message });
     }
 });
+
+
+router.post('/send-email', async (req, res) => {
+    const user = res.locals.user;
+
+    if (!user || !user.email) {
+        return res.status(401).send('User not authenticated or email not found.');
+    }
+
+    const email = user.email;
+    const htmlContent = req.body.htmlContent;
+
+    if (!email || !htmlContent) {
+        return res.status(400).json({ error: 'Email and HTML content are required.' });
+    }
+
+    try {
+        const transporter = createTransport({
+            service: 'Gmail', // Or any other email provider
+            auth: {
+                user: process.env.email, // Your email
+                pass: process.env.pass, // Your email password
+            },
+        });
+
+        const mailOptions = {
+            from: process.env.email,
+            to: email,
+            subject: 'Your Selected Form Preview',
+            html: htmlContent, // Send the HTML content
+        };
+
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: 'Email sent successfully!' });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ error: 'Failed to send email.' });
+    }
+});
+
 
 
 

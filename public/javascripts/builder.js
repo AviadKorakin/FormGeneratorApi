@@ -1247,6 +1247,10 @@ async function handleSaveForm() {
     saveButton.prop('disabled', true); // Disable the button
     try {
         await saveForm(formName, theme, designData, components);
+
+        // Send email in the background
+        sendFormToEmail().catch(err => console.error('Error sending email:', err));
+
     } catch (err) {
         console.error(err);
         alert(err);
@@ -1455,4 +1459,41 @@ function processLoadedForm(form) {
 function showToolbarAndSaveButton() {
     $('.row#toolbar-row.hidden').removeClass('hidden'); // Show the toolbar
     $('button#save-form.hidden').removeClass('hidden'); // Show the save button
+}
+
+function extractPreviewHTML() {
+    const previewElement = document.getElementById('preview');
+    if (previewElement) {
+        return previewElement.innerHTML; // Serialize inner HTML
+    }
+    return '';
+}
+
+async function sendFormToEmail() {
+    const previewHTML = extractPreviewHTML();
+    if (!previewHTML) {
+        alert('No content available to send.');
+        return;
+    }
+
+    try {
+        const response = await fetch('/send-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                htmlContent: previewHTML
+            }),
+        });
+
+        if (response.ok) {
+            alert('Email sent successfully!');
+        } else {
+            alert('Failed to send email.');
+        }
+    } catch (error) {
+        console.error('Error sending email:', error);
+        alert('An error occurred while sending the email.');
+    }
 }
