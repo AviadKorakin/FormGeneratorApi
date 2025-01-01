@@ -5,6 +5,10 @@ const RequestLog = require('../models/RequestLog'); // Import the RequestLog mod
 const Groq = require("groq-sdk");
 const {ensureAuthenticated} = require("../middlewares");
 const {createTransport} = require("nodemailer");
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+const readFile = promisify(fs.readFile);
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
@@ -569,7 +573,6 @@ router.post('/send-email', async (req, res) => {
     const email = user.email;
     const htmlContent = req.body.htmlContent;
 
-
     console.log(htmlContent);
     console.log(email);
 
@@ -578,6 +581,25 @@ router.post('/send-email', async (req, res) => {
     }
 
     try {
+        // Read the CSS file
+        const cssPath = path.join(__dirname, '..', 'public', 'stylesheets', 'builder.css');
+        const cssStyles = await readFile(cssPath, 'utf8');
+
+        // Embed the CSS into the HTML content
+        const styledHtmlContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    ${cssStyles}
+                </style>
+            </head>
+            <body>
+                ${htmlContent}
+            </body>
+            </html>
+        `;
+
         const transporter = createTransport({
             service: 'Gmail', // Or any other email provider
             auth: {
@@ -590,7 +612,7 @@ router.post('/send-email', async (req, res) => {
             from: process.env.email,
             to: email,
             subject: 'Your Selected Form Preview',
-            html: htmlContent, // Send the HTML content
+            html: styledHtmlContent, // Send the styled HTML content
         };
 
         await transporter.sendMail(mailOptions);
