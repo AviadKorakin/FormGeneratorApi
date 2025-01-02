@@ -68,19 +68,10 @@ router.get('/confirm-email/:userId', async (req, res) => {
 // Resend Confirmation Email Route
 router.get('/resend-confirmation', async (req, res) => {
     try {
-        console.log("Checking authentication for resend-confirmation route.");
-        if (!req.isAuthenticated()) {
+        const user = res.locals.user;
+        if (!user) {
             return res.status(401).send('Unauthorized. Please log in.');
         }
-
-        console.log("User from session:", req.user); // Log the user object
-
-        if (!req.user) {
-            return res.status(500).send('User not found in session.');
-        }
-
-        const user = req.user;
-
         if (user.confirmed) {
             return res.redirect('/');
         }
@@ -109,19 +100,6 @@ router.get('/resend-confirmation', async (req, res) => {
         console.error('Error resending confirmation email:', error);
         res.status(500).send('Failed to resend confirmation email.');
     }
-});
-
-router.get('/status', (req, res) => {
-    if (req.isAuthenticated()) {
-        if (!req.user.confirmed) {
-            // If the user's email is not confirmed, redirect to confirmation page
-            return res.json({ loggedIn: true, confirmed: false });
-        }
-        // User is logged in and confirmed
-        return res.json({ loggedIn: true, confirmed: true });
-    }
-    // User is not logged in
-    res.json({ loggedIn: false });
 });
 
 router.get('/logout', (req, res) => {

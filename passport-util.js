@@ -35,8 +35,9 @@ passportUtil.use(
                     user = await User.create({
                         githubId: profile.id,
                         username: profile.username,
-                        email,
+                        email : email,
                         confirmed: false,
+                        bannedUntil : null
                     });
                 }
                 return done(null, user);
