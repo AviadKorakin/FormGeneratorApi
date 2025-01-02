@@ -204,6 +204,7 @@ h1
   color: #ff9800;
 }
 .navbar-logo {
+  width : 45px;
   height: 45px; /* Adjust the height as per your design */
   margin-right: 8px; /* Add spacing between the logo and text */
   vertical-align: middle; /* Align the logo with the text */
