@@ -309,7 +309,6 @@ main.container {
 }
 
 .nav-links {
-  top:50%;
   display: flex; /* Inline layout to avoid recalculations */
   margin-left: 10px; /* Adjust spacing as needed */
   list-style-type: none;
