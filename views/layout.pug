@@ -11,35 +11,18 @@ html(lang="en")
     link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap")
     link(rel="icon" href="/favicon.ico")
     script.
-      function pollElements() {
-        const navLinksTabs = document.querySelector('.nav-links.tabs');
-        const signInBtn = document.querySelector('.sign-in-btn');
-
-        if (navLinksTabs && signInBtn) {
-          const user = !{JSON.stringify(user || null)};
-          const currentPage = window.location.pathname;
-          if (currentPage === '/confirmation-pending') {
-            if (user) {
-              if (!user.confirmed) {
-                navLinksTabs.classList.add('hidden');
-                signInBtn.classList.add('hidden');
-              } else window.location.href = `/`;
-            }
-            navLinksTabs.classList.add('hidden');
-          } else if (currentPage === '/') {
-            if (!user) {
-              navLinksTabs.classList.add('hidden');
-              signInBtn.classList.remove('hidden');
-            }
-          } else if (currentPage === '/confirmation-success') {
-            if (!user) {
-              navLinksTabs.classList.add('hidden');
-              signInBtn.classList.remove('hidden');
+      function ref() {
+        const user = !{JSON.stringify(user || null)};
+        const currentPage = window.location.pathname;
+        if (currentPage === '/confirmation-pending') {
+          if (user) {
+            if (user.confirmed) {
+              window.location.href = `/`;
             }
           }
         }
-      };
-      pollElements();
+      }
+        ref();
 
   body
     .wrapper
@@ -50,7 +33,7 @@ html(lang="en")
               img(src="/images/mylogo.png", alt="FormGeneratorApi Logo", class="navbar-logo")
               | FormGeneratorApi
 
-            ul.nav-links.tabs
+            ul.nav-links.tabs(class=navLinksHide ? 'hidden' : '')
               li
                 a(href="/form-builder") Build Form
               li
@@ -66,7 +49,7 @@ html(lang="en")
 
             ul.nav-links
               li
-                button.sign-in-btn(onclick="handleAuth()").hidden
+                button.sign-in-btn(class=signinHide ? 'hidden' : '', onclick="handleAuth()")
                   i.fab.fa-github
                   |  Sign In with GitHub
 

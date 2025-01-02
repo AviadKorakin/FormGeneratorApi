@@ -80,6 +80,8 @@ app.use(passport.session());
 //handles trasportation of user details in every route or view
 app.use((req, res, next) => {
     res.locals.user = req.isAuthenticated() ? req.user : null;
+    res.locals.signinHide = user ? true : false; // Hide sign-in button if user is logged in
+    res.locals.navLinksHide = user ? false : true; // Hide navigation links if user is not logged in
     next();
 });
 
