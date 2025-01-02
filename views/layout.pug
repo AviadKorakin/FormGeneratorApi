@@ -33,7 +33,7 @@ html(lang="en")
               img(src="/images/mylogo.png", alt="FormGeneratorApi Logo", class="navbar-logo")
               | FormGeneratorApi
 
-            ul.nav-links.tabs(class=navLinksHide ? 'hidden' : '')
+            ul.nav-links.tabs(class=navLinksHide ? 'hidden-layout': '')
               li
                 a(href="/form-builder") Build Form
               li
@@ -47,11 +47,9 @@ html(lang="en")
               li
                 a(href="/users/logout") Logout
 
-            ul.nav-links
-              li
-                button.sign-in-btn(class=signinHide ? 'hidden' : '', onclick="handleAuth()")
-                  i.fab.fa-github
-                  |  Sign In with GitHub
+            button.sign-in-btn(class=signinHide ? 'hidden-layout': '', onclick="handleAuth()")
+              i.fab.fa-github
+              | Sign In with GitHub
 
       main.container
         block content

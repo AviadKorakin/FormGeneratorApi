@@ -161,8 +161,7 @@ input[type="date"]:focus {
     color: #f1c40f;
 }
 .hidden {
-    visibility: hidden; /* Hides the element but keeps its space */
-    opacity: 0; /* Makes it invisible */
+    display: none;
 }
 /* Styling for the Load Form Button */
 #load-form {
