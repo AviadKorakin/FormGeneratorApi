@@ -10,7 +10,19 @@ const colors = ['#2ee7fc', '#d1f032', '#fd2629', '#ff8914']; // Custom colors fo
 
 async function fetchFormData(formId) {
     const response = await fetch(`/forms/${formId}`);
-    if (!response.ok) {
+
+    if (response.status === 401) {
+        window.location.href = '/';
+        return;
+    }
+
+    // Handle 403 (forbidden) - redirect to `/confirmation-pending`
+    else if (response.status === 403) {
+        window.location.href = '/confirmation-pending';
+        return;
+    }
+
+    else if (!response.ok) {
         throw new Error(`Failed to load form: ${response.statusText}`);
     }
     return await response.json();
@@ -819,7 +831,16 @@ async function saveForm(name, theme, designData, components) {
     });
 
     const result = await response.json();
-    if (response.ok) {
+    if (response.status === 401) {
+        window.location.href = '/';
+    }
+
+    // Handle 403 (forbidden) - redirect to `/confirmation-pending`
+    else if (response.status === 403) {
+        window.location.href = '/confirmation-pending';
+    }
+
+    else if (response.ok) {
         // Send email in the background
         sendFormToEmail(result.formId).catch(err => console.error('Error sending email:', err));
         window.location.href = `/success/${result.formId}`;
@@ -979,7 +1000,16 @@ async function generateForm(subject, theme) {
         console.log('Raw Response Text:', rawText);
 
         const form = parseResponse(rawText);
-        if (response.ok) {
+        if (response.status === 401) {
+            window.location.href = '/';
+        }
+
+        // Handle 403 (forbidden) - redirect to `/confirmation-pending`
+        else if (response.status === 403) {
+            window.location.href = '/confirmation-pending';
+        }
+
+        else if (response.ok) {
             handleSuccessfulGeneration(form);
         } else {
             handleGenerationError(form.error);
@@ -1320,7 +1350,16 @@ async function updateForm(formId, name, theme, designData, components) {
     });
 
     const result = await response.json();
-    if (response.ok) {
+    if (response.status === 401) {
+        window.location.href = '/';
+    }
+
+    // Handle 403 (forbidden) - redirect to `/confirmation-pending`
+    else if (response.status === 403) {
+        window.location.href = '/confirmation-pending';
+    }
+
+    else if (response.ok) {
         window.location.href = `/success/${result.formId}`;
     } else {
         throw new Error(result.error || 'Unknown server error'); // Rethrow the error
@@ -1486,8 +1525,17 @@ async function sendFormToEmail(id) {
                 htmlContent: previewHTML, // Ensure `previewHTML` has the correct value
             }),
         });
+        // Handle 401 (unauthorized) - redirect to `/`
+        if (response.status === 401) {
+            window.location.href = '/';
+        }
 
-        if (response.ok) {
+        // Handle 403 (forbidden) - redirect to `/confirmation-pending`
+        else if (response.status === 403) {
+            window.location.href = '/confirmation-pending';
+        }
+
+        else if (response.ok) {
             alert('Email sent successfully!');
         } else {
             alert('Failed to send email.');
