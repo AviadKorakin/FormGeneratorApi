@@ -5,7 +5,7 @@ const Form = require('../models/Form'); // Import the updated Form model
 
 
 /* GET home page. */
-router.get('/',function(req, res, next) {
+router.get('/',ensureFirstStepAuthenticated,function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
