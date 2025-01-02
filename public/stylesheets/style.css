@@ -173,7 +173,6 @@ a:hover {
 }
 
 .navbar .container {
-  display: flex; /* Ensure the navbar is the positioning context */
   align-items: center;
 }
 
