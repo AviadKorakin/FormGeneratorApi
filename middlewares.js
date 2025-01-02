@@ -28,7 +28,6 @@ function ensureSecondStepAuthenticated(req, res, next) {
         else  return next(); // User is authenticated
     }
     else  return next(); // User is authenticated
-
 }
 
 module.exports = {

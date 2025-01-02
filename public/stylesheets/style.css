@@ -165,15 +165,16 @@ a:hover {
 
 /* Navbar */
 .navbar {
+  list-style: none;
   background: #292647;
   color: #fff;
-  padding: 1rem;
-  position: relative; /* To position items inside it */
+  padding: 1rem 0;
+
 }
 
 .navbar .container {
+  display: flex;
   align-items: center;
-  display: flex; /* Ensure the navbar is the positioning context */
 }
 
 .navbar .brand {
@@ -319,11 +320,8 @@ main.container {
 
 .sign-in-btn,
 .logout-btn {
-  position: absolute;
-  top: 50%; /* Center it vertically */
-  right: 20px; /* Adjust distance from the right edge */
-  transform: translateY(-50%); /* Center it vertically */
-  background-color: #5000a6;
+  margin-left: auto;
+  background-color: black;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -334,7 +332,7 @@ main.container {
 }
 .sign-in-btn:hover,
 .logout-btn:hover {
-  background-color: #7e29d9;
+  background-color: #444;
 }
 .overlay-git {
   position: fixed;
@@ -467,13 +465,8 @@ main.container {
   }
 
   .navbar .nav-links {
-    position: absolute; /* Absolute position inside the container */
-    left: 50%; /* Position horizontally in the middle */
-    transform: translateX(-50%); /* Center it exactly */
-    display: flex;
-    justify-content: center; /* Align the links horizontally in the center */
-    gap: 1rem; /* Add space between links */
-    list-style-type: none;
+    flex-direction: column; /* Stack links vertically */
+    gap: 5px;
   }
 
   .navbar .nav-links a {
