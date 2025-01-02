@@ -36,8 +36,7 @@ passportUtil.use(
                         githubId: profile.id,
                         username: profile.username,
                         email : email,
-                        confirmed: false,
-                        bannedUntil : null
+                        confirmed: false
                     });
                 }
                 return done(null, user);
