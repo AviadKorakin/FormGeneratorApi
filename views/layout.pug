@@ -47,9 +47,11 @@ html(lang="en")
               li
                 a(href="/users/logout") Logout
 
-            button.sign-in-btn(class=signinHide ? 'hidden-layout': '', onclick="handleAuth()")
-              i.fab.fa-github
-              | Sign In with GitHub
+            ul.nav-links
+              li
+                button.sign-in-btn(class=signinHide ? 'hidden-layout': '', onclick="handleAuth()")
+                  i.fab.fa-github
+                  |  Sign In with GitHub
 
       main.container
         block content

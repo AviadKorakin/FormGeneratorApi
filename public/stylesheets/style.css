@@ -172,30 +172,7 @@ a:hover {
 
 .navbar .container {
   display: flex;
-  justify-content: space-between; /* Space out children: brand, nav-links, and sign-in button */
-  align-items: center; /* Vertically align all items */
-}
-
-.nav-links {
-  display: flex;
-  gap: 1rem; /* Add spacing between navigation links */
-  margin-left: auto; /* Ensure links are centered between brand and button */
-}
-
-.sign-in-btn {
-  margin-left: auto; /* Push the button to the far-right */
-  background-color: #5000a6;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.sign-in-btn:hover {
-  background-color: #7e29d9;
+  align-items: center;
 }
 
 .navbar .brand {
@@ -338,6 +315,14 @@ main.container {
   margin-right: 0; /* No margin for the last button */
 }
 
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
 .nav-links.tabs.show {
   display: flex;
