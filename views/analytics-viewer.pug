@@ -241,6 +241,17 @@ block content
 
                     analyticsContainer.innerHTML = '';
 
+                    if (response.status === 401) {
+                        window.location.href = '/';
+                        return;
+                    }
+
+                    // Handle 403 (forbidden) - redirect to `/confirmation-pending`
+                    else if (response.status === 403) {
+                        window.location.href = '/confirmation-pending';
+                        return;
+                    }
+
                     if (analyticsData.length === 0) {
                         analyticsContainer.innerHTML = '<p>No analytics data found matching the criteria.</p>';
                         return;
