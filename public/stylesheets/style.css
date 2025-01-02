@@ -167,8 +167,6 @@ a:hover {
   background: #292647;
   color: #fff;
   padding: 1rem;
-}
-.navbar .container {
   display: flex;
   align-items: center; /* Align items in the middle vertically */
   justify-content: flex-start; /* Align items at the start horizontally */
@@ -313,7 +311,6 @@ main.container {
   margin-left: 10px; /* Adjust spacing as needed */
   list-style-type: none;
 }
-
 .sign-in-btn {
   top: 50%; /* Center it vertically */
   background-color: #5000a6;
@@ -449,9 +446,6 @@ main.container {
   /* Navbar */
   .navbar {
     padding: 0.5rem 0; /* Reduce navbar padding */
-  }
-
-  .navbar .container {
     flex-direction: column; /* Stack items */
     gap: 10px;
   }
