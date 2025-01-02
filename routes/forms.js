@@ -583,8 +583,11 @@ router.post('/send-email/:id', async (req, res) => {
 
     try {
         // Read the CSS file
-        const cssPath = path.join(__dirname, '..', 'public', 'stylesheets', 'builder.css');
-        const cssStyles = await readFile(cssPath, 'utf8');
+        const cssPathBuilder = path.join(__dirname, '..', 'public', 'stylesheets', 'builder.css');
+        const cssPathStyle = path.join(__dirname, '..', 'public', 'stylesheets', 'style.css');
+        const cssBuilder = await readFile(cssPathBuilder, 'utf8');
+        const cssStyle = await readFile(cssPathStyle, 'utf8');
+
 
         // Embed the CSS into the HTML content
         const styledHtmlContent = `
@@ -592,7 +595,8 @@ router.post('/send-email/:id', async (req, res) => {
         <html>
         <head>
             <style>
-                ${cssStyles}
+                ${cssStyle}
+                ${cssBuilder}
                 .readonly-container {
                     border: 1px solid #ccc;
                     padding: 10px;
@@ -610,6 +614,7 @@ router.post('/send-email/:id', async (req, res) => {
                     margin-bottom: 20px;
                 }
             </style>
+             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         </head>
         <body>
             <div class="email-title">Form ${formId} has been created successfully!</div>
