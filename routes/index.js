@@ -1,5 +1,5 @@
 var express = require('express');
-const {ensureAuthenticated, ensureFirstStepAuthenticated} = require("../middlewares");
+const {ensureAuthenticated, ensureFirstStepAuthenticated, ensureSecondStepAuthenticated} = require("../middlewares");
 var router = express.Router();
 const Form = require('../models/Form'); // Import the updated Form model
 
@@ -45,7 +45,7 @@ router.get('/confirmation-success',ensureAuthenticated, (req, res) => {
 });
 
 // Render Confirmation Pending Page
-router.get('/confirmation-pending', ensureFirstStepAuthenticated,(req, res) => {
+router.get('/confirmation-pending',ensureSecondStepAuthenticated,(req, res) => {
   res.render('confirmation-pending', { title: 'Confirmation Pending' });
 });
 
