@@ -18,7 +18,7 @@ html(lang="en")
               img(src="/images/mylogo.png", alt="FormGeneratorApi Logo", class="navbar-logo")
               | FormGeneratorApi
 
-            ul.nav-links.tabs(class=navLinksHide ? 'hidden-layout': '')
+            ul.nav-links.tabs(class=navLinksHide ? '': 'hidden-layout')
               li
                 a(href="/form-builder") Build Form
               li
@@ -34,7 +34,7 @@ html(lang="en")
 
             ul.nav-links
               li
-                button.sign-in-btn(class=signinHide ? 'hidden-layout': '', onclick="handleAuth()")
+                button.sign-in-btn(class=signinHide ? '': 'hidden-layout', onclick="handleAuth()")
                   i.fab.fa-github
                   |  Sign In with GitHub
 
