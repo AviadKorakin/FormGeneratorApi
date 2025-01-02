@@ -21,7 +21,6 @@ async function fetchFormData(formId) {
         window.location.href = '/confirmation-pending';
         return;
     }
-
     else if (!response.ok) {
         throw new Error(`Failed to load form: ${response.statusText}`);
     }
@@ -1535,9 +1534,8 @@ async function sendFormToEmail(id) {
             window.location.href = '/confirmation-pending';
         }
 
-        else if (response.ok) {
-            alert('Email sent successfully!');
-        } else {
+        else if (!response.ok) {
+
             alert('Failed to send email.');
         }
     } catch (error) {
