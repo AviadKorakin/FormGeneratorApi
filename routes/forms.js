@@ -596,16 +596,11 @@ router.post('/send-email/:id', async (req, res) => {
                 .readonly-container {
                     border: 1px solid #ccc;
                     padding: 10px;
-                    background-color: #000; /* Black background */
+                    background-color: #000000;
                     overflow: auto;
                     font-family: Arial, sans-serif;
                     font-size: 14px;
-                    color: #fff; /* White text for better contrast */
-                    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition effect */
-                }
-                .readonly-container:hover {
-                    background-color: #333; /* Dark gray background on hover */
-                    color: #eee; /* Slightly lighter text color on hover */
+                    color: #333;
                 }
                 .email-title {
                     text-align: center;
@@ -624,7 +619,6 @@ router.post('/send-email/:id', async (req, res) => {
         </body>
         </html>
         `;
-
 
         const transporter = createTransport({
             service: 'Gmail', // Or any other email provider
