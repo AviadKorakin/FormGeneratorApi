@@ -1500,9 +1500,9 @@ function showToolbarAndSaveButton() {
 }
 
 function extractPreviewHTML() {
-    const previewContainer = document.querySelector('.col-md-8.preview'); // Select the container
-    if (previewContainer) {
-        return previewContainer.innerHTML; // Serialize inner HTML
+    const previewElement = document.getElementById('form-preview');
+    if (previewElement) {
+        return previewElement.innerHTML; // Serialize inner HTML
     }
     return '';
 }

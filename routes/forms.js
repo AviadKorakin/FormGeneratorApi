@@ -598,7 +598,7 @@ router.post('/send-email/:id', async (req, res) => {
                 ${cssStyle}
                 ${cssBuilder}
                 .readonly-container {
-                    border: 1px solid #ccc;
+                    border: 2px solid #982aff;
                     padding: 10px;
                     background-color: #000000;
                     overflow: auto;
@@ -614,7 +614,6 @@ router.post('/send-email/:id', async (req, res) => {
                     margin-bottom: 20px;
                 }
             </style>
-             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         </head>
         <body>
             <div class="email-title">Form ${formId} has been created successfully!</div>
