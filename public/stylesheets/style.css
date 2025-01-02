@@ -167,6 +167,9 @@ a:hover {
   background: #292647;
   color: #fff;
   padding: 1rem;
+  top: 0;
+  width: 100%; /* Ensure it spans the full width */
+  z-index: 1000; /* Ensure it stays on top */
   display: flex;
   align-items: center; /* Align items in the middle vertically */
   justify-content: flex-start; /* Align items at the start horizontally */
