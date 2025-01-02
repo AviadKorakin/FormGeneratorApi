@@ -169,8 +169,7 @@ a:hover {
   position: relative; /* Ensure the navbar is the positioning context */
   background: #292647;
   color: #fff;
-  padding: 1rem 0;
-
+  padding: 1rem;
 }
 
 .navbar .container {
@@ -314,7 +313,7 @@ main.container {
 }
 
 .nav-links {
-  display: inline-block; /* Inline layout to avoid recalculations */
+  display: flex; /* Inline layout to avoid recalculations */
   margin-left: 10px; /* Adjust spacing as needed */
   list-style-type: none;
 }
