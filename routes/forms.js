@@ -625,13 +625,13 @@ router.post('/send-email/:id', async (req, res) => {
         const transporter = createTransport({
             service: 'Gmail', // Or any other email provider
             auth: {
-                user: process.env.email, // Your email
-                pass: process.env.pass, // Your email password
+                user: process.env.EMAIL, // Your email
+                pass: process.env.EMAIL_PASS, // Your email password
             },
         });
 
         const mailOptions = {
-            from: process.env.email,
+            from: process.env.EMAIL,
             to: email,
             subject: 'Your Selected Form Preview',
             html: styledHtmlContent, // Send the styled HTML content

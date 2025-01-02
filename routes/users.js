@@ -14,7 +14,7 @@ router.get(
     async (req, res) => {
         try {
 
-            if (!process.env.email || !process.env.pass) {
+            if (!process.env.EMAIL || !process.env.EMAIL_PASS) {
                 return res.status(500).send('Email setup is not configured.');
             }
 
@@ -22,14 +22,14 @@ router.get(
                 const transporter = nodemailer.createTransport({
                     service: 'Gmail',
                     auth: {
-                        user: process.env.email,
-                        pass: process.env.pass,
+                        user: process.env.EMAIL,
+                        pass: process.env.EMAIL_PASS,
                     },
                 });
 
                 const confirmationUrl = process.env.SERVER_URL + `users/confirm-email/${req.user.id}`;
                 await transporter.sendMail({
-                    from: process.env.email,
+                    from: process.env.EMAIL,
                     to: req.user.email,
                     subject: 'Confirm Your Email',
                     text: `Click the link to confirm your email: ${confirmationUrl}`,
@@ -81,14 +81,14 @@ router.get('/resend-confirmation', async (req, res) => {
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: process.env.email,
-                pass: process.env.pass,
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASS,
             },
         });
 
         const confirmationUrl = `https://formgeneratorapi.onrender.com/users/confirm-email/${user.id}`;
         await transporter.sendMail({
-            from: process.env.email,
+            from: process.env.EMAIL,
             to: user.email,
             subject: 'Confirm Your Email',
             text: `Click the link to confirm your email: ${confirmationUrl}`,
