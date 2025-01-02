@@ -12,9 +12,9 @@ html(lang="en")
     link(rel="icon" href="/favicon.ico")
     script.
       function ref() {
-        const user = !{JSON.stringify(user || null)};
         const currentPage = window.location.pathname;
         if (currentPage === '/confirmation-pending') {
+          const user = !{JSON.stringify(user || null)};
           if (user) {
             if (user.confirmed) {
               window.location.href = `/`;
