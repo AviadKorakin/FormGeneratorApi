@@ -11,6 +11,8 @@ The **Form Generator API** is a powerful tool designed for creating dynamic, cus
 - Store, retrieve, and update forms in MongoDB.
 - Visualize feedback analytics using charts.
 - Seamlessly integrate with an Android SDK to render forms on mobile devices.
+- **OAuth and Secure Session Management** using MongoStore and secure cookies.
+- **Email Notifications** to enhance user engagement.
 
 ## Key Features
 
@@ -30,13 +32,20 @@ The **Form Generator API** is a powerful tool designed for creating dynamic, cus
 - This ID can be used in your Android application to load forms dynamically.
 - Provides real-time feedback submission from mobile devices.
 
+### 🛡️ Enhanced Security
+- **OAuth Authentication** ensures secure access to user accounts.
+- **Secure Sessions** managed with MongoStore and secure cookies.
+
+### ✉️ Email Notifications
+- Built-in **email service** to notify users of form submissions, updates, and other actions.
+
 ### 🛠️ Modular Components
 - Supports a variety of components:
-    - **Textbox**
-    - **Combobox**
-    - **5-Star Rating**
-    - **Scale Bar**
-    - **Titles**
+  - **Textbox**
+  - **Combobox**
+  - **5-Star Rating**
+  - **Scale Bar**
+  - **Titles**
 
 ### 📊 Feedback Analytics
 - Analyze form responses visually with pie charts and bar charts.
@@ -66,9 +75,17 @@ npm install
 Create a `.env` file in the root directory with the following variables:
 
 ```
-GROQ_API_KEY=your_groq_api_key
-MONGO_URI=mongodb://localhost:27017/form-builder
-PORT=3000
+GROQ_API_KEY=..
+MONGO_URI=..
+email=..
+pass=..
+PORT=..
+MONGO_ATLAS_URI=..
+SESSION_SECRET=..
+NODE_ENV=..
+GITHUB_CLIENT_ID=..
+GITHUB_CLIENT_SECRET=..
+SERVER_URL=..
 ```
 
 ---
@@ -307,6 +324,7 @@ Accessible at `/success/:id`, this page validates a form ID and confirms its suc
 1. Ensure MongoDB is running locally or use a cloud-based MongoDB service.
 2. Deploy the API to a cloud platform like Heroku, AWS, or Azure.
 3. Configure the `.env` file with production values.
+4. Access the live application at [Form Generator API](https://formgeneratorapi.onrender.com).
 
 ---
 
@@ -324,8 +342,6 @@ This project is licensed under the MIT License.
 Copyright © 2024 Aviad Korakin. All rights reserved. Unauthorized reproduction or distribution is prohibited.
 
 ---
-
-
 
 ## Screenshots
 
