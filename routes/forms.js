@@ -584,9 +584,7 @@ router.post('/send-email/:id', async (req, res) => {
     try {
         // Read the CSS file
         const cssPathBuilder = path.join(__dirname, '..', 'public', 'stylesheets', 'builder.css');
-        const cssPathStyle = path.join(__dirname, '..', 'public', 'stylesheets', 'style.css');
         const cssBuilder = await readFile(cssPathBuilder, 'utf8');
-        const cssStyle = await readFile(cssPathStyle, 'utf8');
 
 
         // Embed the CSS into the HTML content
@@ -595,7 +593,7 @@ router.post('/send-email/:id', async (req, res) => {
         <html>
         <head>
             <style>
-                ${cssStyle}
+ 
                 ${cssBuilder}
                 .readonly-container {
                     border: 2px solid #982aff;
