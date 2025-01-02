@@ -166,7 +166,6 @@ a:hover {
 /* Navbar */
 .navbar {
   list-style: none;
-  position: relative; /* Ensure the navbar is the positioning context */
   background: #292647;
   color: #fff;
   padding: 1rem;
@@ -174,6 +173,7 @@ a:hover {
 
 .navbar .container {
   align-items: center;
+  display: flex; /* Ensure the navbar is the positioning context */
 }
 
 .navbar .brand {
