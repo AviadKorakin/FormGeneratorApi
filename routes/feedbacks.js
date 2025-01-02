@@ -82,7 +82,7 @@ router.get('/', ensureAuthenticatedInnerRoutes,async (req, res) => {
     }
 });
 
-router.get('/filter', async (req, res) => {
+router.get('/filter', ensureAuthenticatedInnerRoutes, async (req, res) => {
     try {
         const { formId, email, startDate, endDate } = req.query;
 
