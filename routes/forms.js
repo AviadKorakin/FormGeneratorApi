@@ -3,7 +3,7 @@ const router = express.Router();
 const Form = require('../models/Form'); // Import the updated Form model
 const RequestLog = require('../models/RequestLog'); // Import the RequestLog model
 const Groq = require("groq-sdk");
-const {ensureAuthenticated} = require("../middlewares");
+const { ensureAuthenticatedInnerRoutes} = require("../middlewares");
 const {createTransport} = require("nodemailer");
 const path = require('path');
 const { readFile } = require('fs').promises; // Make sure you have required 'fs/promises'
@@ -164,7 +164,7 @@ const schema = {
 
 
 // Save a new form
-router.post('/save',ensureAuthenticated, async (req, res) => {
+router.post('/save',ensureAuthenticatedInnerRoutes, async (req, res) => {
     try {
         const { name, theme, designData, components } = req.body;
 
@@ -253,7 +253,7 @@ router.post('/save',ensureAuthenticated, async (req, res) => {
 });
 
 // Get all forms
-router.get('/list',ensureAuthenticated, async (req, res) => {
+router.get('/list',ensureAuthenticatedInnerRoutes, async (req, res) => {
     try {
         const forms = await Form.find({ userId: req.user._id }); // Fetch forms for the authenticated user
         res.status(200).json(forms);
@@ -278,7 +278,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update Form by ID
-router.put('/:id', ensureAuthenticated,async (req, res) => {
+router.put('/:id', ensureAuthenticatedInnerRoutes,async (req, res) => {
     try {
         const { name, theme, designData, components } = req.body;
         const form = await Form.findById(req.params.id);
@@ -334,7 +334,7 @@ router.put('/:id', ensureAuthenticated,async (req, res) => {
 });
 
 // Delete Form by ID
-router.delete('/:id', ensureAuthenticated,async (req, res) => {
+router.delete('/:id', ensureAuthenticatedInnerRoutes,async (req, res) => {
     try {
         const form = await Form.findById(req.params.id); // Fetch the form document
 
@@ -354,7 +354,7 @@ router.delete('/:id', ensureAuthenticated,async (req, res) => {
 
 
 // Define the router endpoint
-router.post('/generate-form/:subject/:theme',ensureAuthenticated, async (req, res) => {
+router.post('/generate-form/:subject/:theme',ensureAuthenticatedInnerRoutes, async (req, res) => {
     const subject = req.params.subject;
     const theme = req.params.theme.toLowerCase(); // Ensure case insensitivity for theme
     const jsonSchema = JSON.stringify(schema, null, 4);
