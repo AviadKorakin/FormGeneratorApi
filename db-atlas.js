@@ -10,7 +10,7 @@ const connectDBAtlas = async () => {
         console.log('MongoDB Atlas connected successfully');
 
         console.log('Clearing the database...');
-        await clearDatabase();
+        //await clearDatabase();
         console.log('Database cleared');
 
         console.log('Initializing the database...');
