@@ -168,13 +168,12 @@ a:hover {
   list-style: none;
   background: #292647;
   color: #fff;
-  padding: 1rem 0;
-
+  padding: 1rem;
 }
 
 .navbar .container {
-  display: flex;
   align-items: center;
+  display: flex; /* Ensure the navbar is the positioning context */
 }
 
 .navbar .brand {
