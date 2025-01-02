@@ -114,7 +114,7 @@ html, body {
   display: flex;
   transition: transform 0.5s ease-in-out;
 }
-.hidden-layout {
+.nav-links.hidden{
   display: none;
 }
 
