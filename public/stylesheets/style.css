@@ -165,10 +165,10 @@ a:hover {
 
 /* Navbar */
 .navbar {
-  list-style: none;
   background: #292647;
   color: #fff;
   padding: 1rem;
+  position: relative; /* To position items inside it */
 }
 
 .navbar .container {
@@ -319,8 +319,11 @@ main.container {
 
 .sign-in-btn,
 .logout-btn {
-  margin-left: auto;
-  background-color: black;
+  position: absolute;
+  top: 50%; /* Center it vertically */
+  right: 20px; /* Adjust distance from the right edge */
+  transform: translateY(-50%); /* Center it vertically */
+  background-color: #5000a6;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -331,7 +334,7 @@ main.container {
 }
 .sign-in-btn:hover,
 .logout-btn:hover {
-  background-color: #444;
+  background-color: #7e29d9;
 }
 .overlay-git {
   position: fixed;
@@ -464,8 +467,13 @@ main.container {
   }
 
   .navbar .nav-links {
-    flex-direction: column; /* Stack links vertically */
-    gap: 5px;
+    position: absolute; /* Absolute position inside the container */
+    left: 50%; /* Position horizontally in the middle */
+    transform: translateX(-50%); /* Center it exactly */
+    display: flex;
+    justify-content: center; /* Align the links horizontally in the center */
+    gap: 1rem; /* Add space between links */
+    list-style-type: none;
   }
 
   .navbar .nav-links a {
