@@ -114,8 +114,8 @@ html, body {
   display: flex;
   transition: transform 0.5s ease-in-out;
 }
-.nav-links.hidden{
-  display: none;
+.nav-links.hidden {
+  display: none !important;
 }
 
 .slider-image {
@@ -223,6 +223,9 @@ a:hover {
 
   transform: scale(1.2); /* Slightly enlarge icon */
 }
+
+
+
 h1
 {
   color: #fff;
@@ -281,7 +284,7 @@ main.container {
 }
 
 .footer-links a:hover {
-  color: #ff9800;
+  color: #0078ff;
 }
 #save-form {
   font-size: 1rem;
