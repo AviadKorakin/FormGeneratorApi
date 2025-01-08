@@ -165,7 +165,7 @@ a:hover {
 
 /* Navbar */
 .navbar {
-  background: #430f61;
+  background: linear-gradient(135deg, #2a0f61, #6a1b9a, #4a148c);
   color: #fff;
   padding: 1rem;
   top: 0;
@@ -183,25 +183,51 @@ a:hover {
   text-decoration: none;
   margin-right: 2rem; /* Add spacing between brand and nav links */
 }
+.navbar .nav-links {
+  display: flex; /* Inline layout */
+  gap: 5px; /* Space between tabs */
+}
 
 .navbar .nav-links li {
-  margin-right: 1.5rem; /* Add spacing between each link */
+  list-style: none;
 }
 
 .navbar .nav-links a {
+  display: flex; /* To allow vertical alignment */
+  flex-direction: column; /* Icon above text */
+  align-items: center; /* Center content */
+  justify-content: center;
+  text-align: center;
   color: #fff;
   text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s ease;
+  padding: 10px 15px;
+  border-radius: 8px; /* Rounded corners for the tab */
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  min-width: 100px; /* Ensure consistent size */
+}
+
+.navbar .nav-links a:hover {
+  background-color: #981ce3; /* Highlight background on hover */
+  transform: scale(1.05); /* Slightly enlarge tab */
+}
+
+.navbar .nav-links a i {
+  font-size: 1.5rem; /* Icon size */
+  margin-bottom: 5px; /* Space between icon and text */
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar .nav-links a:hover i {
+
+  transform: scale(1.2); /* Slightly enlarge icon */
 }
 h1
 {
   color: #fff;
 }
 
-.navbar .nav-links a:hover {
-  color: #ff9800;
-}
 .navbar-logo {
   width : 45px;
   height: 45px; /* Adjust the height as per your design */
@@ -215,7 +241,7 @@ main.container {
   width: 90%; /* Make the container almost as wide as the screen */
   max-width: 1400px; /* Prevent it from becoming too wide on large screens */
   margin: 2rem auto; /* Center the container horizontally and add vertical spacing */
-  background: #430f61; /* White background for clarity */
+  background: linear-gradient(0deg, #401475, #501475, #4a148c); /* White background for clarity */
   color: #ffffff;
   border-radius: 10px; /* Subtle corner rounding for a modern look */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
@@ -224,7 +250,7 @@ main.container {
 
 /* Footer */
 .footer {
-  background: #430f61;
+  background: linear-gradient(135deg, #2a0f61, #6a1b9a, #4a148c);
   color: #fff;
   text-align: center;
   padding: 1.5rem 0;
@@ -262,15 +288,14 @@ main.container {
   padding: 8px 15px;
   border-radius: 5px;
   border: none;
-  background-color: #0135d6; /* Danger red */
+  background-color: #28a745; /* Danger red */
   color: white;
   transition: all 0.3s ease-in-out;
   float:right;
   margin-top: 15px;
 }
-
 #save-form:hover {
-  background-color: #003dfd; /* Blue shiny background */
+  background-color: #218838; /* Blue shiny background */
   transform: translateY(-2px) scale(1.05); /* Slightly "lift" the button */
 }
 
@@ -317,7 +342,6 @@ main.container {
   list-style-type: none;
 }
 .sign-in-btn {
-  top: 50%; /* Center it vertically */
   background-color: #000;
   color: white;
   border: none;
@@ -325,12 +349,17 @@ main.container {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */
 }
 
 .sign-in-btn:hover {
-  background-color: #444444;
+  background-color: #444444; /* Darken on hover */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4); /* Deepen shadow for a popup effect */
+  transform: scale(1.05); /* Slightly enlarge the button */
 }
+
+
 
 .overlay-git {
   position: fixed;
@@ -450,22 +479,21 @@ main.container {
 
   /* Navbar */
   .navbar {
-    padding: 0.5rem 0; /* Reduce navbar padding */
-    flex-direction: column; /* Stack items */
-    gap: 10px;
-  }
-
-  .navbar .brand {
-    font-size: 1.5rem; /* Smaller brand text */
-  }
-
-  .navbar .nav-links {
-    flex-direction: column; /* Stack links vertically */
+    padding: 0.2rem 0; /* Reduce navbar padding */
     gap: 5px;
   }
 
-  .navbar .nav-links a {
-    font-size: 0.9rem; /* Adjust link size */
+  .navbar .brand {
+    font-size: 0; /* Smaller brand text */
+    margin-right: 1rem; /* Add spacing between brand and nav links */
+  }
+
+  .navbar .nav-links a span {
+    display: none; /* Hide text */
+  }
+
+  .navbar .nav-links a i {
+    font-size: 1.5rem; /* Increase icon size */
   }
 
   /* Main Content */

@@ -492,7 +492,7 @@ textarea:focus {
 }
 
 .overlay-content {
-    background-color: #430f61;
+    background: linear-gradient(0deg, #401475, #501475, #4a148c);
     padding: 20px;
     border-radius: 8px;
     text-align: center;
