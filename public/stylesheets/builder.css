@@ -492,7 +492,7 @@ textarea:focus {
 }
 
 .overlay-content {
-    background: linear-gradient(0deg, #320c51, #4a148c, #591781);
+    background: linear-gradient(0deg, #320c51, #5f1ab3, #591781);
     padding: 20px;
     border-radius: 8px;
     text-align: center;
