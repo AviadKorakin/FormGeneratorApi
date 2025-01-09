@@ -483,7 +483,7 @@ main.container {
   /* Navbar */
   .navbar {
     padding: 0.2rem 0; /* Reduce navbar padding */
-    gap: 5px;
+
   }
 
   .navbar .brand {
@@ -491,12 +491,22 @@ main.container {
     margin-right: 1rem; /* Add spacing between brand and nav links */
   }
 
-  .navbar .nav-links a span {
-    display: none; /* Hide text */
-  }
 
   .navbar .nav-links a i {
-    font-size: 1.5rem; /* Increase icon size */
+    font-size: 1.2rem; /* Reduce icon size for better fit */
+  }
+
+  .navbar .nav-links a {
+    min-width: 25px; /* Adjust width to fit smaller screens */
+    padding: 5px 10px; /* Reduce padding for compact layout */
+  }
+
+  .navbar .nav-links a span {
+    display: none; /* Hide text on mobile to focus on icons */
+  }
+
+  footer .footer-links a i {
+    font-size: 1.5rem; /* Adjust footer icon size for smaller screens */
   }
 
   /* Main Content */
