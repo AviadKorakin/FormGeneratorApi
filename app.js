@@ -92,13 +92,24 @@ app.use('/forms', formRoutes);
 app.use('/feedbacks', feedbackRoutes);
 app.use('/users', userRoutes);
 
-// error handler
+
+app.use(function(req, res, next) {
+    const error = createError(404, 'The page you are looking for does not exist.');
+    next(error);
+});
+
+// General Error Handler
 app.use(function(err, req, res, next) {
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // Set locals, only providing error stack in development
+    if(process.env.NODE_ENV === 'production') {
+        err.stack="";
+    }
+    res.locals.error =  err ;
+    // Render the error page
     res.status(err.status || 500);
     res.render('error');
 });
+
 
 
 
