@@ -522,9 +522,10 @@ code {
         border-radius: 4px;
     }
 
+
     .toolbar table {
-        font-size: 0.8rem; /* Smaller font size */
-        border-spacing: 4px;
+        font-size: 0.8rem;
+        border-spacing: 10px;
     }
 
     /* Card */
