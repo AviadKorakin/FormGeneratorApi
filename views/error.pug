@@ -1,6 +1,21 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  h1 Error
+    i.fas.fa-exclamation-circle(style="margin-left: 10px; color: #dc3545;")
+
+  .container-fluid
+    .row
+      .col-md-12
+        .alert.alert-danger(role="alert" style="max-width: 600px; margin: 20px auto;")
+          h2= error.status
+            i.fas.fa-times-circle(style="margin-left: 10px;")
+          p= message
+
+        .card(style="max-width: 600px; margin: 20px auto; border-color: #dc3545;")
+          .card-header.bg-danger.text-white
+            i.fas.fa-bug(style="margin-right: 10px;")
+            span Error Stack Trace
+          .card-body
+            pre #{error.stack}
+
