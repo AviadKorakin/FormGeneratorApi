@@ -7,6 +7,7 @@ const { ensureAuthenticatedInnerRoutes, validateApiKey} = require("../middleware
 const {createTransport} = require("nodemailer");
 const path = require('path');
 const { readFile } = require('fs').promises; // Make sure you have required 'fs/promises'
+const juice = require('juice');
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
@@ -590,7 +591,7 @@ router.post('/send-email/:id', async (req, res) => {
         const cssStyle = await readFile(cssPathStyle, 'utf8');
 
         // Embed the CSS into the HTML content
-        const styledHtmlContent = `
+        const rawHtmlContent  = `
         <!DOCTYPE html>
         <html>
         <head>
@@ -624,6 +625,8 @@ router.post('/send-email/:id', async (req, res) => {
         </body>
         </html>
         `;
+        // Inline the CSS into the HTML
+        const styledHtmlContent = juice(rawHtmlContent);
 
         const transporter = createTransport({
             service: 'Gmail', // Or any other email provider
