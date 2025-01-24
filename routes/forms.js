@@ -604,7 +604,7 @@ router.post('/send-email/:id', async (req, res) => {
                     padding: 10px;
                     background-color: #000000;
                     overflow: auto;
-                    font-family: Arial, sans-serif;
+                    font-family: 'Roboto', sans-serif;
                     font-size: 14px;
                     color: #333;
                 }
