@@ -70,10 +70,20 @@ block content
 
   h2.section-title(style="color: #ffffff;") How to Use
   section.usage
+    .usage-step.card(style="background: #333333; color: #fff; border: 1px solid #333333; margin-bottom: 15px;")
+      h3(style="color: #FF8C00;")
+        span.i-unique(style="color: #FF8C00;") 📝
+        | Step 1: Add Metadata to AndroidManifest.xml
+      p(style="margin-left: 2rem;") Include the following metadata entry in your application's AndroidManifest.xml file to set the API key:
+      pre(style="max-width: 100%; overflow-x: auto; padding: 10px; border-radius: 8px;")
+        code.language-xml
+          | <meta-data
+          |     android:name="com.feedbackslibary.API_KEY"
+          |     android:value="YOUR-API-KEY" />
     .usage-step.card(style="background: #333333; color: #fff;border: 1px solid #333333; margin-bottom:15px; ")
       h3(style="color: #FF6347;")
         span.i-unique(style="color: #FF6347;") 🖋️
-        | Step 1: Create a Form
+        | Step 2: Create a Form
       p(style="margin-left: 2rem;") Use the Form Builder to design and generate a form. Include modular components such as textboxes, dropdowns, and rating bars.
       pre
         code.language-json
@@ -93,7 +103,7 @@ block content
     .usage-step.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
       h3(style="color: #1E90FF;")
         span.i-unique(style="color: #1E90FF;") ✒️
-        | Step 2: Use the Form ID in the SDK
+        | Step 3: Use the Form ID in the SDK
       p(style="margin-left: 2rem;") Integrate the form into your Android application using the SDK. Fetch and display the form dynamically.
       pre(style="max-width: 100%; overflow-x: auto; padding: 10px; border-radius: 8px;")
         code.language-java
