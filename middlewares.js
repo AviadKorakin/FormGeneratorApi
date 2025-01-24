@@ -61,7 +61,7 @@ const validateApiKey = async (req, res, next) => {
         if (!apiKey) {
             return res.status(401).json({ error: 'API key is required' });
         }
-
+        console.log(apiKey);
         // Find a user with the provided API key
         const user = await User.findOne({ api_key: apiKey });
         if (!user) {
