@@ -2,12 +2,17 @@ const express = require('express');
 const Feedback = require('../models/Feedback'); // Assuming the Feedback model is in the models directory
 const validator = require('validator');
 const {ensureAuthenticatedInnerRoutes, validateApiKey} = require("../middlewares");
+const Form = require("../models/Form");
 const router = express.Router();
 
 router.post('/', validateApiKey,async (req, res) => {
     try {
         const { formId, email, responses } = req.body;
 
+        const form = await Form.findOne({ _id: formId, userId: req.user._id });
+        if (!form) {
+            return res.status(403).json({ error: 'Form not found  or Unauthorized access.' });
+        }
         // Log the request body for debugging
         console.log('Received Feedback Request:', req.body);
 

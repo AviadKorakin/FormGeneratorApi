@@ -266,10 +266,11 @@ router.get('/list',ensureAuthenticatedInnerRoutes, async (req, res) => {
 // Get Form by ID
 router.get('/:id',validateApiKey, async (req, res) => {
     try {
-        const form = await Form.findById(req.params.id);
+        const form = await Form.findOne({ _id: req.params.id, userId: req.user._id });
         if (!form) {
-            return res.status(404).json({ error: 'Form not found' });
+            return res.status(403).json({ error: 'Form not found  or Unauthorized access.' });
         }
+
         res.json(form);
     } catch (error) {
         console.error('Error fetching form:', error);
