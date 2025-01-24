@@ -1,3 +1,5 @@
+const User = require('./models/User'); // Assuming you will create a User model
+
 function ensureAuthenticated(req, res, next) {
     if (res.locals.user) {
         // Check if the user is banned
