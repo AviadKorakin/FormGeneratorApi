@@ -612,7 +612,7 @@ router.post('/send-email/:id', async (req, res) => {
                     text-align: center;
                     font-size: 20px;
                     font-weight: bold;
-                    color: #2c3e50;
+                    color: #ffffff;
                     margin-bottom: 20px;
                 }
             </style>
