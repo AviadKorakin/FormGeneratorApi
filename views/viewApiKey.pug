@@ -9,7 +9,7 @@ block content
             p Please verify the details and try again.
             a.btn.btn-primary.mt-3(href="/") Return to Home
     else
-        h1 API Key Generated Successfully
+        h1 Your API Key
             i.fas.fa-check-circle(style="color: #2ecc71; margin-left: 10px;")
 
         .container
@@ -17,9 +17,8 @@ block content
             .form-group
                 input#api-key(type="text" class="form-control" readonly value=apiKey)
             .button-group.mt-3
-                button(type="button" class="btn btn-primary copy-button", style="background: linear-gradient(135deg, #2a0f61, #6a1b9a, #4a148c); color: white; border: none;") Copy API Key
-                button(type="button" class="btn btn-secondary save-button ml-3", style="background: linear-gradient(135deg, #2a0f61, #6a1b9a, #4a148c); color: white; border: none;") Save to File
-
+                button(type="button" class="btn btn-primary copy-button") Copy API Key
+                button(type="button" class="btn btn-secondary save-button ml-3") Save to File
         script(src="https://code.jquery.com/jquery-3.6.0.min.js")
         script.
             $(document).ready(function () {

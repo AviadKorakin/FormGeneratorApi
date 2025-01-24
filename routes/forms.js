@@ -3,7 +3,7 @@ const router = express.Router();
 const Form = require('../models/Form'); // Import the updated Form model
 const RequestLog = require('../models/RequestLog'); // Import the RequestLog model
 const Groq = require("groq-sdk");
-const { ensureAuthenticatedInnerRoutes} = require("../middlewares");
+const { ensureAuthenticatedInnerRoutes, validateApiKey} = require("../middlewares");
 const {createTransport} = require("nodemailer");
 const path = require('path');
 const { readFile } = require('fs').promises; // Make sure you have required 'fs/promises'
@@ -264,7 +264,7 @@ router.get('/list',ensureAuthenticatedInnerRoutes, async (req, res) => {
 });
 
 // Get Form by ID
-router.get('/:id', async (req, res) => {
+router.get('/:id',validateApiKey, async (req, res) => {
     try {
         const form = await Form.findById(req.params.id);
         if (!form) {

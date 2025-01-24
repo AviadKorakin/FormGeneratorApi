@@ -1,10 +1,10 @@
 const express = require('express');
 const Feedback = require('../models/Feedback'); // Assuming the Feedback model is in the models directory
 const validator = require('validator');
-const {ensureAuthenticatedInnerRoutes} = require("../middlewares");
+const {ensureAuthenticatedInnerRoutes, validateApiKey} = require("../middlewares");
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', validateApiKey,async (req, res) => {
     try {
         const { formId, email, responses } = req.body;
 

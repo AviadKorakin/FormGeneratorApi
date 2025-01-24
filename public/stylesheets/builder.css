@@ -196,6 +196,22 @@ input[type="date"]:focus {
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Subtle blue shadow */
 }
 
+#api-key {
+    width: 350px; /* Full width for better alignment */
+    font-size: 1rem;
+    padding: 8px 10px;
+    border: 2px solid #333333;
+    border-radius: 5px;
+    background-color: #333333; /* Light background */
+    color: #FFFFFf; /* Text color */
+}
+
+#api-key:focus {
+    border-color: #3498db; /* Blue border on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Subtle blue shadow */
+}
+
 .card-body input[type="text"] {
     padding: 8px;
     color: #FFFFFf;
@@ -456,6 +472,7 @@ textarea:focus {
     }
 
     #form-id,
+    #api-key,
     #theme-selection,
     .combo-box-style,
     #ai-form-theme {
@@ -566,6 +583,7 @@ code {
     input[type="date"],
     textarea,
     #form-id,
+    #api-key,
     #theme-selection,
     .combo-box-style,
     #ai-form-theme {

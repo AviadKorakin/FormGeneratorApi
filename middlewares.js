@@ -54,8 +54,32 @@ function ensureSecondStepAuthenticated(req, res, next) {
     }
 }
 
+const validateApiKey = async (req, res, next) => {
+    try {
+        const apiKey = req.headers['x-api-key']; // Retrieve the API key from request headers
+
+        if (!apiKey) {
+            return res.status(401).json({ error: 'API key is required' });
+        }
+
+        // Find a user with the provided API key
+        const user = await User.findOne({ api_key: apiKey });
+        if (!user) {
+            return res.status(403).json({ error: 'Invalid API key' });
+        }
+
+        // Attach user to the request object for further use in the route
+        req.user = user;
+        next();
+    } catch (error) {
+        console.error('Error validating API key:', error);
+        res.status(500).json({ error: 'Failed to validate API key' });
+    }
+};
+
 module.exports = {
     ensureAuthenticated,
     ensureSecondStepAuthenticated,
-    ensureAuthenticatedInnerRoutes
+    ensureAuthenticatedInnerRoutes,
+    validateApiKey
 };
