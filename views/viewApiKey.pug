@@ -1,0 +1,45 @@
+extends layout
+
+block content
+    if error
+        h1 Error
+            i.fas.fa-exclamation-triangle(style="color: #e74c3c; margin-left: 10px;")
+        .container
+            h2= error
+            p Please verify the details and try again.
+            a.btn.btn-primary.mt-3(href="/") Return to Home
+    else
+        h1 API Key Generated Successfully
+            i.fas.fa-check-circle(style="color: #2ecc71; margin-left: 10px;")
+
+        .container
+            h2 Your API Key
+            .form-group
+                input#api-key(type="text" class="form-control" readonly value=apiKey)
+            .button-group.mt-3
+                button(type="button" class="btn btn-primary copy-button") Copy API Key
+                button(type="button" class="btn btn-secondary save-button ml-3") Save to File
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+        script.
+            $(document).ready(function () {
+                // Copy API Key to Clipboard
+                $('.copy-button').click(function () {
+                    const apiKey = $('#api-key').val();
+                    navigator.clipboard.writeText(apiKey).then(() => {
+                        alert('API Key copied to clipboard!');
+                    }).catch(err => {
+                        console.error('Failed to copy:', err);
+                    });
+                });
+
+                // Save API Key to a File
+                $('.save-button').click(function () {
+                    const apiKey = $('#api-key').val();
+                    const blob = new Blob([`API Key: ${apiKey}`], { type: 'text/plain' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'api-key.txt';
+                    link.click();
+                    URL.revokeObjectURL(link.href);
+                });
+            });

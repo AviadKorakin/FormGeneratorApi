@@ -2,6 +2,8 @@ const passportUtil = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 const User = require('./models/User'); // Assuming you will create a User model
 const axios = require('axios');
+const { v7: uuidv7 } = require('uuid'); // Import UUID v7 generator
+
 passportUtil.use(
     new GitHubStrategy(
         {
@@ -36,7 +38,8 @@ passportUtil.use(
                         githubId: profile.id,
                         username: profile.username,
                         email : email,
-                        confirmed: false
+                        confirmed: false,
+                        api_key: uuidv7() // Generate a UUID v7 for the API key
                     });
                 }
                 return done(null, user);

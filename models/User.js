@@ -6,7 +6,8 @@ const UserSchema = new Schema({
     username: { type: String, required: true },
     email: { type: String, required: true },
     confirmed: { type: Boolean, default: false },
-    bannedUntil: { type: Date, default: null, required:false } // null means not banned
+    bannedUntil: { type: Date, default: null },
+    api_key: { type: String, required: true, unique: true } // Unique and required
 });
 
 module.exports = mongoose.model('User', UserSchema);

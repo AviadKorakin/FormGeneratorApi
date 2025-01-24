@@ -68,6 +68,31 @@ router.get('/success/:id',ensureAuthenticated,  async (req, res) => {
   }
 });
 
+router.get('/view-api-key',ensureAuthenticated, (req, res) => {
+  // Check if user is logged in
+  if (!res.locals.user) {
+    return res.status(401).render('viewApiKey', {
+      apiKey: null,
+      error: 'User is not logged in.',
+    });
+  }
+
+  // Check if the user has an API key
+  const apiKey = res.locals.user.api_key;
+  if (!apiKey) {
+    return res.status(404).render('viewApiKey', {
+      apiKey: null,
+      error: 'API Key not found for the current user.',
+    });
+  }
+
+  // Render the API key view
+  return res.render('viewApiKey', {
+    apiKey,
+    error: null,
+  });
+});
+
 
 
 module.exports = router;

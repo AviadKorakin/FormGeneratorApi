@@ -23,6 +23,7 @@
     "passport-github2": "^0.1.12",
     "pug": "3.0.3",
     "serve-favicon": "^2.5.0",
+    "uuid": "^11.0.5",
     "validator": "^13.12.0"
   }
 }
