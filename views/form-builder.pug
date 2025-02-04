@@ -1,497 +1,816 @@
 extends layout
 block content
-    h1 Form Builder
-        i.fas.fa-tools(style="margin-left: 10px; color: #1cc9c0;")
+  h1 Form Builder
+    i.fas.fa-tools(style="margin-left: 10px; color: #1cc9c0")
 
-    div#overlay(style="visibility: hidden; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;")
-        div.overlay-content(style="text-align: center; display: flex; flex-direction: column; align-items: center; background-color: #333333;")
-            img(src="/images/loading.gif" alt="Loading..." style="width: 100px; height: 100px; margin-bottom:15px;")
-            div#loading-dots(style="display: flex; justify-content: center; gap: 10px;")
-                span.dot(style="width: 10px; height: 10px; border-radius: 50%; background-color: #2ee7fc;")
-                span.dot(style="width: 10px; height: 10px; border-radius: 50%; background-color: #d1f032;")
-                span.dot(style="width: 10px; height: 10px; border-radius: 50%; background-color: #fd2629;")
-                span.dot(style="width: 10px; height: 10px; border-radius: 50%; background-color: #ff8914;")
+  #overlay(
+    style="visibility: hidden; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9999; display: flex; align-items: center; justify-content: center"
+  )
+    .overlay-content(
+      style="text-align: center; display: flex; flex-direction: column; align-items: center; background-color: #333333"
+    )
+      img(
+        src="/images/loading.gif",
+        alt="Loading...",
+        style="width: 100px; height: 100px; margin-bottom: 15px"
+      )
+      #loading-dots(style="display: flex; justify-content: center; gap: 10px")
+        span.dot(
+          style="width: 10px; height: 10px; border-radius: 50%; background-color: #2ee7fc"
+        )
+        span.dot(
+          style="width: 10px; height: 10px; border-radius: 50%; background-color: #d1f032"
+        )
+        span.dot(
+          style="width: 10px; height: 10px; border-radius: 50%; background-color: #fd2629"
+        )
+        span.dot(
+          style="width: 10px; height: 10px; border-radius: 50%; background-color: #ff8914"
+        )
 
-
-
-    .container-fluid
-        .row
-            // Toolbar (Left Side)
-            .col-md-4.toolbar
-                table
-                    tbody
-                        // A.I Form Generation Section
-                        tr
-                            td
-                                .card.hover-card
-                                    .card-header
-                                        i.fas.fa-robot(style="color: #e67e22; margin-right: 10px;")
-                                        span A.I Form Generation
-                                    .card-body
-                                        // Subject Input
-                                        label(for="ai-form-subject" style="font-size: 0.9rem; font-weight: bold; display: block;")
-                                            i.fas.fa-pen-alt(style="color: #3498db; margin-right: 5px;")
-                                            span Subject
-                                        textarea#ai-form-subject(class="form-control mt-2 auto-resize" placeholder="Enter subject for form generation")
-
-                                        // Theme Selector
-                                        label(for="ai-form-theme" style="font-size: 0.9rem; font-weight: bold; display: block; margin-top: 15px;")
-                                            i.fas.fa-palette(style="color: #8e44ad; margin-right: 5px;")
-                                            span Theme
-                                        select#ai-form-theme.form-control(style="max-width: 200px; display: inline-block;")
-                                            option(value="light") Light
-                                            option(value="dark") Dark
-                                            option(value="custom") Custom
-
-                                        // Generate Button (new row)
-                                        .row.mt-4
-                                            .col
-                                                span(style="visibility: hidden;") --------------------------
-                                            .col.text-end
-                                                button#generate-ai-form(type="button" class="btn btn-icon" style="font-size: 1.5rem; padding: 0; border: none; background: none;")
-                                                    i.fas.fa-magic(style="color: #16a085; font-size: 2rem; margin-right: 10px;")
-
-                        // Title Section
-                        tr
-                            td
-                                .card.hover-card
-                                    .card-header
-                                        i.fas.fa-heading(style="color: #3498db;")
-                                        span Title
-                                    .card-body
-                                        textarea#title-text(class="form-control mt-2 auto-resize" placeholder="Enter title text")
-
-                                        // Collapsible Color Selection for Title
-                                        .collapse-section
-                                            button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#title-colors")
-                                                i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
-                                                span Colors
-                                                i.fas.fa-chevron-down.toggle-icon(style="color: #fff; margin-left:10px;")
-                                            .collapse#title-colors.mt-2
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="title-background-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-fill-drip(style="color: #9b59b6; margin-right: 5px;")
-                                                            span Background Color
-                                                        input#title-background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="title-text-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-font(style="color: #3498db; margin-right: 5px;")
-                                                            span Text Color
-                                                        input#title-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="title-border-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-border-style(style="color: #16a085; margin-right: 5px;")
-                                                            span Border Color
-                                                        input#title-border-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-
-                                        button(type="button" class="btn btn-icon add-to-form mt-2" data-type="title")
-                                            i.fas.fa-check(style="color: #2ecc71;")
-
-                        // ComboBox Section
-                        tr
-                            td
-                                .card.hover-card
-                                    .card-header
-                                        i.fas.fa-list.dropdown-icon(style="color: #3498db;")
-                                        span ComboBox
-                                    .card-body
-                                        textarea#combobox-question(class="form-control mt-2 auto-resize" placeholder="Enter question")
-
-                                        // Options Section
-                                        .options-section
-                                            .option-list
-                                            button(type="button" class="btn btn-icon add-combobox-option mt-2")
-                                                i.fas.fa-plus(style="color: #27ae60;")
-                                        hr(style="margin: 10px 0;")
-
-                                        // Collapsible Color Selection for ComboBox
-                                        .collapse-section
-                                            button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#combobox-colors")
-                                                i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
-                                                span Colors
-                                                i.fas.fa-chevron-down.toggle-icon(style="color: #fff; margin-left:10px;")
-                                            .collapse#combobox-colors.mt-2
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="combobox-selected-item-background-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-fill-drip(style="color: #3498db; margin-right: 5px;")
-                                                            span Background Color
-                                                        input#combobox-background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="combobox-dropdown-background-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-fill-drip(style="color: #9b59b6; margin-right: 5px;")
-                                                            span Dropdown Background Color
-                                                        input#combobox-dropdown-background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="combobox-item-text-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-palette(style="color: #e74c3c; margin-right: 5px;")
-                                                            span Item Text Color
-                                                        input#combobox-item-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="combobox-selected-item-background-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-fill-drip(style="color: #16a085; margin-right: 5px;")
-                                                            span Selected Item Background Color
-                                                        input#combobox-selected-item-background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="combobox-selected-item-text-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-palette(style="color: #e67e22; margin-right: 5px;")
-                                                            span Selected Item Text Color
-                                                        input#combobox-selected-item-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-
-
-                                        button(type="button" class="btn btn-icon add-to-form mt-2" data-type="combobox")
-                                            i.fas.fa-check(style="color: #2ecc71;")
-
-                        // TextBox Section
-                        tr
-                            td
-                                .card.hover-card
-                                    .card-header
-                                        i.fas.fa-pencil-alt.textbox-icon(style="color: #e67e22;")
-                                        span TextBox
-                                    .card-body
-                                        textarea#textbox-question(class="form-control mt-2 auto-resize" placeholder="Enter question")
-                                        // Hint Text Section
-                                        label(for="textbox-hint") Hint
-                                        input#textbox-hint(type="text" class="form-control mt-2" placeholder="Optional Hint")
-
-                                        // Collapsible Color Selection for TextBox
-                                        .collapse-section
-                                            button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#textbox-colors")
-                                                i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
-                                                span Colors
-                                                i.fas.fa-chevron-down.toggle-icon(style="color: #fff; margin-left:10px;")
-                                            .collapse#textbox-colors.mt-2
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="textbox-background-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-fill-drip(style="color: #3498db; margin-right: 5px;")
-                                                            span Background Color
-                                                        input#textbox-background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="textbox-text-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-font(style="color: #e67e22; margin-right: 5px;")
-                                                            span Text Color
-                                                        input#textbox-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="textbox-hint-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-lightbulb(style="color: #9b59b6; margin-right: 5px;")
-                                                            span Hint Color
-                                                        input#textbox-hint-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="textbox-focused-hint-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-magic(style="color: #16a085; margin-right: 5px;")
-                                                            span Focused Hint Color
-                                                        input#textbox-focused-hint-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="textbox-box-stroke-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-border-style(style="color: #e74c3c; margin-right: 5px;")
-                                                            span Box Stroke Color
-                                                        input#textbox-box-stroke-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="textbox-focused-box-stroke-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-eye(style="color: #3498db; margin-right: 5px;")
-                                                            span Focused Box Stroke Color
-                                                        input#textbox-focused-box-stroke-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="textbox-error-text-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-exclamation-circle(style="color: #e74c3c; margin-right: 5px;")
-                                                            span Error Text Color
-                                                        input#textbox-error-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="textbox-counter-text-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-sort-numeric-up(style="color: #8e44ad; margin-right: 5px;")
-                                                            span Counter Text Color
-                                                        input#textbox-counter-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="textbox-cursor-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-pen(style="color: #27ae60; margin-right: 5px;")
-                                                            span Cursor Color
-                                                        input#textbox-cursor-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="textbox-placeholder-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-paragraph(style="color: #f1c40f; margin-right: 5px;")
-                                                            span Placeholder Color
-                                                        input#textbox-placeholder-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="textbox-helper-text-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-info-circle(style="color: #000000; margin-right: 5px;")
-                                                            span Helper Text Color
-                                                        input#textbox-helper-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-
-
-                                        button(type="button" class="btn btn-icon add-to-form mt-2" data-type="textbox")
-                                            i.fas.fa-check(style="color: #2ecc71;")
-
-                        // 5-Star Rating Section
-                        tr
-                            td
-                                .card.hover-card
-                                    .card-header
-                                        i.fas.fa-star.star-icon(style="color: #f1c40f;")
-                                        span 5-Star Rating
-                                    .card-body
-                                        textarea#star-question(class="form-control mt-2 auto-resize" placeholder="Enter question")
-
-                                        // Collapsible Color Selection for Star Rating
-                                        .collapse-section
-                                            button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#star-rating-colors")
-                                                i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
-                                                span Colors
-                                                i.fas.fa-chevron-down.toggle-icon(style="color: #fff; margin-left:10px;")
-                                            .collapse#star-rating-colors.mt-2
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="star-fill-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-fill-drip(style="color: #f1c40f; margin-right: 5px;")
-                                                            span Star Fill Color
-                                                        input#star-fill-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="secondary-star-fill-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-fill-drip(style="color: #d3d3d3; margin-right: 5px;")
-                                                            span Secondary Star Fill Color
-                                                        input#secondary-star-fill-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-
-                                        button(type="button" class="btn btn-icon add-to-form mt-2" data-type="star")
-                                            i.fas.fa-check(style="color: #2ecc71;")
-                        // ScaleBar Section
-                        tr
-                            td
-                                .card.hover-card
-                                    .card-header
-                                        i.fas.fa-sliders-h.scalebar-icon(style="color: #16a085;")
-                                        span ScaleBar
-                                    .card-body
-                                        textarea#scale-bar-question(class="form-control mt-2 auto-resize" placeholder="Enter question")
-
-                                        // Min/Max Values Section
-                                        .row
-                                            .col-md-6(style="margin-right: 20px;")
-                                                label(for="scale-bar-min-value") Minimum Value
-                                                input#scale-bar-min-value(type="text" class="form-control mt-2" placeholder="0" style="max-width: 150px;")
-                                            .col-md-6
-                                                label(for="scale-bar-max-value") Maximum Value
-                                                input#scale-bar-max-value(type="text" class="form-control mt-2" placeholder="0" style="max-width: 150px;")
-                                        // Unit Input Section
-                                        .row.mt-2
-                                            .col
-                                                label(for="scale-bar-unit") Unit (Optional)
-                                                input#scale-bar-unit(type="text" class="form-control mt-2" placeholder="e.g., cm, kg" style="max-width: 150px;")
-
-                                        // Collapsible Color Selection for ScaleBar
-                                        .collapse-section
-                                            button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#scalebar-colors")
-                                                i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
-                                                span Colors
-                                                i.fas.fa-chevron-down.toggle-icon(style="color: #fff; margin-left:10px;")
-                                            .collapse#scalebar-colors.mt-2
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="scale-bar-thumb-and-trail-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-palette(style="color: #16a085; margin-right: 5px;")
-                                                            span Thumb and Trail Color
-                                                        input#scale-bar-thumb-and-trail-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="scale-bar-text-color" style="font-size: 0.8rem; display: block;")
-                                                            i.fas.fa-font(style="color: #e67e22; margin-right: 5px;")
-                                                            span Text Color
-                                                        input#scale-bar-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-
-                                        // Add to Form Button
-                                        button(type="button" class="btn btn-icon add-to-form mt-2" data-type="scale-bar")
-                                            i.fas.fa-check(style="color: #2ecc71;")
-                        // Design Section
-                        tr
-                            td
-                                .card.hover-card
-                                    .card-header
-                                        i.fas.fa-paint-brush(style="background: linear-gradient(45deg, #00FF00, #0000FF); -webkit-background-clip: text; color: transparent;")
-                                        span Design
-                                    .card-body
-                                        .row.align-items-center
-                                            .col-auto
-                                            .col
-                                                select#theme-selection.form-control(style="max-width: 200px; display: inline-block;")
-                                                    option(value="light") Light Theme
-                                                    option(value="dark") Dark Theme
-                                                    option(value="custom") Custom Theme
-                                        .custom-options.hidden.mt-3
-                                            button(type="button" class="btn btn-icon toggle-collapse mt-2" data-target="#design-colors")
-                                                i.fas.fa-palette(style="margin-right: 5px; color: #8e44ad;")
-                                                span Colors
-                                                i.fas.fa-chevron-down.toggle-icon(style="color: #fff; margin-left:10px;")
-                                            .collapse#design-colors.mt-2
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="background-color" style="font-size: 0.8rem; display: block; margin-bottom: 5px; max-width: 150px;")
-                                                            i.fas.fa-fill-drip(style="color: #3498db; margin-right: 5px;")
-                                                            span Background Color
-                                                        input#background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="text-color" style="font-size: 0.8rem; display: block; margin-bottom: 5px; max-width: 150px;")
-                                                            i.fas.fa-fill-drip(style="color: #e67e22; margin-right: 5px;")
-                                                            span Text Color
-                                                        input#text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="button-background-color" style="font-size: 0.8rem; display: block; margin-bottom: 5px; max-width: 150px;")
-                                                            i.fas.fa-fill-drip(style="color: #9b59b6; margin-right: 5px;")
-                                                            span Button Background Color
-                                                        input#button-background-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-                                                .row.mt-2
-                                                    .col
-                                                        label(for="button-text-color" style="font-size: 0.8rem; display: block; margin-bottom: 5px; max-width: 150px;")
-                                                            i.fas.fa-fill-drip(style="color: #16a085; margin-right: 5px;")
-                                                            span Button Text Color
-                                                        input#button-text-color(type="color" class="form-control mt-2" style="max-width: 150px;")
-
-
-
-            // Preview (Right Side)
-            .col-md-8.preview
-                h2
-                    i.fas.fa-eye(style="margin-right: 10px; color: #3498db;")
-                    span Form Preview
+  .container-fluid
+    .row
+      // Toolbar (Left Side)
+      .col-md-4.toolbar
+        table
+          tbody
+            // A.I Form Generation Section
+            tr
+              td
                 .card.hover-card
-                    .card-header
-                        i.fas.fa-pen(style="color: #3498db;")
-                        span Form Name
-                    .card-body
-                        input#form-name(type="text" class="form-control mt-2" placeholder="Enter form name here" style="font-style: italic; font-size: 0.9rem;")
-                form#form-preview(style="margin-top: 10px;")
-                    ul#preview-list(class="list-group")
+                  .card-header
+                    i.fas.fa-robot(style="color: #e67e22; margin-right: 10px")
+                    span A.I Form Generation
+                  .card-body
+                    // Subject Input
+                    label(
+                      for="ai-form-subject",
+                      style="font-size: 0.9rem; font-weight: bold; display: block"
+                    )
+                      i.fas.fa-pen-alt(
+                        style="color: #3498db; margin-right: 5px"
+                      )
+                      span Subject
+                    textarea#ai-form-subject.form-control.mt-2.auto-resize(
+                      placeholder="Enter subject for form generation"
+                    )
 
-    button#save-form(type="button" class="btn btn-success btn-lg save-button")
-        i.fas.fa-save(style="margin-right: 5px;")
-        span Save
-        script(src="https://code.jquery.com/jquery-3.6.0.min.js")
-        script(src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js")
-        script(src="/javascripts/builder.js")
-    script.
+                    // Theme Selector
+                    label(
+                      for="ai-form-theme",
+                      style="font-size: 0.9rem; font-weight: bold; display: block; margin-top: 15px"
+                    )
+                      i.fas.fa-palette(
+                        style="color: #8e44ad; margin-right: 5px"
+                      )
+                      span Theme
+                    select#ai-form-theme.form-control(
+                      style="max-width: 200px; display: inline-block"
+                    )
+                      option(value="light") Light
+                      option(value="dark") Dark
+                      option(value="custom") Custom
 
-        $(document).ready(function () {
-            initializeSortable('form-preview', ['component-1', 'component-2']);
-            // First lookup will fetch using jQuery and cache the object
-            const $themeSelection = $('#theme-selection');
-            mode = $themeSelection.val(); // Track the current mode
-            // Initialize the generate button
-            initializeGenerateButton('generate-ai-form', 'ai-form-subject', 'ai-form-theme');
-            initializeThemeSelection();
-            initializeAddComboBoxOption();
+                    // Generate Button (new row)
+                    .row.mt-4
+                      .col
+                        span(style="visibility: hidden") --------------------------
+                      .col.text-end
+                        button#generate-ai-form.btn.btn-icon(
+                          type="button",
+                          style="font-size: 1.5rem; padding: 0; border: none; background: none"
+                        )
+                          i.fas.fa-magic(
+                            style="color: #16a085; font-size: 2rem; margin-right: 10px"
+                          )
 
-            $('.add-to-form').click(function () {
-                const type = $(this).data('type'); // Get the type from the button
-                addComponentToForm(type);
-            });
+            // Title Section
+            tr
+              td
+                .card.hover-card
+                  .card-header
+                    i.fas.fa-heading(style="color: #3498db")
+                    span Title
+                  .card-body
+                    textarea#title-text.form-control.mt-2.auto-resize(
+                      placeholder="Enter title text"
+                    )
 
-            $('#save-form').click(async function () {
-                await handleSaveForm();
-            });
+                    // Collapsible Color Selection for Title
+                    .collapse-section
+                      button.btn.btn-icon.toggle-collapse.mt-2(
+                        type="button",
+                        data-target="#title-colors"
+                      )
+                        i.fas.fa-palette(
+                          style="margin-right: 5px; color: #8e44ad"
+                        )
+                        span Colors
+                        i.fas.fa-chevron-down.toggle-icon(
+                          style="color: #fff; margin-left: 10px"
+                        )
+                      #title-colors.collapse.mt-2
+                        .row.mt-2
+                          .col
+                            label(
+                              for="title-background-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-fill-drip(
+                                style="color: #9b59b6; margin-right: 5px"
+                              )
+                              span Background Color
+                            input#title-background-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="title-text-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-font(
+                                style="color: #3498db; margin-right: 5px"
+                              )
+                              span Text Color
+                            input#title-text-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
 
-            $(document).on('input', '.auto-resize', function () {
-                // Retrieve or initialize the maximum width
-                handleAutoResize(this)
-            });
+                        .row.mt-2
+                          .col
+                            label(
+                              for="title-border-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-border-style(
+                                style="color: #16a085; margin-right: 5px"
+                              )
+                              span Border Color
+                            input#title-border-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
 
+                    button.btn.btn-icon.add-to-form.mt-2(
+                      type="button",
+                      data-type="title"
+                    )
+                      i.fas.fa-check(style="color: #2ecc71")
 
-            // Collapsible functionality with Custom Mode check
-            $(document).on('click', '.toggle-collapse', function () {
-                const isCustomMode = mode === 'custom';
+            // ComboBox Section
+            tr
+              td
+                .card.hover-card
+                  .card-header
+                    i.fas.fa-list.dropdown-icon(style="color: #3498db")
+                    span ComboBox
+                  .card-body
+                    textarea#combobox-question.form-control.mt-2.auto-resize(
+                      placeholder="Enter question"
+                    )
 
-                if (!isCustomMode) {
-                    alert('Please select "Custom" Mode to customize colors.');
-                    return; // Stop further execution
-                }
+                    // Options Section
+                    .options-section
+                      .option-list
+                      button.btn.btn-icon.add-combobox-option.mt-2(
+                        type="button"
+                      )
+                        i.fas.fa-plus(style="color: #27ae60")
+                    hr(style="margin: 10px 0")
 
-                const $button = $(this); // The clicked button
-                const targetId = $button.data('target'); // Get the data-target
-                const $target = $(targetId); // Find the collapsible element using the target
+                    // Collapsible Color Selection for ComboBox
+                    .collapse-section
+                      button.btn.btn-icon.toggle-collapse.mt-2(
+                        type="button",
+                        data-target="#combobox-colors"
+                      )
+                        i.fas.fa-palette(
+                          style="margin-right: 5px; color: #8e44ad"
+                        )
+                        span Colors
+                        i.fas.fa-chevron-down.toggle-icon(
+                          style="color: #fff; margin-left: 10px"
+                        )
+                      #combobox-colors.collapse.mt-2
+                        .row.mt-2
+                          .col
+                            label(
+                              for="combobox-selected-item-background-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-fill-drip(
+                                style="color: #3498db; margin-right: 5px"
+                              )
+                              span Background Color
+                            input#combobox-background-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="combobox-dropdown-background-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-fill-drip(
+                                style="color: #9b59b6; margin-right: 5px"
+                              )
+                              span Dropdown Background Color
+                            input#combobox-dropdown-background-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
 
-                // Toggle the chevron icon
-                const $icon = $button.find('.toggle-icon');
-                if ($icon.hasClass('fa-chevron-down')) {
-                    $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
-                } else {
-                    $icon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
-                }
+                        .row.mt-2
+                          .col
+                            label(
+                              for="combobox-item-text-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-palette(
+                                style="color: #e74c3c; margin-right: 5px"
+                              )
+                              span Item Text Color
+                            input#combobox-item-text-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="combobox-selected-item-background-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-fill-drip(
+                                style="color: #16a085; margin-right: 5px"
+                              )
+                              span Selected Item Background Color
+                            input#combobox-selected-item-background-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
 
-                // Toggle the collapsible content
-                if ($target.hasClass('open')) {
-                    $target.removeClass('open').css('max-height', '0');
-                } else {
-                    const scrollHeight = $target.prop('scrollHeight'); // Get full height of content
-                    $target.addClass('open').css('max-height', scrollHeight + 'px');
-                }
-            });
+                        .row.mt-2
+                          .col
+                            label(
+                              for="combobox-selected-item-text-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-palette(
+                                style="color: #e67e22; margin-right: 5px"
+                              )
+                              span Selected Item Text Color
+                            input#combobox-selected-item-text-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
 
+                    button.btn.btn-icon.add-to-form.mt-2(
+                      type="button",
+                      data-type="combobox"
+                    )
+                      i.fas.fa-check(style="color: #2ecc71")
 
+            // TextBox Section
+            tr
+              td
+                .card.hover-card
+                  .card-header
+                    i.fas.fa-pencil-alt.textbox-icon(style="color: #e67e22")
+                    span TextBox
+                  .card-body
+                    textarea#textbox-question.form-control.mt-2.auto-resize(
+                      placeholder="Enter question"
+                    )
+                    // Hint Text Section
+                    label(for="textbox-hint") Hint
+                    input#textbox-hint.form-control.mt-2(
+                      type="text",
+                      placeholder="Optional Hint"
+                    )
 
+                    // Collapsible Color Selection for TextBox
+                    .collapse-section
+                      button.btn.btn-icon.toggle-collapse.mt-2(
+                        type="button",
+                        data-target="#textbox-colors"
+                      )
+                        i.fas.fa-palette(
+                          style="margin-right: 5px; color: #8e44ad"
+                        )
+                        span Colors
+                        i.fas.fa-chevron-down.toggle-icon(
+                          style="color: #fff; margin-left: 10px"
+                        )
+                      #textbox-colors.collapse.mt-2
+                        .row.mt-2
+                          .col
+                            label(
+                              for="textbox-background-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-fill-drip(
+                                style="color: #3498db; margin-right: 5px"
+                              )
+                              span Background Color
+                            input#textbox-background-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="textbox-text-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-font(
+                                style="color: #e67e22; margin-right: 5px"
+                              )
+                              span Text Color
+                            input#textbox-text-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="textbox-hint-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-lightbulb(
+                                style="color: #9b59b6; margin-right: 5px"
+                              )
+                              span Hint Color
+                            input#textbox-hint-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="textbox-focused-hint-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-magic(
+                                style="color: #16a085; margin-right: 5px"
+                              )
+                              span Focused Hint Color
+                            input#textbox-focused-hint-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="textbox-box-stroke-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-border-style(
+                                style="color: #e74c3c; margin-right: 5px"
+                              )
+                              span Box Stroke Color
+                            input#textbox-box-stroke-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="textbox-focused-box-stroke-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-eye(
+                                style="color: #3498db; margin-right: 5px"
+                              )
+                              span Focused Box Stroke Color
+                            input#textbox-focused-box-stroke-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="textbox-error-text-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-exclamation-circle(
+                                style="color: #e74c3c; margin-right: 5px"
+                              )
+                              span Error Text Color
+                            input#textbox-error-text-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="textbox-counter-text-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-sort-numeric-up(
+                                style="color: #8e44ad; margin-right: 5px"
+                              )
+                              span Counter Text Color
+                            input#textbox-counter-text-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="textbox-cursor-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-pen(
+                                style="color: #27ae60; margin-right: 5px"
+                              )
+                              span Cursor Color
+                            input#textbox-cursor-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="textbox-placeholder-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-paragraph(
+                                style="color: #f1c40f; margin-right: 5px"
+                              )
+                              span Placeholder Color
+                            input#textbox-placeholder-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="textbox-helper-text-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-info-circle(
+                                style="color: #000000; margin-right: 5px"
+                              )
+                              span Helper Text Color
+                            input#textbox-helper-text-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
 
-            // Remove ComboBox Option
-            $(document).on('click', '.remove-option', function () {
-                $(this).closest('.option-item').remove();
-            });
-            // Remove Component from Form Preview and Update Numbers
-            $(document).on('click', '.remove-component', function () {
-                const id = $(this).data('id'); // Get the data-id of the component to remove
-                const $component = $(`#${id}`); // Find the corresponding component
-                if ($component.length) {
-                    $component.remove(); // Remove the component from the DOM
-                    updateQuestionNumbers();
-                    // Check if there are any components left
-                    const hasComponents = $('#form-preview .form-group').length > 0;
+                    button.btn.btn-icon.add-to-form.mt-2(
+                      type="button",
+                      data-type="textbox"
+                    )
+                      i.fas.fa-check(style="color: #2ecc71")
 
-                    // Update the "No Questions" message visibility
-                    $('#no-questions').toggleClass('hidden', hasComponents);
+            // 5-Star Rating Section
+            tr
+              td
+                .card.hover-card
+                  .card-header
+                    i.fas.fa-star.star-icon(style="color: #f1c40f")
+                    span 5-Star Rating
+                  .card-body
+                    textarea#star-question.form-control.mt-2.auto-resize(
+                      placeholder="Enter question"
+                    )
 
-                } else {
-                    console.warn(`Component with ID "${id}" not found.`);
-                }
-            });
-            $(document).on('input', '.color-picker', function () {
-                const key = $(this).data('key'); // Color key (e.g., textColor, backgroundColor)
-                const componentId = $(this).data('component-id'); // Target component ID
-                const newValue = $(this).val(); // New color value
+                    // Collapsible Color Selection for Star Rating
+                    .collapse-section
+                      button.btn.btn-icon.toggle-collapse.mt-2(
+                        type="button",
+                        data-target="#star-rating-colors"
+                      )
+                        i.fas.fa-palette(
+                          style="margin-right: 5px; color: #8e44ad"
+                        )
+                        span Colors
+                        i.fas.fa-chevron-down.toggle-icon(
+                          style="color: #fff; margin-left: 10px"
+                        )
+                      #star-rating-colors.collapse.mt-2
+                        .row.mt-2
+                          .col
+                            label(
+                              for="star-fill-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-fill-drip(
+                                style="color: #f1c40f; margin-right: 5px"
+                              )
+                              span Star Fill Color
+                            input#star-fill-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="secondary-star-fill-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-fill-drip(
+                                style="color: #d3d3d3; margin-right: 5px"
+                              )
+                              span Secondary Star Fill Color
+                            input#secondary-star-fill-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
 
-                // Update the component's data attribute
-                const $component = $(`#${componentId}`);
-                $component.data(key, newValue);
+                    button.btn.btn-icon.add-to-form.mt-2(
+                      type="button",
+                      data-type="star"
+                    )
+                      i.fas.fa-check(style="color: #2ecc71")
+            // ScaleBar Section
+            tr
+              td
+                .card.hover-card
+                  .card-header
+                    i.fas.fa-sliders-h.scalebar-icon(style="color: #16a085")
+                    span ScaleBar
+                  .card-body
+                    textarea#scale-bar-question.form-control.mt-2.auto-resize(
+                      placeholder="Enter question"
+                    )
 
-            });
+                    // Min/Max Values Section
+                    .row
+                      .col-md-6(style="margin-right: 20px")
+                        label(for="scale-bar-min-value") Minimum Value
+                        input#scale-bar-min-value.form-control.mt-2(
+                          type="text",
+                          placeholder="0",
+                          style="max-width: 150px"
+                        )
+                      .col-md-6
+                        label(for="scale-bar-max-value") Maximum Value
+                        input#scale-bar-max-value.form-control.mt-2(
+                          type="text",
+                          placeholder="0",
+                          style="max-width: 150px"
+                        )
+                    // Unit Input Section
+                    .row.mt-2
+                      .col
+                        label(for="scale-bar-unit") Unit (Optional)
+                        input#scale-bar-unit.form-control.mt-2(
+                          type="text",
+                          placeholder="e.g., cm, kg",
+                          style="max-width: 150px"
+                        )
 
+                    // Collapsible Color Selection for ScaleBar
+                    .collapse-section
+                      button.btn.btn-icon.toggle-collapse.mt-2(
+                        type="button",
+                        data-target="#scalebar-colors"
+                      )
+                        i.fas.fa-palette(
+                          style="margin-right: 5px; color: #8e44ad"
+                        )
+                        span Colors
+                        i.fas.fa-chevron-down.toggle-icon(
+                          style="color: #fff; margin-left: 10px"
+                        )
+                      #scalebar-colors.collapse.mt-2
+                        .row.mt-2
+                          .col
+                            label(
+                              for="scale-bar-thumb-and-trail-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-palette(
+                                style="color: #16a085; margin-right: 5px"
+                              )
+                              span Thumb and Trail Color
+                            input#scale-bar-thumb-and-trail-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="scale-bar-text-color",
+                              style="font-size: 0.8rem; display: block"
+                            )
+                              i.fas.fa-font(
+                                style="color: #e67e22; margin-right: 5px"
+                              )
+                              span Text Color
+                            input#scale-bar-text-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
 
-        });
+                    // Add to Form Button
+                    button.btn.btn-icon.add-to-form.mt-2(
+                      type="button",
+                      data-type="scale-bar"
+                    )
+                      i.fas.fa-check(style="color: #2ecc71")
+            // Design Section
+            tr
+              td
+                .card.hover-card
+                  .card-header
+                    i.fas.fa-paint-brush(
+                      style="background: linear-gradient(45deg, #00ff00, #0000ff); -webkit-background-clip: text; color: transparent"
+                    )
+                    span Design
+                  .card-body
+                    .row.align-items-center
+                      .col-auto
+                      .col
+                        select#theme-selection.form-control(
+                          style="max-width: 200px; display: inline-block"
+                        )
+                          option(value="light") Light Theme
+                          option(value="dark") Dark Theme
+                          option(value="custom") Custom Theme
+                    .custom-options.hidden.mt-3
+                      button.btn.btn-icon.toggle-collapse.mt-2(
+                        type="button",
+                        data-target="#design-colors"
+                      )
+                        i.fas.fa-palette(
+                          style="margin-right: 5px; color: #8e44ad"
+                        )
+                        span Colors
+                        i.fas.fa-chevron-down.toggle-icon(
+                          style="color: #fff; margin-left: 10px"
+                        )
+                      #design-colors.collapse.mt-2
+                        .row.mt-2
+                          .col
+                            label(
+                              for="background-color",
+                              style="font-size: 0.8rem; display: block; margin-bottom: 5px; max-width: 150px"
+                            )
+                              i.fas.fa-fill-drip(
+                                style="color: #3498db; margin-right: 5px"
+                              )
+                              span Background Color
+                            input#background-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="text-color",
+                              style="font-size: 0.8rem; display: block; margin-bottom: 5px; max-width: 150px"
+                            )
+                              i.fas.fa-fill-drip(
+                                style="color: #e67e22; margin-right: 5px"
+                              )
+                              span Text Color
+                            input#text-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="button-background-color",
+                              style="font-size: 0.8rem; display: block; margin-bottom: 5px; max-width: 150px"
+                            )
+                              i.fas.fa-fill-drip(
+                                style="color: #9b59b6; margin-right: 5px"
+                              )
+                              span Button Background Color
+                            input#button-background-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
+                        .row.mt-2
+                          .col
+                            label(
+                              for="button-text-color",
+                              style="font-size: 0.8rem; display: block; margin-bottom: 5px; max-width: 150px"
+                            )
+                              i.fas.fa-fill-drip(
+                                style="color: #16a085; margin-right: 5px"
+                              )
+                              span Button Text Color
+                            input#button-text-color.form-control.mt-2(
+                              type="color",
+                              style="max-width: 150px"
+                            )
 
+      // Preview (Right Side)
+      .col-md-8.preview
+        h2
+          i.fas.fa-eye(style="margin-right: 10px; color: #3498db")
+          span Form Preview
+        .card.hover-card
+          .card-header
+            i.fas.fa-pen(style="color: #3498db")
+            span Form Name
+          .card-body
+            input#form-name.form-control.mt-2(
+              type="text",
+              placeholder="Enter form name here",
+              style="font-style: italic; font-size: 0.9rem"
+            )
+        form#form-preview(style="margin-top: 10px")
+          ul#preview-list.list-group
 
+  button#save-form.btn.btn-success.btn-lg.save-button(type="button")
+    i.fas.fa-save(style="margin-right: 5px")
+    span Save
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+    script(
+      src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"
+    )
+    script(src="/javascripts/builder.js")
+  script.
+    $(document).ready(function () {
+      initializeSortable("form-preview", ["component-1", "component-2"]);
+      // First lookup will fetch using jQuery and cache the object
+      const $themeSelection = $("#theme-selection");
+      mode = $themeSelection.val(); // Track the current mode
+      // Initialize the generate button
+      initializeGenerateButton("generate-ai-form", "ai-form-subject", "ai-form-theme");
+      initializeThemeSelection();
+      initializeAddComboBoxOption();
 
+      $(".add-to-form").click(function () {
+        const type = $(this).data("type"); // Get the type from the button
+        addComponentToForm(type);
+      });
 
+      $("#save-form").click(async function () {
+        await handleSaveForm();
+      });
 
+      $(document).on("input", ".auto-resize", function () {
+        // Retrieve or initialize the maximum width
+        handleAutoResize(this);
+      });
 
+      // Collapsible functionality with Custom Mode check
+      $(document).on("click", ".toggle-collapse", function () {
+        const isCustomMode = mode === "custom";
 
+        if (!isCustomMode) {
+          alert('Please select "Custom" Mode to customize colors.');
+          return; // Stop further execution
+        }
 
+        const $button = $(this); // The clicked button
+        const targetId = $button.data("target"); // Get the data-target
+        const $target = $(targetId); // Find the collapsible element using the target
 
+        // Toggle the chevron icon
+        const $icon = $button.find(".toggle-icon");
+        if ($icon.hasClass("fa-chevron-down")) {
+          $icon.removeClass("fa-chevron-down").addClass("fa-chevron-up");
+        } else {
+          $icon.removeClass("fa-chevron-up").addClass("fa-chevron-down");
+        }
 
+        // Toggle the collapsible content
+        if ($target.hasClass("open")) {
+          $target.removeClass("open").css("max-height", "0");
+        } else {
+          const scrollHeight = $target.prop("scrollHeight"); // Get full height of content
+          $target.addClass("open").css("max-height", scrollHeight + "px");
+        }
+      });
 
+      // Remove ComboBox Option
+      $(document).on("click", ".remove-option", function () {
+        $(this).closest(".option-item").remove();
+      });
+      // Remove Component from Form Preview and Update Numbers
+      $(document).on("click", ".remove-component", function () {
+        const id = $(this).data("id"); // Get the data-id of the component to remove
+        const $component = $(`#${id}`); // Find the corresponding component
+        if ($component.length) {
+          $component.remove(); // Remove the component from the DOM
+          updateQuestionNumbers();
+          // Check if there are any components left
+          const hasComponents = $("#form-preview .form-group").length > 0;
+
+          // Update the "No Questions" message visibility
+          $("#no-questions").toggleClass("hidden", hasComponents);
+        } else {
+          console.warn(`Component with ID "${id}" not found.`);
+        }
+      });
+      $(document).on("input", ".color-picker", function () {
+        const key = $(this).data("key"); // Color key (e.g., textColor, backgroundColor)
+        const componentId = $(this).data("component-id"); // Target component ID
+        const newValue = $(this).val(); // New color value
+
+        // Update the component's data attribute
+        const $component = $(`#${componentId}`);
+        $component.data(key, newValue);
+      });
+    });

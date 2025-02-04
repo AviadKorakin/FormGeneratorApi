@@ -6,9 +6,10 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
-  font-family: 'Poppins', cursive;
+  font-family: "Poppins", cursive;
   line-height: 1.6;
   background-color: #333333;
   color: #000000;
@@ -204,7 +205,10 @@ a:hover {
   border-radius: 8px; /* Rounded corners for the tab */
   font-size: 0.9rem;
   font-weight: bold;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
   min-width: 100px; /* Ensure consistent size */
 }
 
@@ -216,23 +220,21 @@ a:hover {
 .navbar .nav-links a i {
   font-size: 1.5rem; /* Icon size */
   margin-bottom: 5px; /* Space between icon and text */
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .navbar .nav-links a:hover i {
-
   transform: scale(1.2); /* Slightly enlarge icon */
 }
 
-
-
-h1
-{
+h1 {
   color: #fff;
 }
 
 .navbar-logo {
-  width : 45px;
+  width: 45px;
   height: 45px; /* Adjust the height as per your design */
   margin-right: 8px; /* Add spacing between the logo and text */
   vertical-align: middle; /* Align the logo with the text */
@@ -244,7 +246,12 @@ main.container {
   width: 90%; /* Make the container almost as wide as the screen */
   max-width: 1400px; /* Prevent it from becoming too wide on large screens */
   margin: 2rem auto; /* Center the container horizontally and add vertical spacing */
-  background: linear-gradient(0deg, #320c51, #591781, #591781); /* White background for clarity */
+  background: linear-gradient(
+    0deg,
+    #320c51,
+    #591781,
+    #591781
+  ); /* White background for clarity */
   color: #ffffff;
   border-radius: 10px; /* Subtle corner rounding for a modern look */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
@@ -294,7 +301,7 @@ main.container {
   background-color: #28a745; /* Danger red */
   color: white;
   transition: all 0.3s ease-in-out;
-  float:right;
+  float: right;
   margin-top: 15px;
 }
 #save-form:hover {
@@ -352,7 +359,10 @@ main.container {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */
 }
 
@@ -361,8 +371,6 @@ main.container {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4); /* Deepen shadow for a popup effect */
   transform: scale(1.05); /* Slightly enlarge the button */
 }
-
-
 
 .overlay-git {
   position: fixed;
@@ -377,7 +385,9 @@ main.container {
   z-index: 9999;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s, opacity 0.3s;
+  transition:
+    visibility 0s,
+    opacity 0.3s;
 }
 .overlay-git.active {
   visibility: visible;
@@ -408,7 +418,8 @@ main.container {
 
 /* General Reset for Mobile */
 @media (max-width: 768px) {
-  html, body {
+  html,
+  body {
     font-size: 0.9rem; /* Reduce font size for readability */
     padding: 5px;
   }
@@ -483,14 +494,12 @@ main.container {
   /* Navbar */
   .navbar {
     padding: 0.2rem 0; /* Reduce navbar padding */
-
   }
 
   .navbar .brand {
     font-size: 0; /* Smaller brand text */
     margin-right: 1rem; /* Add spacing between brand and nav links */
   }
-
 
   .navbar .nav-links a i {
     font-size: 1.2rem; /* Reduce icon size for better fit */

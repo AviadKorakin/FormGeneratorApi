@@ -3,64 +3,80 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title #{title} - FormGeneratorApi
+    title #{ title } - FormGeneratorApi
     link(rel="stylesheet", href="/stylesheets/style.css")
     link(rel="stylesheet", href="/stylesheets/builder.css")
-    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css")
-    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css")
-    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap")
-    link(rel="icon" href="/favicon.ico")
+    link(
+      rel="stylesheet",
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    )
+    link(
+      rel="stylesheet",
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    )
+    link(
+      rel="stylesheet",
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    )
+    link(rel="icon", href="/favicon.ico")
   body
     .wrapper
       header
         nav.navbar
-            a.brand(href="/")
-              img(src="/images/mylogo.png", alt="FormGeneratorApi Logo", class="navbar-logo")
-              | FormGeneratorApi
+          a.brand(href="/")
+            img.navbar-logo(
+              src="/images/mylogo.png",
+              alt="FormGeneratorApi Logo"
+            )
+            | FormGeneratorApi
 
-            ul.nav-links(class=navLinksHide ? 'hidden': '')
-              li
-                a(href="/form-builder")
-                  i.fas.fa-edit
-                  span Build Form
-              li
-                a(href="/update-form")
-                  i.fas.fa-sync-alt
-                  span Update Form
-              li
-                a(href="/remove-form")
-                  i.fas.fa-trash
-                  span Remove Form
-              li
-                a(href="/feedbacks-viewer")
-                  i.fas.fa-comments
-                  span View Feedbacks
-              li
-                a(href="/analytics-viewer")
-                  i.fas.fa-chart-bar
-                  span View Analytics
+          ul.nav-links(class=navLinksHide ? "hidden" : "")
+            li
+              a(href="/form-builder")
+                i.fas.fa-edit
+                span Build Form
+            li
+              a(href="/update-form")
+                i.fas.fa-sync-alt
+                span Update Form
+            li
+              a(href="/remove-form")
+                i.fas.fa-trash
+                span Remove Form
+            li
+              a(href="/feedbacks-viewer")
+                i.fas.fa-comments
+                span View Feedbacks
+            li
+              a(href="/analytics-viewer")
+                i.fas.fa-chart-bar
+                span View Analytics
 
-              li
-                a(href="/view-api-key")
-                  i.fas.fa-key
-                  span View API Key
+            li
+              a(href="/view-api-key")
+                i.fas.fa-key
+                span View API Key
 
-              li
-                a(href="/users/logout")
-                  i.fas.fa-sign-out-alt
-                  span Logout
+            li
+              a(href="/users/logout")
+                i.fas.fa-sign-out-alt
+                span Logout
 
-            ul.nav-links
-              li
-                button.sign-in-btn(class=signinHide ? 'hidden': '', onclick="handleAuth()")
-                  i.fab.fa-github
-                  |  Sign In with GitHub
+          ul.nav-links
+            li
+              button.sign-in-btn(
+                class=signinHide ? "hidden" : "",
+                onclick="handleAuth()"
+              )
+                i.fab.fa-github
+                |
+                | Sign In with GitHub
 
       main.container
         block content
       footer.footer
         .container
-          p &copy; #{new Date().getFullYear()} FormGeneratorApi. All rights reserved.
+          p &copy; #{ new Date().getFullYear() } FormGeneratorApi. All rights reserved.
           ul.footer-links
             li
               a(href="https://www.linkedin.com/in/aviad-korakin-477b78202")
@@ -69,45 +85,41 @@ html(lang="en")
               a(href="https://github.com/AviadKorakin/FormGeneratorApi")
                 i.fab.fa-github
 
-      div.overlay-git#github-overlay
+      #github-overlay.overlay-git
         i.fab.fa-github.overlay-git-icon
 
     script.
       async function handleAuth() {
         try {
-          console.log('Starting GitHub authentication');
-          const overlayIcon = document.querySelector('.overlay-git-icon');
+          console.log("Starting GitHub authentication");
+          const overlayIcon = document.querySelector(".overlay-git-icon");
 
           // Show the overlay and start the pulsing effect
           showGitOverlay();
-          overlayIcon.classList.add('pulsing');
+          overlayIcon.classList.add("pulsing");
 
           // Simulate the GitHub authentication redirect
-          window.location.href = '/users/auth/github';
+          window.location.href = "/users/auth/github";
         } catch (error) {
-          console.error('Authentication error:', error);
+          console.error("Authentication error:", error);
 
           // Stop the pulsing effect on error
-          const overlayIcon = document.querySelector('.overlay-git-icon');
-          overlayIcon.classList.remove('pulsing');
+          const overlayIcon = document.querySelector(".overlay-git-icon");
+          overlayIcon.classList.remove("pulsing");
 
           hideGitOverlay();
         }
       }
 
       function showGitOverlay() {
-        const overlay = document.getElementById('github-overlay');
-        overlay.classList.add('active');
+        const overlay = document.getElementById("github-overlay");
+        overlay.classList.add("active");
       }
 
       function hideGitOverlay() {
-        const overlay = document.getElementById('github-overlay');
-        overlay.classList.remove('active');
+        const overlay = document.getElementById("github-overlay");
+        overlay.classList.remove("active");
 
-        const overlayIcon = document.querySelector('.overlay-git-icon');
-        overlayIcon.classList.remove('pulsing'); // Stop pulsing when overlay hides
+        const overlayIcon = document.querySelector(".overlay-git-icon");
+        overlayIcon.classList.remove("pulsing"); // Stop pulsing when overlay hides
       }
-
-
-
-

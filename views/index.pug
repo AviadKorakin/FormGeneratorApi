@@ -1,132 +1,225 @@
 extends layout
 
 block content
-  div.overview-container(style="background-color: linear-gradient(135deg, #2a0f61, #6a1b9a, #4a148c); padding: 20px; border: 10px solid 292647; border-radius: 12px;")
-    img(src="/images/mylogo.png", alt="Form Builder API Logo", class="api-logo", style="display: block; margin: 0 auto;")
-    h1.page-title(style="color: #ffffff; text-align: center;") Overview
-    p.description(style="color: #ffffff; text-align: center;") The Form Builder API is a comprehensive solution for building dynamic, customizable forms for both web and mobile platforms. It integrates robust backend technologies like Express.js, MongoDB, GROQ, and Llama, and utilizes a feature-rich frontend powered by Pug, Sortable.js, Chart.js, and jQuery.
+  .overview-container(
+    style="background-color: linear-gradient(135deg, #2a0f61, #6a1b9a, #4a148c); padding: 20px; border: 10px solid 292647; border-radius: 12px"
+  )
+    img.api-logo(
+      src="/images/mylogo.png",
+      alt="Form Builder API Logo",
+      style="display: block; margin: 0 auto"
+    )
+    h1.page-title(style="color: #ffffff; text-align: center") Overview
+    p.description(style="color: #ffffff; text-align: center") The Form Builder API is a comprehensive solution for building dynamic, customizable forms for both web and mobile platforms. It integrates robust backend technologies like Express.js, MongoDB, GROQ, and Llama, and utilizes a feature-rich frontend powered by Pug, Sortable.js, Chart.js, and jQuery.
 
-  h2.section-title(style="color: #ffffff;") Key Features
+  h2.section-title(style="color: #ffffff") Key Features
   section.features
-    .feature.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
-      h3(style="color: #FF4500;")
-        span.i-unique(style="color: #FF4500;") 📋
+    .feature.card(
+      style="background: #333333; color: #fff; border: 1px solid #333333"
+    )
+      h3(style="color: #ff4500")
+        span.i-unique(style="color: #ff4500") 📋
         | AI-Driven Form Generation
-      p(style="margin-left: 2rem;") Generate modular forms effortlessly with AI-powered suggestions that are thoughtful and visually appealing. Deploy them with seamless validation.
-    .feature.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
-      h3(style="color: #32CD32;")
-        span.i-unique(style="color: #32CD32;") ⚡
+      p(style="margin-left: 2rem") Generate modular forms effortlessly with AI-powered suggestions that are thoughtful and visually appealing. Deploy them with seamless validation.
+    .feature.card(
+      style="background: #333333; color: #fff; border: 1px solid #333333"
+    )
+      h3(style="color: #32cd32")
+        span.i-unique(style="color: #32cd32") ⚡
         | Seamless Frontend Integration
-      p(style="margin-left: 2rem;") Experience fast rendering with Pug templates, drag-and-drop features with Sortable.js, and dynamic visualizations powered by Chart.js.
-    .feature.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
-      h3(style="color: #1B69D0;")
-        span.i-unique(style="color: #1B69D0;") 📱
+      p(style="margin-left: 2rem") Experience fast rendering with Pug templates, drag-and-drop features with Sortable.js, and dynamic visualizations powered by Chart.js.
+    .feature.card(
+      style="background: #333333; color: #fff; border: 1px solid #333333"
+    )
+      h3(style="color: #1b69d0")
+        span.i-unique(style="color: #1b69d0") 📱
         | Mobile SDK Integration
-      p(style="margin-left: 2rem;") Use API-generated IDs to dynamically load forms into your Android application. Real-time feedback submission is supported for mobile users.
-    .feature.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
-      h3(style="color: #9370DB;")
-        span.i-unique(style="color: #9370DB;") 🛠️
+      p(style="margin-left: 2rem") Use API-generated IDs to dynamically load forms into your Android application. Real-time feedback submission is supported for mobile users.
+    .feature.card(
+      style="background: #333333; color: #fff; border: 1px solid #333333"
+    )
+      h3(style="color: #9370db")
+        span.i-unique(style="color: #9370db") 🛠️
         | Modular Components
-      ul.component-list(style="margin-left: 3rem;")
+      ul.component-list(style="margin-left: 3rem")
         li
-          span(style="color: #FF6347;") 🖋️
+          span(style="color: #ff6347") 🖋️
           | Textbox
         li
-          span(style="color: #4682B4;") ⬇️
+          span(style="color: #4682b4") ⬇️
           | Combobox
         li
-          span(style="color: #FFD700;") ⭐
+          span(style="color: #ffd700") ⭐
           | 5-Star Rating
         li
-          span(style="color: #9370DB;") 🎚️
+          span(style="color: #9370db") 🎚️
           | Scale Bar
         li
-          span(style="color: #FF69B4;") 🔤
+          span(style="color: #ff69b4") 🔤
           | Titles
-    .feature.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
-      h3(style="color: #FF8C00;")
-        span.i-unique(style="color: #FF8C00;") 📊
+    .feature.card(
+      style="background: #333333; color: #fff; border: 1px solid #333333"
+    )
+      h3(style="color: #ff8c00")
+        span.i-unique(style="color: #ff8c00") 📊
         | Feedback Analytics
-      p(style="margin-left: 2rem;") Analyze form responses with pie charts and bar graphs. Easily export data for advanced processing.
+      p(style="margin-left: 2rem") Analyze form responses with pie charts and bar graphs. Easily export data for advanced processing.
 
-  h2.section-title(style="color: #ffffff;") Screenshots
-  .slider-container(style="position: relative; overflow: hidden;")
-    .slider(style="display: flex; transition: transform 0.5s ease-in-out;")
-      img(src="/images/1.png", alt="Form Builder UI Screenshot 1", class="slider-image", style="width: 100%; max-width: 300px;")
-      img(src="/images/2.png", alt="Form Builder UI Screenshot 2", class="slider-image", style="width: 100%; max-width: 300px;")
-      img(src="/images/3.png", alt="Form Builder UI Screenshot 3", class="slider-image", style="width: 100%; max-width: 300px;")
-      img(src="/images/4.png", alt="Form Update Screenshot", class="slider-image", style="width: 100%; max-width: 300px;")
-      img(src="/images/5.png", alt="Feedback Viewer Screenshot", class="slider-image", style="width: 100%; max-width: 300px;")
-      img(src="/images/6.png", alt="Feedback Analytics Screenshot", class="slider-image", style="width: 100%; max-width: 300px;")
-      img(src="/images/7.png", alt="Feedback Analytics Screenshot", class="slider-image", style="width: 100%; max-width: 300px;")
+  h2.section-title(style="color: #ffffff") Screenshots
+  .slider-container(style="position: relative; overflow: hidden")
+    .slider(style="display: flex; transition: transform 0.5s ease-in-out")
+      img.slider-image(
+        src="/images/1.png",
+        alt="Form Builder UI Screenshot 1",
+        style="width: 100%; max-width: 300px"
+      )
+      img.slider-image(
+        src="/images/2.png",
+        alt="Form Builder UI Screenshot 2",
+        style="width: 100%; max-width: 300px"
+      )
+      img.slider-image(
+        src="/images/3.png",
+        alt="Form Builder UI Screenshot 3",
+        style="width: 100%; max-width: 300px"
+      )
+      img.slider-image(
+        src="/images/4.png",
+        alt="Form Update Screenshot",
+        style="width: 100%; max-width: 300px"
+      )
+      img.slider-image(
+        src="/images/5.png",
+        alt="Feedback Viewer Screenshot",
+        style="width: 100%; max-width: 300px"
+      )
+      img.slider-image(
+        src="/images/6.png",
+        alt="Feedback Analytics Screenshot",
+        style="width: 100%; max-width: 300px"
+      )
+      img.slider-image(
+        src="/images/7.png",
+        alt="Feedback Analytics Screenshot",
+        style="width: 100%; max-width: 300px"
+      )
     .slider-navigation
-      button(type="button" class="btn btn-icon prev-button" data-type="prev" aria-label="Previous Slide" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); padding: 0; background: none; border: none; opacity: 0.5;")
-        i.fas.fa-chevron-left(style="color: rgba(0, 0, 0, 0.7); font-size: 1.5rem;")
-      button(type="button" class="btn btn-icon next-button" data-type="next" aria-label="Next Slide" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); padding: 0; background: none; border: none; opacity: 0.5;")
-        i.fas.fa-chevron-right(style="color: rgba(0, 0, 0, 0.7); font-size: 1.5rem;")
-  h2.section-title(style="color: #ffffff;") Video
-  .video-container(style="position: relative; padding-top: 56.25%; margin-top: 20px; border: 1px solid #333333; border-radius: 12px; background: #333333;")
-    iframe(src="https://www.youtube.com/embed/fRDOjQRgd2Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 12px;")
+      button.btn.btn-icon.prev-button(
+        type="button",
+        data-type="prev",
+        aria-label="Previous Slide",
+        style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); padding: 0; background: none; border: none; opacity: 0.5"
+      )
+        i.fas.fa-chevron-left(
+          style="color: rgba(0, 0, 0, 0.7); font-size: 1.5rem"
+        )
+      button.btn.btn-icon.next-button(
+        type="button",
+        data-type="next",
+        aria-label="Next Slide",
+        style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); padding: 0; background: none; border: none; opacity: 0.5"
+      )
+        i.fas.fa-chevron-right(
+          style="color: rgba(0, 0, 0, 0.7); font-size: 1.5rem"
+        )
+  h2.section-title(style="color: #ffffff") Video
+  .video-container(
+    style="position: relative; padding-top: 56.25%; margin-top: 20px; border: 1px solid #333333; border-radius: 12px; background: #333333"
+  )
+    iframe(
+      src="https://www.youtube.com/embed/fRDOjQRgd2Q",
+      title="YouTube video player",
+      frameborder="0",
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+      allowfullscreen,
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 12px"
+    )
 
-  h2.section-title(style="color: #ffffff;") How to Use
+  h2.section-title(style="color: #ffffff") How to Use
   section.usage
-    .usage-step.card(style="background: #333333; color: #fff; border: 1px solid #333333; margin-bottom: 15px;")
-      h3(style="color: #FF8C00;")
-        span.i-unique(style="color: #FF8C00;") 📝
+    .usage-step.card(
+      style="background: #333333; color: #fff; border: 1px solid #333333; margin-bottom: 15px"
+    )
+      h3(style="color: #ff8c00")
+        span.i-unique(style="color: #ff8c00") 📝
         | Step 1: Add Metadata to AndroidManifest.xml
-      p(style="margin-left: 2rem;") Include the following metadata entry in your application's AndroidManifest.xml file to set the API key:
-      pre(style="margin-left: 30px; text-align: left;")
+      p(style="margin-left: 2rem") Include the following metadata entry in your application's AndroidManifest.xml file to set the API key:
+      pre(style="margin-left: 30px; text-align: left")
         code.language-xml
           | &lt;meta-data
-          |     android:name="com.feedbackslibary.API_KEY"
-          |     android:value="YOUR-API-KEY" /&gt;
+          |
+          | android:name="com.feedbackslibary.API_KEY"
+          |
+          | android:value="YOUR-API-KEY" /&gt;
 
-    .usage-step.card(style="background: #333333; color: #fff;border: 1px solid #333333; margin-bottom:15px; ")
-      h3(style="color: #FF6347;")
-        span.i-unique(style="color: #FF6347;") 🖋️
+    .usage-step.card(
+      style="background: #333333; color: #fff; border: 1px solid #333333; margin-bottom: 15px"
+    )
+      h3(style="color: #ff6347")
+        span.i-unique(style="color: #ff6347") 🖋️
         | Step 2: Create a Form
-      p(style="margin-left: 2rem;") Use the Form Builder to design and generate a form. Include modular components such as textboxes, dropdowns, and rating bars.
+      p(style="margin-left: 2rem") Use the Form Builder to design and generate a form. Include modular components such as textboxes, dropdowns, and rating bars.
       pre
         code.language-json
           | {
-          |   "name": "Customer Feedback Form",
-          |   "theme": "light",
-          |   "components": [
-          |     {
-          |       "type": "textbox",
-          |       "text": "What is your name?",
-          |       "secondaryText": "Enter your full name.",
-          |       "order": 1
-          |     }
-          |   ]
+          |
+          | "name": "Customer Feedback Form",
+          |
+          | "theme": "light",
+          |
+          | "components": [
+          |
+          | {
+          |
+          | "type": "textbox",
+          |
+          | "text": "What is your name?",
+          |
+          | "secondaryText": "Enter your full name.",
+          |
+          | "order": 1
+          |
+          | }
+          |
+          | ]
           | }
 
-    .usage-step.card(style="background: #333333; color: #fff;border: 1px solid #333333;")
-      h3(style="color: #1E90FF;")
-        span.i-unique(style="color: #1E90FF;") ✒️
+    .usage-step.card(
+      style="background: #333333; color: #fff; border: 1px solid #333333"
+    )
+      h3(style="color: #1e90ff")
+        span.i-unique(style="color: #1e90ff") ✒️
         | Step 3: Use the Form ID in the SDK
-      p(style="margin-left: 2rem;") Integrate the form into your Android application using the SDK. Fetch and display the form dynamically.
-      pre(style="max-width: 100%; overflow-x: auto; padding: 10px; border-radius: 8px;")
+      p(style="margin-left: 2rem") Integrate the form into your Android application using the SDK. Fetch and display the form dynamically.
+      pre(
+        style="max-width: 100%; overflow-x: auto; padding: 10px; border-radius: 8px"
+      )
         code.language-java
           | openDialogButton.setOnClickListener(v -> {
-          |     // Replace "your_form_id" with the actual ID to fetch
-          |     FeedbacksDialogFragment dialogFragment = FeedbacksDialogFragment.newInstance(""your_form_id");
           |
-          |     dialogFragment.show(getSupportFragmentManager(), "FeedbacksDialogFragment");
+          | // Replace "your_form_id" with the actual ID to fetch
+          |
+          | FeedbacksDialogFragment dialogFragment = FeedbacksDialogFragment.newInstance(""your_form_id");
+          |
+          |
+          | dialogFragment.show(getSupportFragmentManager(), "FeedbacksDialogFragment");
           | });
-      p(style="margin-left: 2rem;") Replace "your_form_id" in the code above with the ID generated from our website.
+      p(style="margin-left: 2rem") Replace "your_form_id" in the code above with the ID generated from our website.
 
-  h2.section-title(style="color: #ffffff;") Contact
-  p(style="margin-left: 2rem;")
-    span(style="color: #32CD32; font-size: 1.5rem;") 📧
+  h2.section-title(style="color: #ffffff") Contact
+  p(style="margin-left: 2rem")
+    span(style="color: #32cd32; font-size: 1.5rem") 📧
     | For questions or feedback, reach out to
-    a(href="mailto:aviad825@gmail.com", style="margin-left: 0.5rem; color: #007bff;") Aviad Korakin
+    a(
+      href="mailto:aviad825@gmail.com",
+      style="margin-left: 0.5rem; color: #007bff"
+    ) Aviad Korakin
 
   script.
-    const slider = document.querySelector('.slider');
-    const images = document.querySelectorAll('.slider-image');
-    const prevButton = document.querySelector('.prev-button');
-    const nextButton = document.querySelector('.next-button');
+    const slider = document.querySelector(".slider");
+    const images = document.querySelectorAll(".slider-image");
+    const prevButton = document.querySelector(".prev-button");
+    const nextButton = document.querySelector(".next-button");
     let currentIndex = 0;
 
     // Ensure each image has the same width
@@ -137,18 +230,18 @@ block content
       slider.style.transform = `translateX(-${currentIndex * imageWidth}px)`;
     }
 
-    prevButton.addEventListener('click', () => {
-      currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+    prevButton.addEventListener("click", () => {
+      currentIndex = currentIndex > 0 ? currentIndex - 1 : images.length - 1;
       updateSlider();
     });
 
-    nextButton.addEventListener('click', () => {
-      currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+    nextButton.addEventListener("click", () => {
+      currentIndex = currentIndex < images.length - 1 ? currentIndex + 1 : 0;
       updateSlider();
     });
 
     // Resize handler to ensure the slider adapts to responsive layouts
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       slider.style.transition = "none"; // Disable transition for resizing
       const updatedImageWidth = images[0].clientWidth; // Recalculate width
       slider.style.transform = `translateX(-${currentIndex * updatedImageWidth}px)`;
